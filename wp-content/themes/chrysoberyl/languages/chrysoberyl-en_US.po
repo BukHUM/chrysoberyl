@@ -1785,6 +1785,18 @@ msgstr "Chrysoberyl theme developed and maintained by"
 msgid "ธีมนี้ใช้งานได้ฟรี ตามเงื่อนไขสัญญาอนุญาตของ WordPress (GPL)"
 msgstr "This theme is free to use under the WordPress (GPL) license."
 
+#: inc/custom-post-types.php:137
+msgid "ธีม Trend Today"
+msgstr "Trend Today theme"
+
+#: inc/custom-post-types.php:136
+msgid "ฟอร์กมาจาก:"
+msgstr "Forked from:"
+
+#: inc/custom-post-types.php:142
+msgid "เว็บที่ใช้งานจริง:"
+msgstr "Live site:"
+
 #: footer.php:176
 msgid "นโยบายความเป็นส่วนตัว"
 msgstr "Privacy Policy"

@@ -1784,6 +1784,18 @@ msgstr ""
 msgid "ธีมนี้ใช้งานได้ฟรี ตามเงื่อนไขสัญญาอนุญาตของ WordPress (GPL)"
 msgstr ""
 
+#: inc/custom-post-types.php:137
+msgid "ธีม Trend Today"
+msgstr ""
+
+#: inc/custom-post-types.php:136
+msgid "ฟอร์กมาจาก:"
+msgstr ""
+
+#: inc/custom-post-types.php:142
+msgid "เว็บที่ใช้งานจริง:"
+msgstr ""
+
 #: footer.php:176
 msgid "นโยบายความเป็นส่วนตัว"
 msgstr ""

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Get featured stories
+ * Get featured stories (CPT removed — returns empty query).
  *
  * @param int    $number Number of posts to retrieve.
  * @param string $orderby Order by field.
@@ -19,65 +19,31 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return WP_Query Query object.
  */
 function chrysoberyl_get_featured_stories( $number = 5, $orderby = 'meta_value_num', $order = 'DESC' ) {
-    $args = array(
-        'post_type'      => 'featured_story',
-        'posts_per_page' => $number,
-        'orderby'        => $orderby,
-        'order'          => $order,
-        'meta_key'       => 'featured_priority',
-        'meta_query'     => array(
-            'relation' => 'OR',
-            array(
-                'key'     => 'featured_expiry',
-                'value'   => date( 'Y-m-d' ),
-                'compare' => '>=',
-            ),
-            array(
-                'key'     => 'featured_expiry',
-                'compare' => 'NOT EXISTS',
-            ),
-        ),
-    );
-
-    return new WP_Query( $args );
+    return new WP_Query( array( 'post_type' => 'featured_story', 'posts_per_page' => 0 ) );
 }
 
 /**
- * Get latest video news
+ * Get latest video news (CPT removed — returns empty query).
  *
  * @param int $number Number of posts to retrieve.
  * @return WP_Query Query object.
  */
 function chrysoberyl_get_latest_videos( $number = 6 ) {
-    $args = array(
-        'post_type'      => 'video_news',
-        'posts_per_page' => $number,
-        'orderby'        => 'date',
-        'order'          => 'DESC',
-    );
-
-    return new WP_Query( $args );
+    return new WP_Query( array( 'post_type' => 'video_news', 'posts_per_page' => 0 ) );
 }
 
 /**
- * Get latest galleries
+ * Get latest galleries (CPT removed — returns empty query).
  *
  * @param int $number Number of posts to retrieve.
  * @return WP_Query Query object.
  */
 function chrysoberyl_get_latest_galleries( $number = 6 ) {
-    $args = array(
-        'post_type'      => 'gallery',
-        'posts_per_page' => $number,
-        'orderby'        => 'date',
-        'order'          => 'DESC',
-    );
-
-    return new WP_Query( $args );
+    return new WP_Query( array( 'post_type' => 'gallery', 'posts_per_page' => 0 ) );
 }
 
 /**
- * Get posts by post type
+ * Get posts by post type (only post/page allowed; CPT removed).
  *
  * @param string|array $post_types Post type(s).
  * @param int          $number Number of posts.
@@ -85,15 +51,15 @@ function chrysoberyl_get_latest_galleries( $number = 6 ) {
  * @return WP_Query Query object.
  */
 function chrysoberyl_get_posts_by_type( $post_types, $number = 10, $args = array() ) {
+    $allowed = array( 'post', 'page' );
+    $post_types = is_array( $post_types ) ? array_intersect( $post_types, $allowed ) : ( in_array( $post_types, $allowed, true ) ? $post_types : 'post' );
     $defaults = array(
         'post_type'      => $post_types,
         'posts_per_page' => $number,
         'orderby'        => 'date',
         'order'          => 'DESC',
     );
-
     $args = wp_parse_args( $args, $defaults );
-
     return new WP_Query( $args );
 }
 

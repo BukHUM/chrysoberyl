@@ -414,45 +414,36 @@ function chrysoberyl_get_share_color($platform)
 }
 
 /**
- * Check if post is video news
+ * Check if post is video news (CPT removed — always false).
  *
  * @param int $post_id Post ID.
  * @return bool True if video news, false otherwise.
  */
 function chrysoberyl_is_video_news($post_id = null)
 {
-    if (!$post_id) {
-        $post_id = get_the_ID();
-    }
-    return get_post_type($post_id) === 'video_news';
+    return false;
 }
 
 /**
- * Check if post is gallery
+ * Check if post is gallery (CPT removed — always false).
  *
  * @param int $post_id Post ID.
  * @return bool True if gallery, false otherwise.
  */
 function chrysoberyl_is_gallery($post_id = null)
 {
-    if (!$post_id) {
-        $post_id = get_the_ID();
-    }
-    return get_post_type($post_id) === 'gallery';
+    return false;
 }
 
 /**
- * Check if post is featured story
+ * Check if post is featured story (CPT removed — always false).
  *
  * @param int $post_id Post ID.
  * @return bool True if featured story, false otherwise.
  */
 function chrysoberyl_is_featured_story($post_id = null)
 {
-    if (!$post_id) {
-        $post_id = get_the_ID();
-    }
-    return get_post_type($post_id) === 'featured_story';
+    return false;
 }
 
 /**
@@ -484,18 +475,14 @@ function chrysoberyl_get_video_duration($post_id = null)
 }
 
 /**
- * Get gallery images
+ * Get gallery images (CPT gallery removed — always empty).
  *
  * @param int $post_id Post ID.
  * @return array Array of image IDs.
  */
 function chrysoberyl_get_gallery_images($post_id = null)
 {
-    if (!$post_id) {
-        $post_id = get_the_ID();
-    }
-    $images = get_post_meta($post_id, 'gallery_images', true);
-    return is_array($images) ? $images : array();
+    return array();
 }
 
 /**

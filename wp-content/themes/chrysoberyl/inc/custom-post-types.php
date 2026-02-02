@@ -45,6 +45,26 @@ function chrysoberyl_add_admin_menu()
         'chrysoberyl-settings',
         'chrysoberyl_settings_page'
     );
+
+    // Import Demo Data submenu
+    add_submenu_page(
+        'chrysoberyl',
+        __('Import Demo Data', 'chrysoberyl'),
+        __('Import Demo Data', 'chrysoberyl'),
+        'manage_options',
+        'chrysoberyl-import-demo',
+        'chrysoberyl_import_demo_page'
+    );
+
+    // Gemini API submenu
+    add_submenu_page(
+        'chrysoberyl',
+        __('Gemini API', 'chrysoberyl'),
+        __('Gemini API', 'chrysoberyl'),
+        'manage_options',
+        'chrysoberyl-gemini-api',
+        'chrysoberyl_gemini_api_page'
+    );
 }
 add_action('admin_menu', 'chrysoberyl_add_admin_menu', 9);
 
@@ -56,9 +76,6 @@ function chrysoberyl_admin_page()
     // Get statistics
     $post_counts = wp_count_posts('post');
     $page_counts = wp_count_posts('page');
-    $video_count = wp_count_posts('video_news');
-    $gallery_count = wp_count_posts('gallery');
-    $featured_count = wp_count_posts('featured_story');
     $comment_count = wp_count_comments();
     $user_count = count_users();
 
@@ -117,14 +134,18 @@ function chrysoberyl_admin_page()
                         </p>
                         <ul class="chrysoberyl-credit-list">
                             <li>
+                                <span class="chrysoberyl-credit-label"><?php _e('ฟอร์กมาจาก:', 'chrysoberyl'); ?></span>
+                                <?php _e('ธีม Trend Today', 'chrysoberyl'); ?>
+                            </li>
+                            <li>
                                 <span class="chrysoberyl-credit-label"><?php _e('ทีมผู้พัฒนา:', 'chrysoberyl'); ?></span>
                                 <a href="https://tonkla.co" target="_blank"
                                     rel="noopener noreferrer"><?php echo esc_html(__('ต้นกล้าไอที', 'chrysoberyl')); ?></a>
                             </li>
                             <li>
-                                <span class="chrysoberyl-credit-label"><?php _e('เว็บตัวอย่าง:', 'chrysoberyl'); ?></span>
-                                <a href="https://gawao.com" target="_blank"
-                                    rel="noopener noreferrer"><?php echo esc_html(__('กาเหว่า', 'chrysoberyl')); ?></a>
+                                <span class="chrysoberyl-credit-label"><?php _e('เว็บที่ใช้งานจริง:', 'chrysoberyl'); ?></span>
+                                <a href="https://chrysoberyl.me" target="_blank"
+                                    rel="noopener noreferrer">chrysoberyl.me</a>
                             </li>
                         </ul>
                         <p class="chrysoberyl-credit-license">
@@ -188,43 +209,6 @@ function chrysoberyl_admin_page()
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Custom Post Types Statistics -->
-                <div class="chrysoberyl-widget">
-                    <div class="chrysoberyl-widget-header">
-                        <h3>
-                            <span class="dashicons dashicons-admin-generic"></span>
-                            <?php _e('Custom Content', 'chrysoberyl'); ?>
-                        </h3>
-                    </div>
-                    <div class="chrysoberyl-widget-content">
-                        <ul class="chrysoberyl-stats-list">
-                            <li>
-                                <a href="<?php echo admin_url('edit.php?post_type=video_news'); ?>">
-                                    <span class="dashicons dashicons-video-alt3"></span>
-                                    <strong><?php _e('Video News:', 'chrysoberyl'); ?></strong>
-                                    <span class="stat-value"><?php echo number_format_i18n($video_count->publish); ?></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo admin_url('edit.php?post_type=gallery'); ?>">
-                                    <span class="dashicons dashicons-format-gallery"></span>
-                                    <strong><?php _e('Photo Galleries:', 'chrysoberyl'); ?></strong>
-                                    <span
-                                        class="stat-value"><?php echo number_format_i18n($gallery_count->publish); ?></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo admin_url('edit.php?post_type=featured_story'); ?>">
-                                    <span class="dashicons dashicons-star-filled"></span>
-                                    <strong><?php _e('Featured Stories:', 'chrysoberyl'); ?></strong>
-                                    <span
-                                        class="stat-value"><?php echo number_format_i18n($featured_count->publish); ?></span>
-                                </a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
 
@@ -600,6 +584,32 @@ function chrysoberyl_get_directory_size($directory)
 }
 
 /**
+ * Import Demo Data page callback (placeholder)
+ */
+function chrysoberyl_import_demo_page()
+{
+    ?>
+    <div class="wrap">
+        <h1><?php echo esc_html(__('Import Demo Data', 'chrysoberyl')); ?></h1>
+        <p><?php esc_html_e('Content coming soon.', 'chrysoberyl'); ?></p>
+    </div>
+    <?php
+}
+
+/**
+ * Gemini API page callback (placeholder)
+ */
+function chrysoberyl_gemini_api_page()
+{
+    ?>
+    <div class="wrap">
+        <h1><?php echo esc_html(__('Gemini API', 'chrysoberyl')); ?></h1>
+        <p><?php esc_html_e('Content coming soon.', 'chrysoberyl'); ?></p>
+    </div>
+    <?php
+}
+
+/**
  * Theme Settings page callback
  */
 function chrysoberyl_settings_page()
@@ -722,8 +732,8 @@ function chrysoberyl_settings_page()
                 }
             }
 
-            // Post types to search
-            $available_post_types = array('post', 'page', 'video_news', 'gallery', 'featured_story');
+            // Post types to search (post and page only; CPT removed)
+            $available_post_types = array('post', 'page');
             $search_post_types = isset($_POST['chrysoberyl_search_post_types']) && is_array($_POST['chrysoberyl_search_post_types'])
                 ? array_intersect($_POST['chrysoberyl_search_post_types'], $available_post_types)
                 : array('post');
@@ -1039,9 +1049,6 @@ function chrysoberyl_settings_page()
     $available_post_types = array(
         'post' => __('Posts', 'chrysoberyl'),
         'page' => __('Pages', 'chrysoberyl'),
-        'video_news' => __('Video News', 'chrysoberyl'),
-        'gallery' => __('Gallery', 'chrysoberyl'),
-        'featured_story' => __('Featured Stories', 'chrysoberyl'),
     );
 
     // Get all categories for exclude list
@@ -2835,119 +2842,11 @@ function chrysoberyl_settings_page()
 
 /**
  * Register Custom Post Types
+ * CPT (video_news, gallery, featured_story) removed — theme uses post/page only.
  */
 function chrysoberyl_register_post_types()
 {
-    // Video News Post Type - under Chrysoberyl - Theme menu
-    register_post_type(
-        'video_news',
-        array(
-            'labels' => array(
-                'name' => __('Video News', 'chrysoberyl'),
-                'singular_name' => __('Video News', 'chrysoberyl'),
-                'menu_name' => __('Video News', 'chrysoberyl'),
-                'add_new' => __('Add New', 'chrysoberyl'),
-                'add_new_item' => __('Add New Video News', 'chrysoberyl'),
-                'edit_item' => __('Edit Video News', 'chrysoberyl'),
-                'new_item' => __('New Video News', 'chrysoberyl'),
-                'view_item' => __('View Video News', 'chrysoberyl'),
-                'search_items' => __('Search Video News', 'chrysoberyl'),
-                'not_found' => __('No video news found', 'chrysoberyl'),
-                'not_found_in_trash' => __('No video news found in Trash', 'chrysoberyl'),
-                'all_items' => __('All Video News', 'chrysoberyl'),
-            ),
-            'public' => true,
-            'has_archive' => true,
-            'publicly_queryable' => true,
-            'show_ui' => false,
-            'show_in_menu' => false, // Parent menu slug
-            'show_in_nav_menus' => true,
-            'show_in_admin_bar' => true,
-            'menu_icon' => 'dashicons-video-alt3',
-            'capability_type' => 'post',
-            'hierarchical' => false,
-            'supports' => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'revisions'),
-            'rewrite' => array('slug' => 'video-news', 'with_front' => false),
-            'query_var' => true,
-            'can_export' => true,
-            'show_in_rest' => true,
-            'rest_base' => 'video-news',
-        )
-    );
-
-    // Gallery Post Type - under Chrysoberyl - Theme menu
-    register_post_type(
-        'gallery',
-        array(
-            'labels' => array(
-                'name' => __('Photo Galleries', 'chrysoberyl'),
-                'singular_name' => __('Photo Gallery', 'chrysoberyl'),
-                'menu_name' => __('Photo Galleries', 'chrysoberyl'),
-                'add_new' => __('Add New', 'chrysoberyl'),
-                'add_new_item' => __('Add New Gallery', 'chrysoberyl'),
-                'edit_item' => __('Edit Gallery', 'chrysoberyl'),
-                'new_item' => __('New Gallery', 'chrysoberyl'),
-                'view_item' => __('View Gallery', 'chrysoberyl'),
-                'search_items' => __('Search Galleries', 'chrysoberyl'),
-                'not_found' => __('No galleries found', 'chrysoberyl'),
-                'not_found_in_trash' => __('No galleries found in Trash', 'chrysoberyl'),
-                'all_items' => __('All Galleries', 'chrysoberyl'),
-            ),
-            'public' => true,
-            'has_archive' => true,
-            'publicly_queryable' => true,
-            'show_ui' => false,
-            'show_in_menu' => false, // Parent menu slug
-            'show_in_nav_menus' => true,
-            'show_in_admin_bar' => true,
-            'menu_icon' => 'dashicons-format-gallery',
-            'capability_type' => 'post',
-            'hierarchical' => false,
-            'supports' => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'revisions'),
-            'rewrite' => array('slug' => 'gallery', 'with_front' => false),
-            'query_var' => true,
-            'can_export' => true,
-            'show_in_rest' => true,
-            'rest_base' => 'galleries',
-        )
-    );
-
-    // Featured Story Post Type - under Chrysoberyl - Theme menu
-    register_post_type(
-        'featured_story',
-        array(
-            'labels' => array(
-                'name' => __('Featured Stories', 'chrysoberyl'),
-                'singular_name' => __('Featured Story', 'chrysoberyl'),
-                'menu_name' => __('Featured Stories', 'chrysoberyl'),
-                'add_new' => __('Add New', 'chrysoberyl'),
-                'add_new_item' => __('Add New Featured Story', 'chrysoberyl'),
-                'edit_item' => __('Edit Featured Story', 'chrysoberyl'),
-                'new_item' => __('New Featured Story', 'chrysoberyl'),
-                'view_item' => __('View Featured Story', 'chrysoberyl'),
-                'search_items' => __('Search Featured Stories', 'chrysoberyl'),
-                'not_found' => __('No featured stories found', 'chrysoberyl'),
-                'not_found_in_trash' => __('No featured stories found in Trash', 'chrysoberyl'),
-                'all_items' => __('All Featured Stories', 'chrysoberyl'),
-            ),
-            'public' => true,
-            'has_archive' => true,
-            'publicly_queryable' => true,
-            'show_ui' => false,
-            'show_in_menu' => false, // Parent menu slug
-            'show_in_nav_menus' => true,
-            'show_in_admin_bar' => true,
-            'menu_icon' => 'dashicons-star-filled',
-            'capability_type' => 'post',
-            'hierarchical' => false,
-            'supports' => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'revisions'),
-            'rewrite' => array('slug' => 'featured', 'with_front' => false),
-            'query_var' => true,
-            'can_export' => true,
-            'show_in_rest' => true,
-            'rest_base' => 'featured-stories',
-        )
-    );
+    // No custom post types; theme uses standard post and page only.
 }
 add_action('init', 'chrysoberyl_register_post_types');
 
@@ -2963,62 +2862,11 @@ add_action('after_switch_theme', 'chrysoberyl_flush_rewrite_rules');
 
 /**
  * Register Custom Taxonomies for Custom Post Types
+ * CPT taxonomies (video_category, gallery_category) removed.
  */
 function chrysoberyl_register_taxonomies()
 {
-    // Video Category Taxonomy
-    register_taxonomy(
-        'video_category',
-        array('video_news'),
-        array(
-            'labels' => array(
-                'name' => __('Video Categories', 'chrysoberyl'),
-                'singular_name' => __('Video Category', 'chrysoberyl'),
-                'search_items' => __('Search Video Categories', 'chrysoberyl'),
-                'all_items' => __('All Video Categories', 'chrysoberyl'),
-                'parent_item' => __('Parent Video Category', 'chrysoberyl'),
-                'parent_item_colon' => __('Parent Video Category:', 'chrysoberyl'),
-                'edit_item' => __('Edit Video Category', 'chrysoberyl'),
-                'update_item' => __('Update Video Category', 'chrysoberyl'),
-                'add_new_item' => __('Add New Video Category', 'chrysoberyl'),
-                'new_item_name' => __('New Video Category Name', 'chrysoberyl'),
-                'menu_name' => __('Video Categories', 'chrysoberyl'),
-            ),
-            'hierarchical' => true,
-            'show_ui' => true,
-            'show_admin_column' => true,
-            'query_var' => true,
-            'rewrite' => array('slug' => 'video-category'),
-            'show_in_rest' => true,
-        )
-    );
-
-    // Gallery Category Taxonomy
-    register_taxonomy(
-        'gallery_category',
-        array('gallery'),
-        array(
-            'labels' => array(
-                'name' => __('Gallery Categories', 'chrysoberyl'),
-                'singular_name' => __('Gallery Category', 'chrysoberyl'),
-                'search_items' => __('Search Gallery Categories', 'chrysoberyl'),
-                'all_items' => __('All Gallery Categories', 'chrysoberyl'),
-                'parent_item' => __('Parent Gallery Category', 'chrysoberyl'),
-                'parent_item_colon' => __('Parent Gallery Category:', 'chrysoberyl'),
-                'edit_item' => __('Edit Gallery Category', 'chrysoberyl'),
-                'update_item' => __('Update Gallery Category', 'chrysoberyl'),
-                'add_new_item' => __('Add New Gallery Category', 'chrysoberyl'),
-                'new_item_name' => __('New Gallery Category Name', 'chrysoberyl'),
-                'menu_name' => __('Gallery Categories', 'chrysoberyl'),
-            ),
-            'hierarchical' => true,
-            'show_ui' => true,
-            'show_admin_column' => true,
-            'query_var' => true,
-            'rewrite' => array('slug' => 'gallery-category'),
-            'show_in_rest' => true,
-        )
-    );
+    // No custom taxonomies for CPT; theme uses categories/tags for posts only.
 }
 add_action('init', 'chrysoberyl_register_taxonomies');
 
@@ -3047,17 +2895,6 @@ function chrysoberyl_add_custom_columns($columns)
         $columns['post_views'] = __('Views', 'chrysoberyl');
     }
 
-    // Add custom columns for video_news
-    if (isset($_GET['post_type']) && $_GET['post_type'] === 'video_news') {
-        $columns['video_url'] = __('Video URL', 'chrysoberyl');
-        $columns['duration'] = __('Duration', 'chrysoberyl');
-    }
-
-    // Add custom columns for gallery
-    if (isset($_GET['post_type']) && $_GET['post_type'] === 'gallery') {
-        $columns['image_count'] = __('Images', 'chrysoberyl');
-    }
-
     return $columns;
 }
 add_filter('manage_posts_columns', 'chrysoberyl_add_custom_columns');
@@ -3083,39 +2920,7 @@ function chrysoberyl_custom_column_content($column, $post_id)
             $views = get_post_meta($post_id, 'post_views', true);
             echo $views ? number_format_i18n($views) : '0';
             break;
-
-        case 'video_url':
-            $video_url = get_post_meta($post_id, 'video_url', true);
-            echo $video_url ? esc_html($video_url) : '—';
-            break;
-
-        case 'duration':
-            $duration = get_post_meta($post_id, 'video_duration', true);
-            echo $duration ? esc_html($duration) : '—';
-            break;
-
-        case 'image_count':
-            $gallery_images = get_post_meta($post_id, 'gallery_images', true);
-            $count = is_array($gallery_images) ? count($gallery_images) : 0;
-            echo $count > 0 ? esc_html($count) : '—';
-            break;
     }
 }
 add_action('manage_posts_custom_column', 'chrysoberyl_custom_column_content', 10, 2);
 add_action('manage_pages_custom_column', 'chrysoberyl_custom_column_content', 10, 2);
-
-/**
- * Make custom columns sortable
- */
-function chrysoberyl_make_columns_sortable($columns)
-{
-    if (isset($_GET['post_type']) && $_GET['post_type'] === 'video_news') {
-        $columns['duration'] = 'duration';
-    }
-    if (isset($_GET['post_type']) && $_GET['post_type'] === 'gallery') {
-        $columns['image_count'] = 'image_count';
-    }
-    return $columns;
-}
-add_filter('manage_edit-video_news_sortable_columns', 'chrysoberyl_make_columns_sortable');
-add_filter('manage_edit-gallery_sortable_columns', 'chrysoberyl_make_columns_sortable');
