@@ -1,0 +1,14 @@
+# Track only mockup and wp-content/themes/chrysoberyl
+# Ignore everything in root
+/*
+!.gitignore
+
+# Include mockup
+!/mockup
+
+# Include wp-content/themes/chrysoberyl only
+!/wp-content
+wp-content/*
+!wp-content/themes
+wp-content/themes/*
+!wp-content/themes/chrysoberyl
