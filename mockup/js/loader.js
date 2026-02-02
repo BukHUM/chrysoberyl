@@ -69,3 +69,58 @@ document.getElementById('back-to-top')?.addEventListener('click', () => {
         behavior: 'smooth'
     });
 });
+
+// Category Dropdown (Mobile)
+function toggleCategoryDropdown() {
+    const dropdown = document.getElementById('category-dropdown');
+    const chevron = document.getElementById('category-chevron');
+    if (dropdown) {
+        dropdown.classList.toggle('hidden');
+        if (chevron) {
+            chevron.style.transform = dropdown.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+    }
+}
+
+function selectCategory(event, categoryName) {
+    event.preventDefault();
+
+    // Update selected category text
+    const selectedSpan = document.getElementById('selected-category');
+    if (selectedSpan) {
+        selectedSpan.textContent = categoryName;
+    }
+
+    // Hide all checkmarks
+    const checks = ['check-latest', 'check-ai', 'check-product', 'check-technology', 'check-inside'];
+    checks.forEach(id => {
+        const check = document.getElementById(id);
+        if (check) check.classList.add('hidden');
+    });
+
+    // Show selected checkmark
+    const categoryMap = {
+        'Latest Stories': 'check-latest',
+        'AI': 'check-ai',
+        'Product News': 'check-product',
+        'Technology': 'check-technology',
+        'Inside Google': 'check-inside'
+    };
+    const selectedCheck = document.getElementById(categoryMap[categoryName]);
+    if (selectedCheck) {
+        selectedCheck.classList.remove('hidden');
+    }
+
+    // Close dropdown
+    toggleCategoryDropdown();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (event) => {
+    const dropdown = document.getElementById('category-dropdown');
+    const button = event.target.closest('button[onclick*="toggleCategoryDropdown"]');
+
+    if (dropdown && !dropdown.classList.contains('hidden') && !button && !dropdown.contains(event.target)) {
+        toggleCategoryDropdown();
+    }
+});

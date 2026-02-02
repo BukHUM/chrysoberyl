@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แผนผังเว็บไซต์ - Chrysoberyl</title>
+    <meta name="description" content="แผนผังเว็บไซต์ Chrysoberyl แสดงโครงสร้างและลิงก์ทั้งหมดของเว็บไซต์">
+    <meta name="robots" content="noindex, follow">
+
+    <link rel="icon" href="images/favicon-png.png" type="image/png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'google-blue': '#1a73e8',
+                        'google-gray': {
+                            DEFAULT: '#202124',
+                            50: '#f8f9fa',
+                            100: '#f1f3f4',
+                            500: '#5f6368',
+                            700: '#3c4043',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Google Sans"', '"Noto Sans Thai"', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'card': '16px',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-white">
+
+    <!-- Header -->
+    <div id="header-container" class="min-h-[64px]"></div>
+
+    <!-- Spacer -->
+    <div class="h-4 md:h-6"></div>
+
+    <main class="container mx-auto px-4 md:px-6 lg:px-8 max-w-[1248px] pb-20">
+
+        <!-- Hero -->
+        <section class="text-center py-12 md:py-16 mb-12">
+            <h1 class="text-4xl md:text-5xl font-normal text-google-gray mb-4">
+                แผนผังเว็บไซต์
+            </h1>
+            <p class="text-lg text-google-gray-500">
+                รวมลิงก์ทั้งหมดของ Chrysoberyl เพื่อความสะดวกในการนำทาง
+            </p>
+        </section>
+
+        <!-- Sitemap Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Main Pages -->
+            <div class="bg-google-gray-50 rounded-card p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-google-blue rounded-full flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                            </path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-medium text-google-gray">หน้าหลัก</h2>
+                </div>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="index.html"
+                            class="flex items-center gap-2 text-google-gray-500 hover:text-google-blue transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            หน้าแรก (Homepage)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="about.html"
+                            class="flex items-center gap-2 text-google-gray-500 hover:text-google-blue transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            เกี่ยวกับเรา (About Us)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="contact.html"
+                            class="flex items-center gap-2 text-google-gray-500 hover:text-google-blue transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            ติดต่อเรา (Contact)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="faq.html"
+                            class="flex items-center gap-2 text-google-gray-500 hover:text-google-blue transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            คำถามที่พบบ่อย (FAQ)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Content Pages -->
+            <div class="bg-google-gray-50 rounded-card p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-[#ea4335] rounded-full flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-medium text-google-gray">เนื้อหา</h2>
+                </div>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="category.html"
+                            class="flex items-center gap-2 text-google-gray-500 hover:text-google-blue transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            หมวดหมู่ (Category)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="single.html"
+                            class="flex items-center gap-2 text-google-gray-500 hover:text-google-blue transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            บทความ (Single Post)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tag.html"
+                            class="flex items-center gap-2 text-google-gray-500 hover:text-google-blue transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            แท็ก (Tag Archive)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="author.html"
+                            class="flex items-center gap-2 text-google-gray-500 hover:text-google-blue transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            ผู้เขียน (Author)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="search.html"
+                            class="flex items-center gap-2 text-google-gray-500 hover:text-google-blue transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            ผลการค้นหา (Search)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Legal & Other -->
+            <div class="bg-google-gray-50 rounded-card p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-[#34a853] rounded-full flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-medium text-google-gray">กฎหมาย & อื่นๆ</h2>
+                </div>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="privacy.html"
+                            class="flex items-center gap-2 text-google-gray-500 hover:text-google-blue transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            นโยบายความเป็นส่วนตัว (Privacy)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="terms.html"
+                            class="flex items-center gap-2 text-google-gray-500 hover:text-google-blue transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            ข้อกำหนดการใช้งาน (Terms)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="404.html"
+                            class="flex items-center gap-2 text-google-gray-500 hover:text-google-blue transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            หน้าไม่พบ (404 Error)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="sitemap.html" class="flex items-center gap-2 text-google-blue font-medium">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                            แผนผังเว็บไซต์ (Sitemap) ← คุณอยู่ที่นี่
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </section>
+
+        <!-- Visual Sitemap -->
+        <section class="mt-16">
+            <h2 class="text-2xl font-normal text-google-gray text-center mb-8">โครงสร้างเว็บไซต์</h2>
+            <div class="bg-google-gray-50 rounded-card p-8 overflow-x-auto">
+                <div class="min-w-[600px]">
+                    <!-- Tree Structure -->
+                    <div class="flex flex-col items-center">
+                        <!-- Root -->
+                        <a href="index.html"
+                            class="px-6 py-3 bg-google-blue text-white rounded-lg font-medium shadow-md hover:bg-blue-700 transition-colors">
+                            🏠 Homepage
+                        </a>
+
+                        <!-- Connector Line -->
+                        <div class="w-px h-8 bg-gray-300"></div>
+
+                        <!-- Second Level -->
+                        <div class="flex gap-4">
+                            <div class="flex flex-col items-center">
+                                <div class="w-32 h-px bg-gray-300"></div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-32 h-px bg-gray-300"></div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-32 h-px bg-gray-300"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-8 flex-wrap justify-center">
+                            <!-- Content Branch -->
+                            <div class="flex flex-col items-center">
+                                <div class="w-px h-6 bg-gray-300"></div>
+                                <a href="category.html"
+                                    class="px-4 py-2 bg-[#ea4335] text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
+                                    📁 Category
+                                </a>
+                                <div class="w-px h-4 bg-gray-300"></div>
+                                <div class="flex gap-2">
+                                    <a href="single.html"
+                                        class="px-3 py-1.5 bg-white border border-gray-200 rounded text-xs hover:border-google-blue transition-colors">Single</a>
+                                    <a href="tag.html"
+                                        class="px-3 py-1.5 bg-white border border-gray-200 rounded text-xs hover:border-google-blue transition-colors">Tag</a>
+                                    <a href="author.html"
+                                        class="px-3 py-1.5 bg-white border border-gray-200 rounded text-xs hover:border-google-blue transition-colors">Author</a>
+                                </div>
+                            </div>
+
+                            <!-- About Branch -->
+                            <div class="flex flex-col items-center">
+                                <div class="w-px h-6 bg-gray-300"></div>
+                                <a href="about.html"
+                                    class="px-4 py-2 bg-[#fbbc04] text-google-gray rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
+                                    ℹ️ About
+                                </a>
+                                <div class="w-px h-4 bg-gray-300"></div>
+                                <div class="flex gap-2">
+                                    <a href="contact.html"
+                                        class="px-3 py-1.5 bg-white border border-gray-200 rounded text-xs hover:border-google-blue transition-colors">Contact</a>
+                                    <a href="faq.html"
+                                        class="px-3 py-1.5 bg-white border border-gray-200 rounded text-xs hover:border-google-blue transition-colors">FAQ</a>
+                                </div>
+                            </div>
+
+                            <!-- Utility Branch -->
+                            <div class="flex flex-col items-center">
+                                <div class="w-px h-6 bg-gray-300"></div>
+                                <div class="px-4 py-2 bg-[#34a853] text-white rounded-lg text-sm font-medium">
+                                    ⚙️ Utility
+                                </div>
+                                <div class="w-px h-4 bg-gray-300"></div>
+                                <div class="flex gap-2">
+                                    <a href="search.html"
+                                        class="px-3 py-1.5 bg-white border border-gray-200 rounded text-xs hover:border-google-blue transition-colors">Search</a>
+                                    <a href="404.html"
+                                        class="px-3 py-1.5 bg-white border border-gray-200 rounded text-xs hover:border-google-blue transition-colors">404</a>
+                                </div>
+                            </div>
+
+                            <!-- Legal Branch -->
+                            <div class="flex flex-col items-center">
+                                <div class="w-px h-6 bg-gray-300"></div>
+                                <div class="px-4 py-2 bg-google-gray-500 text-white rounded-lg text-sm font-medium">
+                                    📜 Legal
+                                </div>
+                                <div class="w-px h-4 bg-gray-300"></div>
+                                <div class="flex gap-2">
+                                    <a href="privacy.html"
+                                        class="px-3 py-1.5 bg-white border border-gray-200 rounded text-xs hover:border-google-blue transition-colors">Privacy</a>
+                                    <a href="terms.html"
+                                        class="px-3 py-1.5 bg-white border border-gray-200 rounded text-xs hover:border-google-blue transition-colors">Terms</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="mt-12 text-center">
+            <p class="text-google-gray-500">
+                รวมทั้งหมด <span class="text-google-blue font-medium">13 หน้า</span> (รวม Sitemap)
+            </p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top"
+        class="fixed bottom-8 right-8 z-[100] p-3 bg-google-blue text-white rounded-full shadow-lg opacity-0 translate-y-20 pointer-events-none transition-all duration-300 hover:bg-blue-600"
+        aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="js/loader.js"></script>
+</body>
+
+</html>

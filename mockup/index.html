@@ -108,12 +108,12 @@
     <div id="header-container" class="min-h-[64px]"></div>
 
     <!-- Spacer -->
-    <div class="h-8 md:h-12"></div>
+    <div class="h-4 md:h-6"></div>
 
     <main class="container mx-auto px-4 md:px-6 lg:px-8 max-w-[1248px] pb-20">
 
         <!-- Hero Section -->
-        <section class="py-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center mb-16">
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center mb-10">
             <!-- Hero Content -->
             <div class="lg:col-span-5 order-2 lg:order-1">
                 <a href="category.html" class="inline-block mb-6">
@@ -146,8 +146,74 @@
         </section>
 
         <!-- Filter/Categories -->
-        <section class="mb-10 lg:mb-14 overflow-x-auto pb-4 no-scrollbar">
-            <div class="flex items-center gap-3">
+        <section class="mb-8 relative">
+            <!-- Mobile Dropdown (visible on mobile only) -->
+            <div class="md:hidden">
+                <button onclick="toggleCategoryDropdown()"
+                    class="w-full px-5 py-3 rounded-lg bg-google-gray-100 text-google-gray font-medium text-sm hover:bg-google-gray-200 transition-colors flex items-center justify-between">
+                    <span id="selected-category">Latest Stories</span>
+                    <svg class="w-5 h-5 transition-transform" id="category-chevron" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <!-- Dropdown Menu -->
+                <div id="category-dropdown"
+                    class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-card-hover border border-gray-200 overflow-hidden z-50">
+                    <a href="#" onclick="selectCategory(event, 'Latest Stories')"
+                        class="block px-5 py-3 hover:bg-google-gray-50 transition-colors border-b border-gray-100 flex items-center justify-between">
+                        <span class="text-google-gray font-medium text-sm">Latest Stories</span>
+                        <svg class="w-5 h-5 text-google-blue" id="check-latest" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                    <a href="#" onclick="selectCategory(event, 'AI')"
+                        class="block px-5 py-3 hover:bg-google-gray-50 transition-colors border-b border-gray-100 flex items-center justify-between">
+                        <span class="text-google-gray-500 font-medium text-sm">AI</span>
+                        <svg class="w-5 h-5 text-google-blue hidden" id="check-ai" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                    <a href="#" onclick="selectCategory(event, 'Product News')"
+                        class="block px-5 py-3 hover:bg-google-gray-50 transition-colors border-b border-gray-100 flex items-center justify-between">
+                        <span class="text-google-gray-500 font-medium text-sm">Product News</span>
+                        <svg class="w-5 h-5 text-google-blue hidden" id="check-product" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                    <a href="#" onclick="selectCategory(event, 'Technology')"
+                        class="block px-5 py-3 hover:bg-google-gray-50 transition-colors border-b border-gray-100 flex items-center justify-between">
+                        <span class="text-google-gray-500 font-medium text-sm">Technology</span>
+                        <svg class="w-5 h-5 text-google-blue hidden" id="check-technology" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                    <a href="#" onclick="selectCategory(event, 'Inside Google')"
+                        class="block px-5 py-3 hover:bg-google-gray-50 transition-colors flex items-center justify-between">
+                        <span class="text-google-gray-500 font-medium text-sm">Inside Google</span>
+                        <svg class="w-5 h-5 text-google-blue hidden" id="check-inside" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Desktop Pills (visible on desktop only) -->
+            <div class="hidden md:flex items-center gap-3 overflow-x-auto pb-4 no-scrollbar">
                 <a href="#"
                     class="px-5 py-2.5 rounded-pill bg-google-gray-100 text-google-gray font-medium text-sm hover:bg-google-gray-200 transition-colors whitespace-nowrap">Latest
                     Stories</a>
