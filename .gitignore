@@ -2,6 +2,7 @@
 # Ignore everything in root
 /*
 !.gitignore
+!README.md
 
 # Include mockup
 !/mockup
