@@ -19,6 +19,7 @@ if ( empty( $selected_platforms ) ) {
 
 $button_style = get_option( 'chrysoberyl_social_button_style', 'icon_only' );
 $button_size = get_option( 'chrysoberyl_social_button_size', 'medium' );
+$icon_style   = get_option( 'chrysoberyl_social_icon_style', 'branded' );
 
 // Size classes
 $size_classes = array(
@@ -37,13 +38,14 @@ $style_classes = array(
 );
 
 $style_class = isset( $style_classes[ $button_style ] ) ? $style_classes[ $button_style ] : $style_classes['icon_only'];
+$mockup_class = ( $icon_style === 'mockup' ) ? ' chrysoberyl-share-style-mockup' : '';
 
 $post_id = get_the_ID();
 $post_url = chrysoberyl_fix_url( get_permalink( $post_id ) );
 $post_title = get_the_title( $post_id );
 ?>
 
-<div class="chrysoberyl-social-share <?php echo esc_attr( $style_class ); ?> <?php echo esc_attr( $size_class ); ?>" data-post-id="<?php echo esc_attr( $post_id ); ?>" data-post-url="<?php echo esc_url( $post_url ); ?>" data-post-title="<?php echo esc_attr( $post_title ); ?>">
+<div class="chrysoberyl-social-share <?php echo esc_attr( $style_class ); ?> <?php echo esc_attr( $size_class ); ?><?php echo esc_attr( $mockup_class ); ?>" data-post-id="<?php echo esc_attr( $post_id ); ?>" data-post-url="<?php echo esc_url( $post_url ); ?>" data-post-title="<?php echo esc_attr( $post_title ); ?>">
     <?php if ( $button_style === 'icon_text' || $button_style === 'button' ) : ?>
         <span class="chrysoberyl-share-label"><?php _e( 'แชร์', 'chrysoberyl' ); ?></span>
     <?php endif; ?>
@@ -61,7 +63,7 @@ $post_title = get_the_title( $post_id );
                    data-platform="<?php echo esc_attr( $platform ); ?>"
                    data-post-url="<?php echo esc_url( $post_url ); ?>"
                    aria-label="<?php echo esc_attr( sprintf( __( 'Copy link', 'chrysoberyl' ), $label ) ); ?>"
-                   style="background-color: <?php echo esc_attr( $color ); ?>;">
+                   <?php if ( $icon_style !== 'mockup' ) : ?>style="background-color: <?php echo esc_attr( $color ); ?>;"<?php endif; ?>>
                     <i class="<?php echo esc_attr( $icon ); ?>"></i>
                     <?php if ( $button_style === 'icon_text' || $button_style === 'button' ) : ?>
                         <span class="chrysoberyl-share-btn-label"><?php echo esc_html( $label ); ?></span>
@@ -74,7 +76,7 @@ $post_title = get_the_title( $post_id );
                    target="_blank" 
                    rel="noopener noreferrer"
                    aria-label="<?php echo esc_attr( sprintf( __( 'Share on %s', 'chrysoberyl' ), $label ) ); ?>"
-                   style="background-color: <?php echo esc_attr( $color ); ?>;">
+                   <?php if ( $icon_style !== 'mockup' ) : ?>style="background-color: <?php echo esc_attr( $color ); ?>;"<?php endif; ?>>
                     <i class="<?php echo esc_attr( $icon ); ?>"></i>
                     <?php if ( $button_style === 'icon_text' || $button_style === 'button' ) : ?>
                         <span class="chrysoberyl-share-btn-label"><?php echo esc_html( $label ); ?></span>

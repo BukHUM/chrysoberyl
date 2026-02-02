@@ -130,6 +130,55 @@ function chrysoberyl_get_trending_tags( $number = 10 ) {
 }
 
 /**
+ * Get hero single post ID for home (sticky then latest) — ใช้ใน hero-single และยกเว้นจากลูปหลัก
+ *
+ * @return int|null Post ID or null.
+ */
+function chrysoberyl_get_hero_single_post_id() {
+    $sticky = get_option( 'sticky_posts' );
+    if ( ! empty( $sticky ) ) {
+        $sticky_query = new WP_Query( array(
+            'post_type'      => 'post',
+            'posts_per_page' => 1,
+            'post__in'       => array_slice( $sticky, 0, 1 ),
+            'orderby'        => 'post__in',
+            'post_status'    => 'publish',
+            'ignore_sticky_posts' => 1,
+            'fields'         => 'ids',
+        ) );
+        if ( $sticky_query->have_posts() ) {
+            return (int) $sticky_query->posts[0];
+        }
+    }
+    $latest = new WP_Query( array(
+        'post_type'      => 'post',
+        'posts_per_page' => 1,
+        'post_status'    => 'publish',
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'fields'         => 'ids',
+    ) );
+    if ( $latest->have_posts() ) {
+        return (int) $latest->posts[0];
+    }
+    return null;
+}
+
+/**
+ * Exclude hero single post from main query on home (avoid duplicate)
+ */
+function chrysoberyl_exclude_hero_from_home_query( $query ) {
+    if ( is_admin() || ! $query->is_main_query() || ! $query->is_home() ) {
+        return;
+    }
+    $hero_id = chrysoberyl_get_hero_single_post_id();
+    if ( $hero_id ) {
+        $query->set( 'post__not_in', array( $hero_id ) );
+    }
+}
+add_action( 'pre_get_posts', 'chrysoberyl_exclude_hero_from_home_query', 20 );
+
+/**
  * Get breaking news posts (with caching)
  *
  * @param int $number Number of posts.

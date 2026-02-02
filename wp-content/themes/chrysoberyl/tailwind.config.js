@@ -10,25 +10,39 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Prompt', 'sans-serif'],
+        sans: ['"Google Sans"', '"Noto Sans Thai"', 'sans-serif'],
+        display: ['"Google Sans"', '"Noto Sans Thai"', 'sans-serif'],
       },
       colors: {
-        primary: '#1a1a1a',
-        accent: '#FF4500',
+        'google-blue': '#1a73e8',
+        'google-gray': '#202124',
+        'google-gray-500': '#5f6368',
+        'google-gray-100': '#f1f3f4',
+        'google-gray-50': '#f8f9fa',
+        accent: '#1a73e8', /* alias ตรง mockup; class เดิมเช่น text-accent ยังใช้ได้ */
+        primary: '#202124',
         'news-tech': '#3B82F6',
         'news-ent': '#EC4899',
         'news-fin': '#10B981',
         'news-sport': '#F59E0B',
       },
+      borderRadius: {
+        card: '24px',
+        pill: '100px',
+      },
+      boxShadow: {
+        card: '0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15)',
+        'card-hover': '0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15)',
+      },
       typography: {
         DEFAULT: {
           css: {
             maxWidth: 'none',
-            color: '#374151',
+            color: '#202124',
             lineHeight: '1.75',
             fontSize: '1.125rem',
             'h1, h2, h3, h4, h5, h6': {
-              color: '#111827',
+              color: '#202124',
               fontWeight: '700',
               lineHeight: '1.2',
             },
@@ -37,15 +51,15 @@ module.exports = {
               marginBottom: '1.25em',
             },
             a: {
-              color: '#FF4500',
+              color: '#1a73e8',
               textDecoration: 'underline',
               '&:hover': {
-                color: '#dc3a00',
+                color: '#1557b0',
               },
             },
             strong: {
               fontWeight: '600',
-              color: '#111827',
+              color: '#202124',
             },
             'ul, ol': {
               marginTop: '1.25em',
@@ -57,14 +71,14 @@ module.exports = {
               marginBottom: '0.5em',
             },
             blockquote: {
-              borderLeftColor: '#FF4500',
+              borderLeftColor: '#1a73e8',
               borderLeftWidth: '4px',
               paddingLeft: '1em',
               fontStyle: 'italic',
-              color: '#6B7280',
+              color: '#5f6368',
             },
             img: {
-              borderRadius: '0.5rem',
+              borderRadius: '24px',
               marginTop: '2em',
               marginBottom: '2em',
             },
@@ -93,10 +107,10 @@ module.exports = {
           '& h2': { fontSize: theme('fontSize.2xl[0]') },
           '& h3': { fontSize: theme('fontSize.xl[0]') },
           '& a': {
-            color: theme('colors.accent'),
+            color: theme('colors.google-blue'),
             textDecoration: 'underline',
             '&:hover': {
-              color: theme('colors.orange.700'),
+              color: theme('colors.blue.700'),
             },
           },
           '& strong': {
@@ -114,7 +128,7 @@ module.exports = {
           },
           '& blockquote': {
             borderLeftWidth: '4px',
-            borderLeftColor: theme('colors.accent'),
+            borderLeftColor: theme('colors.google-blue'),
             paddingLeft: theme('spacing.4'),
             fontStyle: 'italic',
             color: theme('colors.gray.600'),

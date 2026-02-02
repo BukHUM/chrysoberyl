@@ -225,3 +225,44 @@ function chrysoberyl_increment_views() {
 add_action( 'wp_ajax_increment_views', 'chrysoberyl_increment_views' );
 add_action( 'wp_ajax_nopriv_increment_views', 'chrysoberyl_increment_views' );
 
+/**
+ * AJAX login (modal) — stay on current page after login
+ */
+function chrysoberyl_ajax_login() {
+    check_ajax_referer( 'chrysoberyl_ajax_login', 'chrysoberyl_login_nonce' );
+
+    $log = isset( $_POST['log'] ) ? sanitize_text_field( $_POST['log'] ) : '';
+    $pwd = isset( $_POST['pwd'] ) ? $_POST['pwd'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+    $remember = ! empty( $_POST['remember'] );
+    $redirect_to = isset( $_POST['redirect_to'] ) ? esc_url_raw( wp_unslash( $_POST['redirect_to'] ) ) : '';
+
+    if ( empty( $log ) || empty( $pwd ) ) {
+        wp_send_json_error( array( 'message' => __( 'Please enter username and password.', 'chrysoberyl' ) ) );
+    }
+
+    // Allow only same-site redirect
+    $allowed = ( $redirect_to && strpos( $redirect_to, home_url() ) === 0 );
+    if ( ! $allowed ) {
+        $redirect_to = get_permalink( get_queried_object_id() ) ?: home_url( '/' );
+    }
+    if ( empty( $redirect_to ) ) {
+        $redirect_to = home_url( '/' );
+    }
+
+    $credentials = array(
+        'user_login'    => $log,
+        'user_password' => $pwd,
+        'remember'      => $remember,
+    );
+    $user = wp_signon( $credentials, is_ssl() );
+
+    if ( is_wp_error( $user ) ) {
+        $err_msg = $user->get_error_message();
+        $message = $err_msg ? wp_strip_all_tags( $err_msg ) : __( 'Invalid username or password.', 'chrysoberyl' );
+        wp_send_json_error( array( 'message' => $message ) );
+    }
+
+    wp_send_json_success( array( 'redirect' => $redirect_to ) );
+}
+add_action( 'wp_ajax_nopriv_chrysoberyl_ajax_login', 'chrysoberyl_ajax_login' );
+

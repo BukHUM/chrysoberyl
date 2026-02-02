@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying search modal
+ * Template part: Search overlay (mockup: header.html search-overlay)
  *
  * @package Chrysoberyl
  * @since 1.0.0
@@ -11,37 +11,55 @@ if ( $search_enabled !== '1' ) {
     return;
 }
 
-$search_placeholder = get_option( 'chrysoberyl_search_placeholder', __( 'พิมพ์คำค้นหา...', 'chrysoberyl' ) );
-$search_suggestions_style = get_option( 'chrysoberyl_search_suggestions_style', 'dropdown' );
+$search_placeholder = get_option( 'chrysoberyl_search_placeholder', __( 'Search Chrysoberyl...', 'chrysoberyl' ) );
+$search_suggestions_style = get_option( 'chrysoberyl_search_suggestions_style', 'modal' );
 
 if ( $search_suggestions_style !== 'modal' && $search_suggestions_style !== 'fullpage' ) {
     return;
 }
+
+$popular_searches = apply_filters( 'chrysoberyl_popular_searches', array( 'AI Update', 'Gemini', 'Android 15' ) );
 ?>
 
-<div id="chrysoberyl-search-modal" class="chrysoberyl-search-modal <?php echo $search_suggestions_style === 'fullpage' ? 'chrysoberyl-search-fullpage' : ''; ?> hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
-    <div class="chrysoberyl-search-modal-content <?php echo $search_suggestions_style === 'fullpage' ? 'h-full' : 'max-w-2xl mx-auto mt-20'; ?> bg-white rounded-lg shadow-2xl">
-        <div class="p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold text-gray-900"><?php _e( 'ค้นหา', 'chrysoberyl' ); ?></h2>
-                <button type="button" class="chrysoberyl-search-close w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="relative">
-                <input type="search" 
-                       class="chrysoberyl-search-input w-full px-6 py-4 pl-14 pr-14 rounded-full border-2 border-gray-200 focus:outline-none focus:ring-4 focus:ring-accent/50 focus:border-accent text-lg"
-                       placeholder="<?php echo esc_attr( $search_placeholder ); ?>"
-                       autocomplete="off"
-                       autofocus />
-                <i class="fas fa-search absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 text-xl"></i>
-                <button type="button" class="chrysoberyl-search-submit absolute right-3 top-1/2 -translate-y-1/2 bg-accent hover:bg-orange-600 text-white px-6 py-2 rounded-full font-bold text-sm transition">
-                    <?php _e( 'ค้นหา', 'chrysoberyl' ); ?>
-                </button>
-            </div>
-            
-            <div class="chrysoberyl-search-suggestions mt-4 max-h-96 overflow-y-auto"></div>
+<div id="chrysoberyl-search-modal" class="chrysoberyl-search-modal hidden fixed inset-0 z-[60] flex items-start justify-center pt-24 px-4" aria-modal="true" aria-hidden="true">
+    <div class="chrysoberyl-search-backdrop fixed inset-0 bg-gray-600 bg-opacity-75 transition-opacity backdrop-blur-sm"></div>
+
+    <div class="chrysoberyl-search-modal-content relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all">
+        <div class="flex items-center gap-4 px-6 py-4">
+            <form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get" role="search" class="flex flex-1 items-center gap-4 min-w-0">
+                <svg class="text-gray-400 w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <input type="search" name="s"
+                    class="chrysoberyl-search-input w-full text-xl font-normal text-google-gray placeholder-gray-400 border-none focus:ring-0 bg-transparent h-12"
+                    placeholder="<?php echo esc_attr( $search_placeholder ); ?>"
+                    autocomplete="off"
+                    aria-label="<?php esc_attr_e( 'Search', 'chrysoberyl' ); ?>">
+            </form>
+            <button type="button" class="chrysoberyl-search-close p-2 text-gray-400 hover:text-gray-600 rounded-full transition-colors shrink-0" aria-label="<?php esc_attr_e( 'Close search', 'chrysoberyl' ); ?>">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
         </div>
+
+        <!-- Popular Searches (mockup) -->
+        <div class="border-t border-gray-100 px-6 py-4 bg-gray-50">
+            <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3"><?php _e( 'Popular Searches', 'chrysoberyl' ); ?></p>
+            <div class="flex flex-wrap gap-2">
+                <?php foreach ( $popular_searches as $term ) :
+                    $term_slug = is_array( $term ) ? ( $term['slug'] ?? $term['label'] ?? '' ) : $term;
+                    $term_label = is_array( $term ) ? ( $term['label'] ?? $term_slug ) : $term;
+                    $search_url = home_url( '/?s=' . rawurlencode( $term_label ) );
+                ?>
+                <a href="<?php echo esc_url( $search_url ); ?>"
+                    class="px-3 py-1 bg-white border border-gray-200 rounded-lg text-sm text-gray-600 hover:border-google-blue hover:text-google-blue transition-colors">
+                    <?php echo esc_html( $term_label ); ?>
+                </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="chrysoberyl-search-suggestions border-t border-gray-100 max-h-64 overflow-y-auto"></div>
     </div>
 </div>

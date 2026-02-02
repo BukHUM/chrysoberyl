@@ -11,26 +11,78 @@
     $(document).ready(function() {
         // Mobile Menu Toggle
         window.toggleMobileMenu = function() {
-            const menu = document.getElementById('mobile-menu');
+            const drawer = document.getElementById('mobile-menu-drawer');
             const button = document.getElementById('mobile-menu-button');
-            const icon = document.getElementById('menu-icon');
-            
-            if (!menu || !button || !icon) return;
-            
-            const isHidden = menu.classList.contains('hidden');
-            
+            if (!drawer || !button) return;
+
+            const isHidden = drawer.classList.contains('hidden');
             if (isHidden) {
-                menu.classList.remove('hidden');
+                drawer.classList.remove('hidden');
+                drawer.setAttribute('aria-hidden', 'false');
                 button.setAttribute('aria-expanded', 'true');
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
+                var openIcon = document.querySelector('#main-header .mobile-menu-icon-open');
+                var closeIcon = document.querySelector('#main-header .mobile-menu-icon-close');
+                if (openIcon) openIcon.classList.add('hidden');
+                if (closeIcon) closeIcon.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
             } else {
-                menu.classList.add('hidden');
+                drawer.classList.add('hidden');
+                drawer.setAttribute('aria-hidden', 'true');
                 button.setAttribute('aria-expanded', 'false');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+                var openIcon = document.querySelector('#main-header .mobile-menu-icon-open');
+                var closeIcon = document.querySelector('#main-header .mobile-menu-icon-close');
+                if (openIcon) openIcon.classList.remove('hidden');
+                if (closeIcon) closeIcon.classList.add('hidden');
+                document.body.style.overflow = '';
             }
         };
+
+        window.toggleLanguageModal = function() {
+            var modal = document.getElementById('chrysoberyl-language-modal');
+            if (!modal) return;
+            var isHidden = modal.classList.contains('hidden');
+            modal.classList.toggle('hidden');
+            modal.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
+            document.body.style.overflow = isHidden ? 'hidden' : '';
+        };
+
+        // Category filter dropdown (mockup Phase 3: mobile)
+        window.toggleCategoryDropdown = function() {
+            var dropdown = document.getElementById('category-dropdown');
+            var button = document.getElementById('category-filter-toggle');
+            var chevron = document.getElementById('category-chevron');
+            if (!dropdown || !button) return;
+            var isOpen = !dropdown.classList.contains('hidden');
+            dropdown.classList.toggle('hidden', isOpen);
+            button.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+            if (chevron) chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+        };
+        $(document).on('click', '.chrysoberyl-category-toggle', function() {
+            toggleCategoryDropdown();
+        });
+        $(document).on('click', '.chrysoberyl-category-link', function() {
+            var label = $(this).data('label');
+            if (label && document.getElementById('selected-category')) {
+                document.getElementById('selected-category').textContent = label;
+            }
+            var dd = document.getElementById('category-dropdown');
+            if (dd) { dd.classList.add('hidden'); }
+            var btn = document.getElementById('category-filter-toggle');
+            if (btn) { btn.setAttribute('aria-expanded', 'false'); }
+            var chevron = document.getElementById('category-chevron');
+            if (chevron) { chevron.style.transform = ''; }
+        });
+        $(document).on('click', function(e) {
+            if ($(e.target).closest('.chrysoberyl-category-toggle, .chrysoberyl-category-dropdown').length) return;
+            var dd = document.getElementById('category-dropdown');
+            if (dd && !dd.classList.contains('hidden')) {
+                dd.classList.add('hidden');
+                var btn = document.getElementById('category-filter-toggle');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
+                var chevron = document.getElementById('category-chevron');
+                if (chevron) chevron.style.transform = '';
+            }
+        });
 
         // Categories widget: collapsible + remember open state (localStorage)
         (function() {
@@ -314,14 +366,14 @@
             }
         });
 
-        // Back to Top Button
+        // Back to Top Button — แสดงเมื่อ scroll > 300px, มุมล่างขวา, ตรง mockup
         const backToTopBtn = $('#back-to-top');
         if (backToTopBtn.length) {
             $(window).scroll(function() {
                 if ($(this).scrollTop() > 300) {
-                    backToTopBtn.removeClass('opacity-0 invisible').addClass('opacity-100 visible');
+                    backToTopBtn.removeClass('opacity-0 translate-y-20 pointer-events-none').addClass('opacity-100 translate-y-0');
                 } else {
-                    backToTopBtn.addClass('opacity-0 invisible').removeClass('opacity-100 visible');
+                    backToTopBtn.addClass('opacity-0 translate-y-20 pointer-events-none').removeClass('opacity-100 translate-y-0');
                 }
             });
         }
@@ -575,11 +627,124 @@
         initHeroSlider();
     }
     
-    // Initialize Search Functionality
+    // Search overlay open/close (always run — mockup Phase 1)
+    $('.chrysoberyl-search-toggle').on('click', function() {
+        $('#chrysoberyl-search-modal').removeClass('hidden').attr('aria-hidden', 'false');
+        var input = document.querySelector('#chrysoberyl-search-modal .chrysoberyl-search-input');
+        if (input) { input.focus(); }
+    });
+    $(document).on('click', '.chrysoberyl-search-close, .chrysoberyl-search-backdrop, #chrysoberyl-search-modal', function(e) {
+        var $target = $(e.target);
+        if (e.target === this || $target.closest('.chrysoberyl-search-close').length || $target.closest('.chrysoberyl-search-backdrop').length || !$target.closest('.chrysoberyl-search-modal-content').length) {
+            $('#chrysoberyl-search-modal').addClass('hidden').attr('aria-hidden', 'true');
+        }
+    });
+    $(document).on('click', '.chrysoberyl-search-modal-content', function(e) { e.stopPropagation(); });
+
+    // Login modal (single post — log in without leaving page)
+    $(document).on('click', '.chrysoberyl-login-trigger, a[href="#chrysoberyl-login-modal"]', function(e) {
+        e.preventDefault();
+        var $modal = $('#chrysoberyl-login-modal');
+        if (!$modal.length) return;
+        var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        $('#chrysoberyl-login-redirect').val(window.location.href);
+        $('#chrysoberyl-login-error').addClass('hidden').empty();
+        $modal.removeClass('hidden').attr('aria-hidden', 'false');
+        document.body.classList.add('chrysoberyl-login-modal-open');
+        document.body.style.overflow = 'hidden';
+        document.body.style.top = '-' + scrollY + 'px';
+        document.body.style.position = 'fixed';
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.setAttribute('data-chrysoberyl-scroll-y', String(scrollY));
+        var userInput = document.getElementById('chrysoberyl-login-user');
+        if (userInput && userInput.focus) {
+            userInput.focus({ preventScroll: true });
+        }
+    });
+    function closeLoginModal() {
+        var scrollY = document.body.getAttribute('data-chrysoberyl-scroll-y');
+        $('#chrysoberyl-login-modal').addClass('hidden').attr('aria-hidden', 'true');
+        document.body.classList.remove('chrysoberyl-login-modal-open');
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.removeAttribute('data-chrysoberyl-scroll-y');
+        if (scrollY !== null && scrollY !== '') {
+            window.scrollTo(0, parseInt(scrollY, 10));
+        }
+    }
+    $(document).on('click', '.chrysoberyl-login-close, .chrysoberyl-login-backdrop', function() { closeLoginModal(); });
+    $(document).on('click', '#chrysoberyl-login-modal', function(e) {
+        if (e.target.id === 'chrysoberyl-login-modal') closeLoginModal();
+    });
+    $(document).on('click', '.chrysoberyl-login-modal-content', function(e) { e.stopPropagation(); });
+    $(document).on('submit', '#chrysoberyl-login-form', function(e) {
+        e.preventDefault();
+        var $form = $(this);
+        var $error = $('#chrysoberyl-login-error');
+        var $submit = $('#chrysoberyl-login-submit');
+        $error.addClass('hidden').empty();
+        $submit.prop('disabled', true);
+        var ajaxurl = typeof chrysoberylAjax !== 'undefined' ? chrysoberylAjax.ajaxurl : '';
+        if (!ajaxurl) { $submit.prop('disabled', false); return; }
+        $.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            data: $form.serialize(),
+            dataType: 'json',
+            success: function(res) {
+                if (res && res.success && res.data && res.data.redirect) {
+                    window.location.href = res.data.redirect;
+                    return;
+                }
+                var msg = (res && res.data && res.data.message) ? res.data.message : (res && res.data && typeof res.data === 'string') ? res.data : 'Login failed.';
+                $error.removeClass('hidden').text(msg).attr('role', 'alert');
+                $submit.prop('disabled', false);
+            },
+            error: function(xhr) {
+                var msg = 'Connection error.';
+                if (xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.message) msg = xhr.responseJSON.data.message;
+                else if (xhr.responseText) {
+                    try {
+                        var j = JSON.parse(xhr.responseText);
+                        if (j.data && j.data.message) msg = j.data.message;
+                    } catch (e) {}
+                }
+                $error.removeClass('hidden').text(msg).attr('role', 'alert');
+                $submit.prop('disabled', false);
+            }
+        });
+    });
+    // Password show/hide toggle (like wp-login)
+    $(document).on('click', '#chrysoberyl-login-pwd-toggle', function() {
+        var $pwd = $('#chrysoberyl-login-pwd');
+        var $show = $('.chrysoberyl-pwd-icon-show');
+        var $hide = $('.chrysoberyl-pwd-icon-hide');
+        var $btn = $(this);
+        if ($pwd.attr('type') === 'password') {
+            $pwd.attr('type', 'text');
+            $show.addClass('hidden');
+            $hide.removeClass('hidden');
+            $btn.attr('aria-label', $btn.data('hide-label') || 'Hide password').attr('title', $btn.data('hide-label') || 'Hide password');
+        } else {
+            $pwd.attr('type', 'password');
+            $show.removeClass('hidden');
+            $hide.addClass('hidden');
+            $btn.attr('aria-label', $btn.data('show-label') || 'Show password').attr('title', $btn.data('show-label') || 'Show password');
+        }
+    });
+    $(document).on('keydown', '#chrysoberyl-login-modal', function(e) {
+        if (e.key === 'Escape' && !$('#chrysoberyl-login-modal').hasClass('hidden')) closeLoginModal();
+    });
+
+    // Initialize Search Functionality (AJAX suggestions etc.)
     if (typeof chrysoberylAjax !== 'undefined' && chrysoberylAjax.search && chrysoberylAjax.search.enabled) {
         initSearchFunctionality();
     }
-    
+
     // Search Functionality
     function initSearchFunctionality() {
         if (typeof chrysoberylAjax === 'undefined' || !chrysoberylAjax.search) {
@@ -589,24 +754,7 @@
         const searchConfig = chrysoberylAjax.search;
         let searchTimeout = null;
         let currentSearchTerm = '';
-        
-        // Search Modal Toggle
-        $('.chrysoberyl-search-toggle').on('click', function() {
-            $('#chrysoberyl-search-modal').removeClass('hidden');
-            $('.chrysoberyl-search-input').first().focus();
-        });
-        
-        $(document).on('click', '.chrysoberyl-search-close, #chrysoberyl-search-modal', function(e) {
-            if (e.target === this || $(e.target).hasClass('chrysoberyl-search-close')) {
-                $('#chrysoberyl-search-modal').addClass('hidden');
-            }
-        });
-        
-        // Prevent modal close when clicking inside
-        $(document).on('click', '.chrysoberyl-search-modal-content', function(e) {
-            e.stopPropagation();
-        });
-        
+
         // Search Input Handler
         function handleSearchInput(input) {
             const searchTerm = $(input).val().trim();

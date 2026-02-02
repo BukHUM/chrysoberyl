@@ -5,6 +5,12 @@
  * @since 1.0.0
  */
 
+/* Theme accent = Google blue (สอดคล้องกับ tailwind.config และทั้งเว็บ) */
+:root {
+    --accent: #1a73e8;
+    --accent-color: #1a73e8;
+}
+
 /* ============================================
    Responsive Breakpoints
    ============================================ */
@@ -19,6 +25,15 @@
 }
 
 .hide-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Mockup: category pills horizontal scroll (no visible scrollbar) */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
@@ -45,7 +60,7 @@
     text-decoration: none;
 }
 .chrysoberyl-breadcrumb a:hover {
-    color: var(--accent, #ea580c);
+    color: var(--accent, #1a73e8);
 }
 .chrysoberyl-breadcrumb-current {
     color: #1f2937;
@@ -79,7 +94,7 @@
 .chrysoberyl-categories-list .chrysoberyl-cat-link {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 0.5rem;
     padding: 0.5rem 0.625rem;
     border-radius: 0.5rem;
@@ -90,7 +105,7 @@
 }
 .chrysoberyl-categories-list .chrysoberyl-cat-link:hover {
     background-color: #f9fafb;
-    color: var(--accent, #ea580c);
+    color: var(--accent, #1a73e8);
 }
 .chrysoberyl-categories-list .chrysoberyl-cat-link .truncate {
     overflow: hidden;
@@ -150,7 +165,7 @@
 }
 .chrysoberyl-categories-collapsible .chrysoberyl-cat-toggle:hover {
     background-color: #f3f4f6;
-    color: var(--accent, #ea580c);
+    color: var(--accent, #1a73e8);
 }
 .chrysoberyl-categories-collapsible .chrysoberyl-cat-no-children {
     width: 1.5rem;
@@ -410,7 +425,7 @@ button:focus-visible {
 }
 
 .footer-link:hover i.fa-chevron-right {
-    color: var(--accent-color, #FF4500);
+    color: var(--accent-color, #1a73e8);
     transform: translateX(2px);
 }
 
@@ -563,7 +578,7 @@ footer form button[type="submit"]:hover::before {
 .footer-link:focus,
 .footer-social-icon:focus,
 .trending-tag:focus {
-    outline: 2px solid var(--accent-color, #FF4500);
+    outline: 2px solid var(--accent-color, #1a73e8);
     outline-offset: 2px;
     border-radius: 0.25rem;
 }
@@ -1011,6 +1026,29 @@ footer form button[type="submit"]:hover::before {
     font-size: 1.5rem;
 }
 
+/* รูปลักษณะไอคอนแชร์แบบ Mockup — เทา วงกลม hover ตรง mockup single */
+.chrysoberyl-share-style-mockup .chrysoberyl-share-btn {
+    background-color: transparent !important;
+    color: #5f6368;
+    border-radius: 9999px;
+    padding: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    min-width: 2.5rem;
+    box-shadow: none;
+}
+.chrysoberyl-share-style-mockup .chrysoberyl-share-btn:hover {
+    background-color: #f1f3f4 !important;
+    color: #5f6368;
+    transform: none;
+    box-shadow: none;
+    opacity: 1;
+}
+.chrysoberyl-share-style-mockup .chrysoberyl-share-btn i {
+    font-size: 1.25rem;
+    color: inherit;
+}
+
 /* Floating Share Buttons */
 .chrysoberyl-floating-share {
     position: fixed;
@@ -1084,6 +1122,19 @@ footer form button[type="submit"]:hover::before {
 .chrysoberyl-floating-share-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Floating Share — แบบ Mockup (เทา วงกลม hover) */
+.chrysoberyl-floating-share-style-mockup .chrysoberyl-floating-share-btn {
+    background-color: transparent !important;
+    color: #5f6368;
+    box-shadow: none;
+}
+.chrysoberyl-floating-share-style-mockup .chrysoberyl-floating-share-btn:hover {
+    background-color: #f1f3f4 !important;
+    color: #5f6368;
+    transform: scale(1.05);
+    box-shadow: none;
 }
 
 /* Copy Link Toast Notification */
@@ -1207,7 +1258,7 @@ footer form button[type="submit"]:hover::before {
 }
 
 .chrysoberyl-toc-title i {
-    color: #FF4500;
+    color: var(--accent, #1a73e8);
     font-size: 1.25rem;
 }
 
@@ -1235,7 +1286,7 @@ footer form button[type="submit"]:hover::before {
 }
 
 .chrysoberyl-toc-toggle .chrysoberyl-toc-title i {
-    color: #FF4500;
+    color: var(--accent, #1a73e8);
     font-size: 1.25rem;
 }
 
@@ -1286,12 +1337,12 @@ footer form button[type="submit"]:hover::before {
 }
 
 .chrysoberyl-toc-link:hover {
-    color: #FF4500;
+    color: var(--accent, #1a73e8);
     background-color: #F9FAFB;
 }
 
 .chrysoberyl-toc-link-active {
-    color: #FF4500;
+    color: var(--accent, #1a73e8);
     background-color: #F9FAFB;
     font-weight: 600;
 }
@@ -1418,7 +1469,7 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
 
 .chrysoberyl-toc-mobile-nav .chrysoberyl-toc-link:hover,
 .chrysoberyl-toc-mobile-nav .chrysoberyl-toc-link-active {
-    color: #FF4500;
+    color: var(--accent, #1a73e8);
     background-color: #FEF3F2;
     font-weight: 600;
 }
@@ -1549,14 +1600,36 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
     font-size: 0.875rem;
 }
 
-/* Single post: slightly smaller content font */
-.single .prose {
+/* Single post: ตรง mockup single — font sizes, blockquote, links */
+.single .prose,
+.single .chrysoberyl-single-prose {
     font-size: 1rem;
+    color: #3c4043;
 }
-.single .prose h1 { font-size: 2rem; }
-.single .prose h2 { font-size: 1.625rem; }
-.single .prose h3 { font-size: 1.375rem; }
-.single .prose h4 { font-size: 1.125rem; }
+.single .prose h1,
+.single .chrysoberyl-single-prose h1 { font-size: 2rem; }
+.single .prose h2,
+.single .chrysoberyl-single-prose h2 { font-size: 1.75rem; font-weight: 500; color: #202124; margin-top: 2.5rem; margin-bottom: 1rem; }
+.single .prose h3,
+.single .chrysoberyl-single-prose h3 { font-size: 1.375rem; font-weight: 500; color: #202124; margin-top: 2rem; margin-bottom: 0.75rem; }
+.single .prose h4,
+.single .chrysoberyl-single-prose h4 { font-size: 1.125rem; }
+.single .prose p,
+.single .chrysoberyl-single-prose p { line-height: 1.8; color: #3c4043; margin-bottom: 1.25rem; }
+.single .prose blockquote,
+.single .chrysoberyl-single-prose blockquote {
+    border-left: 4px solid #1a73e8;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: #5f6368;
+}
+.single .prose a,
+.single .chrysoberyl-single-prose a { color: #1a73e8; }
+.single .prose a:hover,
+.single .chrysoberyl-single-prose a:hover { text-decoration: underline; }
+.single .prose img,
+.single .chrysoberyl-single-prose img { border-radius: 16px; margin: 2rem 0; }
 
 /* Responsive Typography */
 @media (max-width: 768px) {
@@ -1642,7 +1715,7 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
     color: #1f2937;
     background: #f9fafb;
     border-radius: 0.5rem;
-    border-left: 4px solid var(--accent, #ea580c);
+    border-left: 4px solid var(--accent, #1a73e8);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1695,7 +1768,7 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
     font-weight: 500;
 }
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul li a:hover {
-    color: var(--accent, #ea580c);
+    color: var(--accent, #1a73e8);
     text-decoration: underline;
 }
 /* Mute secondary text after link (site name, date) - Rank Math may wrap in span */
@@ -1731,4 +1804,40 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
 }
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-back a {
     font-size: 0.9375rem;
+}
+
+/* Login modal (single post) — error alert + password toggle */
+.chrysoberyl-login-error {
+    border-color: #f87171;
+    background-color: #fef2f2;
+    color: #991b1b;
+}
+.chrysoberyl-login-error:not(.hidden) {
+    display: block;
+}
+.chrysoberyl-login-pwd-toggle {
+    min-width: 2.25rem;
+    min-height: 2.25rem;
+}
+.chrysoberyl-login-pwd-wrap .chrysoberyl-pwd-icon-hide.hidden,
+.chrysoberyl-login-pwd-wrap .chrysoberyl-pwd-icon-show.hidden {
+    display: none !important;
+}
+
+/* Login modal: อยู่เหนือ TOC (z-index 999) และเมื่อเปิด modal ให้ TOC เป็นสีเทา + คลิกไม่ได้ */
+.chrysoberyl-login-modal {
+    z-index: 1001;
+}
+body.chrysoberyl-login-modal-open .chrysoberyl-toc .chrysoberyl-toc-link,
+body.chrysoberyl-login-modal-open .chrysoberyl-toc .chrysoberyl-toc-link-active {
+    color: #9ca3af !important;
+    pointer-events: none;
+    cursor: default;
+}
+body.chrysoberyl-login-modal-open .chrysoberyl-toc {
+    pointer-events: none;
+}
+body.chrysoberyl-login-modal-open .chrysoberyl-toc .chrysoberyl-toc-toggle {
+    pointer-events: none;
+    cursor: default;
 }

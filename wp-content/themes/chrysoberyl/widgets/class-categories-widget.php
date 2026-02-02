@@ -25,7 +25,8 @@ class chrysoberyl_Categories_Widget extends WP_Widget {
 
     public function widget( $args, $instance ) {
         $title        = ! empty( $instance['title'] ) ? $instance['title'] : __( 'หมวดหมู่', 'chrysoberyl' );
-        $show_count   = ! empty( $instance['show_count'] );
+        // Default show_count to true (Google best practice: show article count in parentheses)
+        $show_count   = isset( $instance['show_count'] ) ? ! empty( $instance['show_count'] ) : true;
         // Default hierarchical to true so programmatic render (sidebar-single) and new instances show collapsible list
         $hierarchical = isset( $instance['hierarchical'] ) ? ! empty( $instance['hierarchical'] ) : true;
 
@@ -38,7 +39,7 @@ class chrysoberyl_Categories_Widget extends WP_Widget {
 
         echo $args['before_widget'];
         if ( $title ) {
-            echo $args['before_title'] . '<i class="fas fa-folder text-accent"></i> ' . esc_html( $title ) . $args['after_title'];
+            echo $args['before_title'] . '<i class="fas fa-folder text-accent flex-shrink-0"></i>' . esc_html( $title ) . $args['after_title'];
         }
 
         if ( $hierarchical ) {
@@ -106,32 +107,36 @@ class chrysoberyl_Categories_Widget extends WP_Widget {
     }
 
     /**
-     * Output category link (and optional count badge). Caller wraps in <li> or div.
+     * Output category link with icon and optional count in parentheses (Google best practice).
+     * Caller wraps in <li> or div.
      *
      * @param WP_Term $cat        Category term.
-     * @param bool    $show_count Whether to show post count.
+     * @param bool    $show_count Whether to show post count in parentheses.
      * @param bool    $in_row     When true, link is inside .chrysoberyl-cat-row (flex-grow).
      */
     private function render_category_link( $cat, $show_count, $in_row = false ) {
         $url       = home_url( '?cat=' . $cat->term_id );
         $name_attr = esc_attr( $cat->name );
         $name_html = esc_html( $cat->name );
-        $class     = 'chrysoberyl-cat-link flex items-center justify-between gap-2 py-2 px-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50 hover:text-accent transition-colors';
+        $class     = 'chrysoberyl-cat-link group flex items-center gap-2 py-2 px-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50 hover:text-accent transition-colors';
         if ( $in_row ) {
             $class .= ' flex-1 min-w-0';
         }
         echo '<a href="' . esc_url( $url ) . '" class="' . esc_attr( $class ) . '" title="' . $name_attr . '">';
-        echo '<span class="truncate min-w-0">' . $name_html . '</span>';
+        echo '<span class="chrysoberyl-cat-icon flex-shrink-0 w-5 h-5 flex items-center justify-center text-gray-400 group-hover:text-accent transition-colors" aria-hidden="true">';
+        echo '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>';
+        echo '</span>';
+        echo '<span class="truncate min-w-0">' . $name_html;
         if ( $show_count ) {
-            echo '<span class="chrysoberyl-cat-count flex-shrink-0 text-xs bg-gray-100 text-gray-500 rounded-full px-2 py-0.5">' . (int) $cat->count . '</span>';
+            echo ' <span class="chrysoberyl-cat-count text-gray-500 font-normal">(' . (int) $cat->count . ')</span>';
         }
-        echo '</a>';
+        echo '</span></a>';
     }
 
     public function form( $instance ) {
         $title        = ! empty( $instance['title'] ) ? $instance['title'] : __( 'หมวดหมู่', 'chrysoberyl' );
-        $show_count   = ! empty( $instance['show_count'] );
-        $hierarchical = ! empty( $instance['hierarchical'] );
+        $show_count   = isset( $instance['show_count'] ) ? ! empty( $instance['show_count'] ) : true;
+        $hierarchical = isset( $instance['hierarchical'] ) ? ! empty( $instance['hierarchical'] ) : true;
         ?>
         <p>
             <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title:', 'chrysoberyl' ); ?></label>

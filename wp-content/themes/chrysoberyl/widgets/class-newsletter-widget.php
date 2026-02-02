@@ -72,7 +72,7 @@ class chrysoberyl_Newsletter_Widget extends WP_Widget {
                            class="newsletter-input w-full px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-accent transition-all duration-200">
                     
                     <button type="submit"
-                            class="w-full bg-accent hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                            class="w-full bg-accent hover:bg-blue-600 text-white font-bold py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                         <i class="fas fa-paper-plane mr-2"></i><?php echo esc_html( $button_text ); ?>
                     </button>
                 </form>

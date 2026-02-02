@@ -68,14 +68,14 @@
             }
         });
 
-        // Focus trap for mobile menu
-        $('#mobile-menu').on('keydown', function(e) {
+        // Focus trap for mobile menu drawer
+        $(document).on('keydown', '#mobile-menu-drawer', function(e) {
             if (e.key === 'Escape') {
-                const menu = document.getElementById('mobile-menu');
+                const drawer = document.getElementById('mobile-menu-drawer');
                 const button = document.getElementById('mobile-menu-button');
-                if (menu && !menu.classList.contains('hidden')) {
+                if (drawer && !drawer.classList.contains('hidden')) {
                     toggleMobileMenu();
-                    button.focus();
+                    if (button) button.focus();
                 }
             }
         });

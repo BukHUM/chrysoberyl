@@ -621,6 +621,13 @@ function chrysoberyl_settings_page()
             if (isset($_POST['chrysoberyl_logo'])) {
                 update_option('chrysoberyl_logo', sanitize_text_field($_POST['chrysoberyl_logo']));
             }
+            // Save site name style when no logo (gray vs colorful)
+            if (isset($_POST['chrysoberyl_site_name_style'])) {
+                $style = sanitize_text_field($_POST['chrysoberyl_site_name_style']);
+                if (in_array($style, array('gray', 'google_colors'), true)) {
+                    update_option('chrysoberyl_site_name_style', $style);
+                }
+            }
             // Save login page style (theme style vs default WordPress)
             $login_use_theme_style = (isset($_POST['chrysoberyl_login_use_theme_style']) && $_POST['chrysoberyl_login_use_theme_style'] === '1') ? '1' : '0';
             update_option('chrysoberyl_login_use_theme_style', $login_use_theme_style);
@@ -684,6 +691,14 @@ function chrysoberyl_settings_page()
                 $button_size = sanitize_text_field($_POST['chrysoberyl_social_button_size']);
                 if (in_array($button_size, array('small', 'medium', 'large'), true)) {
                     update_option('chrysoberyl_social_button_size', $button_size);
+                }
+            }
+
+            // Icon style (branded vs mockup: เทา วงกลม hover)
+            if (isset($_POST['chrysoberyl_social_icon_style'])) {
+                $icon_style = sanitize_text_field($_POST['chrysoberyl_social_icon_style']);
+                if (in_array($icon_style, array('branded', 'mockup'), true)) {
+                    update_option('chrysoberyl_social_icon_style', $icon_style);
                 }
             }
 
@@ -811,6 +826,9 @@ function chrysoberyl_settings_page()
             // Sidebar on single post
             $sidebar_single_post_enabled = isset($_POST['chrysoberyl_sidebar_single_post_enabled']) ? '1' : '0';
             update_option('chrysoberyl_sidebar_single_post_enabled', $sidebar_single_post_enabled);
+            // Author box on single post (below content, above related posts)
+            $author_box_single_enabled = isset($_POST['chrysoberyl_author_box_single_enabled']) ? '1' : '0';
+            update_option('chrysoberyl_author_box_single_enabled', $author_box_single_enabled);
             // Sidebar on page (static pages)
             $sidebar_single_page_enabled = isset($_POST['chrysoberyl_sidebar_single_page_enabled']) ? '1' : '0';
             update_option('chrysoberyl_sidebar_single_page_enabled', $sidebar_single_page_enabled);
@@ -871,7 +889,19 @@ function chrysoberyl_settings_page()
             update_option('chrysoberyl_search_exclude_categories', $exclude_categories);
 
             // Save Footer settings
-            // Checkbox: when unchecked, hidden sends "0"; when checked, checkbox sends "1". Must check value, not just isset.
+            $footer_menu_section = (isset($_POST['chrysoberyl_footer_menu_section_enabled']) && $_POST['chrysoberyl_footer_menu_section_enabled'] === '1') ? '1' : '0';
+            update_option('chrysoberyl_footer_menu_section_enabled', $footer_menu_section);
+            $footer_legal_section = (isset($_POST['chrysoberyl_footer_legal_section_enabled']) && $_POST['chrysoberyl_footer_legal_section_enabled'] === '1') ? '1' : '0';
+            update_option('chrysoberyl_footer_legal_section_enabled', $footer_legal_section);
+            if (isset($_POST['chrysoberyl_facebook_url'])) {
+                update_option('chrysoberyl_facebook_url', esc_url_raw($_POST['chrysoberyl_facebook_url']));
+            }
+            if (isset($_POST['chrysoberyl_twitter_url'])) {
+                update_option('chrysoberyl_twitter_url', esc_url_raw($_POST['chrysoberyl_twitter_url']));
+            }
+            if (isset($_POST['chrysoberyl_instagram_url'])) {
+                update_option('chrysoberyl_instagram_url', esc_url_raw($_POST['chrysoberyl_instagram_url']));
+            }
             $footer_newsletter = (isset($_POST['chrysoberyl_footer_newsletter_enabled']) && $_POST['chrysoberyl_footer_newsletter_enabled'] === '1') ? '1' : '0';
             update_option('chrysoberyl_footer_newsletter_enabled', $footer_newsletter);
             $footer_tags = (isset($_POST['chrysoberyl_footer_tags_enabled']) && $_POST['chrysoberyl_footer_tags_enabled'] === '1') ? '1' : '0';
@@ -1005,6 +1035,7 @@ function chrysoberyl_settings_page()
 
     $logo_id = get_option('chrysoberyl_logo', '');
     $logo_url = $logo_id ? wp_get_attachment_image_url($logo_id, 'full') : '';
+    $site_name_style = get_option('chrysoberyl_site_name_style', 'gray');
     $pagination_type = get_option('chrysoberyl_pagination_type', 'load_more'); // Default to load_more
     $home_news_columns = (int) get_option('chrysoberyl_home_news_columns', '2');
     $home_news_columns = max(1, min(4, $home_news_columns));
@@ -1017,6 +1048,7 @@ function chrysoberyl_settings_page()
     $display_positions = get_option('chrysoberyl_social_display_positions', array('single_bottom'));
     $button_style = get_option('chrysoberyl_social_button_style', 'icon_only');
     $button_size = get_option('chrysoberyl_social_button_size', 'medium');
+    $social_icon_style = get_option('chrysoberyl_social_icon_style', 'branded');
     $twitter_handle = get_option('chrysoberyl_twitter_handle', '');
     $custom_share_text = get_option('chrysoberyl_custom_share_text', '');
 
@@ -1084,6 +1116,7 @@ function chrysoberyl_settings_page()
     );
     // Sidebar on single post / page / homepage / archive (default: show all)
     $sidebar_single_post_enabled = get_option('chrysoberyl_sidebar_single_post_enabled', '1');
+    $author_box_single_enabled = get_option('chrysoberyl_author_box_single_enabled', '1');
     $sidebar_single_page_enabled = get_option('chrysoberyl_sidebar_single_page_enabled', '1');
     $sidebar_home_enabled = get_option('chrysoberyl_sidebar_home_enabled', '1');
     $sidebar_archive_enabled = get_option('chrysoberyl_sidebar_archive_enabled', '1');
@@ -1182,6 +1215,19 @@ function chrysoberyl_settings_page()
                                         <?php _e('Upload a logo for your website. Recommended size: 200x60 pixels or larger.', 'chrysoberyl'); ?>
                                     </p>
                                 </div>
+                                <p class="description" style="margin-top:10px;">
+                                    <?php _e('เมื่อไม่มีโลโก้ แสดงชื่อเว็บใน header แบบใด:', 'chrysoberyl'); ?>
+                                </p>
+                                <fieldset class="chrysoberyl-radio-group" style="margin-top:8px;">
+                                    <label class="chrysoberyl-radio-option">
+                                        <input type="radio" name="chrysoberyl_site_name_style" value="gray" <?php checked($site_name_style, 'gray'); ?> />
+                                        <span class="radio-label"><?php _e('สีเทา (ค่าเริ่มต้น)', 'chrysoberyl'); ?></span>
+                                    </label>
+                                    <label class="chrysoberyl-radio-option">
+                                        <input type="radio" name="chrysoberyl_site_name_style" value="google_colors" <?php checked($site_name_style, 'google_colors'); ?> />
+                                        <span class="radio-label"><?php _e('มีสีสัน (แบบโลโก้ Google)', 'chrysoberyl'); ?></span>
+                                    </label>
+                                </fieldset>
                             </td>
                         </tr>
                         <tr>
@@ -1422,6 +1468,24 @@ function chrysoberyl_settings_page()
                                 </select>
                                 <p class="description">
                                     <?php _e('เลือกขนาดปุ่มแชร์', 'chrysoberyl'); ?>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                <label for="chrysoberyl_social_icon_style"><?php _e('รูปลักษณะไอคอนแชร์', 'chrysoberyl'); ?></label>
+                            </th>
+                            <td>
+                                <select name="chrysoberyl_social_icon_style" id="chrysoberyl_social_icon_style">
+                                    <option value="branded" <?php selected($social_icon_style, 'branded'); ?>>
+                                        <?php _e('แบบสีแบรนด์ (Branded)', 'chrysoberyl'); ?>
+                                    </option>
+                                    <option value="mockup" <?php selected($social_icon_style, 'mockup'); ?>>
+                                        <?php _e('แบบ Mockup (เทา วงกลม hover)', 'chrysoberyl'); ?>
+                                    </option>
+                                </select>
+                                <p class="description">
+                                    <?php _e('แบบ Mockup: ไอคอนสีเทา วงกลม เมื่อ hover เป็นพื้นหลังเทาอ่อน ตรงกับ mockup single', 'chrysoberyl'); ?>
                                 </p>
                             </td>
                         </tr>
@@ -1971,6 +2035,22 @@ function chrysoberyl_settings_page()
                         </tr>
                         <tr>
                             <th scope="row">
+                                <?php _e('Author Box on Single Post', 'chrysoberyl'); ?>
+                            </th>
+                            <td>
+                                <label class="chrysoberyl-toggle">
+                                    <input type="checkbox" name="chrysoberyl_author_box_single_enabled" value="1" <?php checked($author_box_single_enabled, '1'); ?> />
+                                    <span class="toggle-slider"></span>
+                                    <span
+                                        class="toggle-label"><?php _e('แสดงกล่องข้อมูลผู้เขียน (Author info) ด้านล่างเนื้อหาในหน้าบทความ', 'chrysoberyl'); ?></span>
+                                </label>
+                                <p class="description" style="margin-top: 8px;">
+                                    <?php _e('ปิดใช้ถ้าไม่ต้องการแสดง Author box ก่อนส่วนบทความที่เกี่ยวข้อง', 'chrysoberyl'); ?>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
                                 <?php _e('Sidebar on Page', 'chrysoberyl'); ?>
                             </th>
                             <td>
@@ -2143,6 +2223,41 @@ function chrysoberyl_settings_page()
                         <?php _e('ปรับแต่งส่วน footer: newsletter, tags, คอลัมน์ widget และข้อความ copyright', 'chrysoberyl'); ?>
                     </p>
                     <table class="form-table">
+                        <tr>
+                            <th scope="row"><?php _e('แสดงส่วน Footer', 'chrysoberyl'); ?></th>
+                            <td>
+                                <?php
+                                $footer_menu_section_enabled = get_option('chrysoberyl_footer_menu_section_enabled', '1');
+                                $footer_legal_section_enabled = get_option('chrysoberyl_footer_legal_section_enabled', '1');
+                                ?>
+                                <label class="chrysoberyl-toggle" style="margin-bottom: 12px; display: flex !important; align-items: center; gap: 12px;">
+                                    <input type="hidden" name="chrysoberyl_footer_menu_section_enabled" value="0" />
+                                    <input type="checkbox" name="chrysoberyl_footer_menu_section_enabled" value="1" <?php checked($footer_menu_section_enabled, '1'); ?> />
+                                    <span class="toggle-slider" style="flex-shrink: 0;"></span>
+                                    <span class="toggle-label"><?php _e('แสดงส่วนเมนู footer (4 คอลัมน์: About, More from us, Support, Subscribe)', 'chrysoberyl'); ?></span>
+                                </label>
+                                <label class="chrysoberyl-toggle" style="display: flex !important; align-items: center; gap: 12px;">
+                                    <input type="hidden" name="chrysoberyl_footer_legal_section_enabled" value="0" />
+                                    <input type="checkbox" name="chrysoberyl_footer_legal_section_enabled" value="1" <?php checked($footer_legal_section_enabled, '1'); ?> />
+                                    <span class="toggle-slider" style="flex-shrink: 0;"></span>
+                                    <span class="toggle-label"><?php _e('แสดงแถบ legal (Logo, Copyright, ลิงก์ Sitemap/FAQ/Privacy/Terms)', 'chrysoberyl'); ?></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><?php _e('ลิงก์โซเชียล (Footer)', 'chrysoberyl'); ?></th>
+                            <td>
+                                <?php
+                                $fb_url = get_option('chrysoberyl_facebook_url', '');
+                                $tw_url = get_option('chrysoberyl_twitter_url', '');
+                                $ig_url = get_option('chrysoberyl_instagram_url', '');
+                                ?>
+                                <p class="description" style="margin-bottom: 10px;"><?php _e('ใส่ URL สำหรับแสดงใน footer (เว้นว่าง = ไม่แสดงไอคอนนั้น)', 'chrysoberyl'); ?></p>
+                                <p><label>Facebook: <input type="url" name="chrysoberyl_facebook_url" value="<?php echo esc_attr($fb_url); ?>" class="regular-text" placeholder="https://facebook.com/..." /></label></p>
+                                <p><label>Twitter/X: <input type="url" name="chrysoberyl_twitter_url" value="<?php echo esc_attr($tw_url); ?>" class="regular-text" placeholder="https://twitter.com/..." /></label></p>
+                                <p><label>Instagram: <input type="url" name="chrysoberyl_instagram_url" value="<?php echo esc_attr($ig_url); ?>" class="regular-text" placeholder="https://instagram.com/..." /></label></p>
+                            </td>
+                        </tr>
                         <tr>
                             <th scope="row"><?php _e('Newsletter Box', 'chrysoberyl'); ?></th>
                             <td>

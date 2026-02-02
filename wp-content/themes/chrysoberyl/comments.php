@@ -82,6 +82,11 @@ if ( post_password_required() ) {
         <?php
     endif;
 
+    $must_log_in_message = '<p class="must-log-in text-gray-700">' . sprintf(
+        /* translators: %s: login link (opens modal) */
+        __( 'You must be <a href="#chrysoberyl-login-modal" class="chrysoberyl-login-trigger text-google-blue hover:underline font-medium" data-open-login-modal aria-label="%s">logged in</a> to post a comment.', 'chrysoberyl' ),
+        esc_attr__( 'Log in to post a comment', 'chrysoberyl' )
+    ) . '</p>';
     comment_form(
         array(
             'title_reply'          => __( 'Leave a Reply', 'chrysoberyl' ),
@@ -92,7 +97,8 @@ if ( post_password_required() ) {
             'cancel_reply_after'   => '</small>',
             'cancel_reply_link'    => __( 'Cancel reply', 'chrysoberyl' ),
             'label_submit'         => __( 'Post Comment', 'chrysoberyl' ),
-            'submit_button'        => '<input name="%1$s" type="submit" id="%2$s" class="%3$s bg-accent hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 cursor-pointer" value="%4$s" />',
+            'must_log_in'          => $must_log_in_message,
+            'submit_button'        => '<input name="%1$s" type="submit" id="%2$s" class="%3$s bg-accent hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 cursor-pointer" value="%4$s" />',
             'submit_field'         => '<p class="form-submit">%1$s %2$s</p>',
             'format'               => 'xhtml',
             'comment_field'        => '<p class="comment-form-comment mb-4"><label for="comment" class="block text-sm font-medium text-gray-700 mb-2">' . __( 'Comment', 'chrysoberyl' ) . ' <span class="required text-red-500">*</span></label><textarea id="comment" name="comment" cols="45" rows="8" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent outline-none transition"></textarea></p>',
@@ -178,7 +184,7 @@ function chrysoberyl_comment( $comment, $args, $depth ) {
                             'add_below' => $add_below,
                             'depth'      => $depth,
                             'max_depth'  => $args['max_depth'],
-                            'before'     => '<span class="reply text-sm text-accent hover:text-orange-600">',
+                            'before'     => '<span class="reply text-sm text-accent hover:text-blue-600">',
                             'after'      => '</span>',
                         )
                     )

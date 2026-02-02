@@ -7,7 +7,7 @@
  */
 ?>
 
-<aside class="lg:w-1/3 space-y-8">
+<aside class="w-full space-y-8" aria-label="<?php esc_attr_e( 'Sidebar', 'chrysoberyl' ); ?>">
     <?php
     // Table of Contents - Sidebar
     $toc_enabled = get_option( 'chrysoberyl_toc_enabled', '1' );
@@ -23,6 +23,10 @@
     // Single post sidebar: always use Theme Settings (order + enabled widgets), not Appearance > Widgets
     foreach ( chrysoberyl_get_widgets_order() as $widget_key ) {
             if ( ! chrysoberyl_is_widget_enabled( $widget_key ) ) {
+                continue;
+            }
+            // Related posts อยู่ด้านนอก widget ตาม mockup single — แสดงเฉพาะใน single.php เป็น section เต็มความกว้าง
+            if ( $widget_key === 'related_posts' ) {
                 continue;
             }
             switch ( $widget_key ) {
@@ -100,77 +104,6 @@
                             if ( empty( $post_title ) ) {
                                 continue;
                             }
-                            ?>
-                            <a href="<?php echo esc_url( $post_permalink ); ?>" class="flex gap-4 group cursor-pointer">
-                                <?php if ( $thumbnail_id ) : ?>
-                                    <div class="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden">
-                                        <?php echo get_the_post_thumbnail( $post_obj->ID, 'chrysoberyl-thumbnail', array( 'class' => 'w-full h-full object-cover group-hover:scale-110 transition', 'alt' => esc_attr( $post_title ), 'loading' => 'lazy' ) ); ?>
-                                    </div>
-                                <?php else : ?>
-                                    <div class="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-200 flex items-center justify-center">
-                                        <i class="fas fa-image text-gray-400 text-2xl"></i>
-                                    </div>
-                                <?php endif; ?>
-                                <div>
-                                    <h4 class="text-sm font-bold text-gray-900 group-hover:text-accent transition line-clamp-2 mb-1"><?php echo esc_html( $post_title ); ?></h4>
-                                    <span class="text-xs text-gray-400">
-                                        <?php if ( $category_name ) : ?><?php echo esc_html( $category_name ); ?> • <?php endif; ?>
-                                        <?php echo esc_html( human_time_diff( $post_date, current_time( 'timestamp' ) ) ); ?> <?php _e( 'ที่แล้ว', 'chrysoberyl' ); ?>
-                                    </span>
-                                </div>
-                            </a>
-                        <?php
-                        endwhile;
-                        wp_reset_postdata();
-                        ?>
-                    </div>
-                </div>
-                <?php
-            endif;
-                    break;
-                case 'related_posts':
-            $current_id = get_the_ID();
-            $cat_ids = wp_get_post_categories( $current_id );
-            $tag_ids = wp_get_post_tags( $current_id, array( 'fields' => 'ids' ) );
-            $rel_args = array(
-                'post_type'      => 'post',
-                'posts_per_page' => 4,
-                'post__not_in'   => array( $current_id ),
-                'post_status'    => 'publish',
-                'orderby'        => 'rand',
-            );
-            if ( ! empty( $cat_ids ) ) {
-                $rel_args['category__in'] = $cat_ids;
-            }
-            if ( ! empty( $tag_ids ) ) {
-                $rel_args['tag__in'] = $tag_ids;
-            }
-            if ( empty( $cat_ids ) && empty( $tag_ids ) ) {
-                $rel_args['orderby'] = 'date';
-                $rel_args['order']   = 'DESC';
-            }
-            $rel_query = new WP_Query( $rel_args );
-            if ( $rel_query->have_posts() ) :
-                ?>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-6">
-                    <h3 class="font-bold text-xl mb-4 flex items-center gap-2">
-                        <i class="fas fa-link text-accent"></i>
-                        <?php _e( 'บทความที่เกี่ยวข้อง', 'chrysoberyl' ); ?>
-                    </h3>
-                    <div class="space-y-6" role="list">
-                        <?php
-                        while ( $rel_query->have_posts() ) :
-                            $rel_query->the_post();
-                            $post_obj   = $rel_query->post;
-                            $post_title = $post_obj->post_title;
-                            if ( empty( $post_title ) ) {
-                                continue;
-                            }
-                            $post_permalink = chrysoberyl_fix_url( get_permalink( $post_obj->ID ) );
-                            $post_date      = get_post_time( 'U', false, $post_obj->ID );
-                            $thumbnail_id  = get_post_thumbnail_id( $post_obj->ID );
-                            $categories    = get_the_category( $post_obj->ID );
-                            $category_name = ! empty( $categories ) ? $categories[0]->name : '';
                             ?>
                             <a href="<?php echo esc_url( $post_permalink ); ?>" class="flex gap-4 group cursor-pointer">
                                 <?php if ( $thumbnail_id ) : ?>

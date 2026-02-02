@@ -34,7 +34,7 @@ class chrysoberyl_Search_Widget extends WP_Widget {
         <form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
             <div class="flex gap-2">
                 <input type="search" class="search-field flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent" placeholder="<?php echo esc_attr__( 'ค้นหา...', 'chrysoberyl' ); ?>" value="<?php echo get_search_query(); ?>" name="s" aria-label="<?php esc_attr_e( 'Search', 'chrysoberyl' ); ?>" />
-                <button type="submit" class="px-4 py-2 bg-accent hover:bg-orange-600 text-white font-medium rounded-lg transition-colors">
+                <button type="submit" class="px-4 py-2 bg-accent hover:bg-blue-600 text-white font-medium rounded-lg transition-colors">
                     <i class="fas fa-search"></i>
                 </button>
             </div>

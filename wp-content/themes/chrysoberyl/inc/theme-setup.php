@@ -223,7 +223,7 @@ function chrysoberyl_widgets_init() {
         'description'   => esc_html__( 'Add widgets here to appear in your sidebar.', 'chrysoberyl' ),
         'before_widget' => '<section id="%1$s" class="widget %2$s bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 mb-6">',
         'after_widget'  => '</section>',
-        'before_title'  => '<h3 class="widget-title font-bold text-xl mb-5 flex items-center gap-2">',
+        'before_title'  => '<h3 class="widget-title font-bold text-xl mb-5 flex items-center gap-1">',
         'after_title'   => '</h3>',
     ) );
 
@@ -234,7 +234,7 @@ function chrysoberyl_widgets_init() {
         'description'   => esc_html__( 'Add widgets here to appear after post content.', 'chrysoberyl' ),
         'before_widget' => '<section id="%1$s" class="widget %2$s my-8">',
         'after_widget'  => '</section>',
-        'before_title'  => '<h3 class="widget-title font-bold text-xl mb-4 flex items-center gap-2">',
+        'before_title'  => '<h3 class="widget-title font-bold text-xl mb-4 flex items-center gap-1">',
         'after_title'   => '</h3>',
     ) );
 
@@ -245,7 +245,7 @@ function chrysoberyl_widgets_init() {
         'description'   => esc_html__( 'Footer column 1. Add widgets (Custom HTML, menu, social, etc.) or choose display type in Theme Settings > Footer.', 'chrysoberyl' ),
         'before_widget' => '<section id="%1$s" class="widget %2$s">',
         'after_widget'  => '</section>',
-        'before_title'  => '<h4 class="widget-title font-bold text-gray-900 mb-4 flex items-center gap-2">',
+        'before_title'  => '<h4 class="widget-title font-bold text-gray-900 mb-4 flex items-center gap-1">',
         'after_title'   => '</h4>',
     ) );
 
@@ -256,7 +256,7 @@ function chrysoberyl_widgets_init() {
         'description'   => esc_html__( 'Footer column 2. Add widgets or choose display type in Theme Settings > Footer.', 'chrysoberyl' ),
         'before_widget' => '<section id="%1$s" class="widget %2$s">',
         'after_widget'  => '</section>',
-        'before_title'  => '<h4 class="widget-title font-bold text-gray-900 mb-4 flex items-center gap-2">',
+        'before_title'  => '<h4 class="widget-title font-bold text-gray-900 mb-4 flex items-center gap-1">',
         'after_title'   => '</h4>',
     ) );
 
@@ -267,7 +267,7 @@ function chrysoberyl_widgets_init() {
         'description'   => esc_html__( 'Footer column 3. Add widgets or choose display type in Theme Settings > Footer.', 'chrysoberyl' ),
         'before_widget' => '<section id="%1$s" class="widget %2$s">',
         'after_widget'  => '</section>',
-        'before_title'  => '<h4 class="widget-title font-bold text-gray-900 mb-4 flex items-center gap-2">',
+        'before_title'  => '<h4 class="widget-title font-bold text-gray-900 mb-4 flex items-center gap-1">',
         'after_title'   => '</h4>',
     ) );
 
@@ -278,7 +278,7 @@ function chrysoberyl_widgets_init() {
         'description'   => esc_html__( 'Footer column 4. Add widgets or choose display type in Theme Settings > Footer.', 'chrysoberyl' ),
         'before_widget' => '<section id="%1$s" class="widget %2$s">',
         'after_widget'  => '</section>',
-        'before_title'  => '<h4 class="widget-title font-bold text-gray-900 mb-4 flex items-center gap-2">',
+        'before_title'  => '<h4 class="widget-title font-bold text-gray-900 mb-4 flex items-center gap-1">',
         'after_title'   => '</h4>',
     ) );
 }

@@ -121,7 +121,7 @@ function chrysoberyl_render_sidebar_widget_by_key($widget_key)
     }
     $before_widget = '<section id="%1$s" class="widget %2$s bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 mb-6">';
     $after_widget = '</section>';
-    $before_title = '<h3 class="widget-title font-bold text-xl mb-5 flex items-center gap-2">';
+    $before_title = '<h3 class="widget-title font-bold text-xl mb-5 flex items-center gap-1">';
     $after_title = '</h3>';
     $args = array(
         'before_widget' => $before_widget,
@@ -136,21 +136,23 @@ function chrysoberyl_render_sidebar_widget_by_key($widget_key)
 }
 
 /**
- * Get Tailwind grid class for homepage/archive news grid by column count
+ * Get Tailwind grid class for homepage/archive news grid by column count (จากหลังบ้าน)
+ * Gap ตรง mockup: gap-x-8 gap-y-12
  *
- * @return string CSS classes for grid (e.g. grid grid-cols-1 md:grid-cols-2 gap-6)
+ * @return string CSS classes for grid
  */
 function chrysoberyl_get_home_news_grid_class()
 {
-    $cols = (int) get_option('chrysoberyl_home_news_columns', '2');
+    $cols = (int) get_option('chrysoberyl_home_news_columns', '3');
     $cols = max(1, min(4, $cols));
+    $gap  = 'gap-x-8 gap-y-12';
     $classes = array(
-        1 => 'grid grid-cols-1 md:grid-cols-1 gap-6',
-        2 => 'grid grid-cols-1 md:grid-cols-2 gap-6',
-        3 => 'grid grid-cols-1 md:grid-cols-3 gap-6',
-        4 => 'grid grid-cols-1 md:grid-cols-4 gap-6',
+        1 => 'grid grid-cols-1 ' . $gap,
+        2 => 'grid grid-cols-1 md:grid-cols-2 ' . $gap,
+        3 => 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ' . $gap,
+        4 => 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ' . $gap,
     );
-    return isset($classes[$cols]) ? $classes[$cols] : $classes[2];
+    return isset($classes[$cols]) ? $classes[$cols] : $classes[3];
 }
 
 /**
@@ -935,6 +937,32 @@ function chrysoberyl_filter_custom_logo($html)
     return $html;
 }
 add_filter('get_custom_logo', 'chrysoberyl_filter_custom_logo', 10, 1);
+
+/**
+ * Get site name HTML with Google-logo style colors per character (for header when no logo).
+ * Cycles through blue, red, yellow, green like Google logo.
+ *
+ * @return string HTML string, each character wrapped in a span with color.
+ */
+function chrysoberyl_get_site_name_google_colors()
+{
+    $name = get_bloginfo('name');
+    if ($name === '') {
+        return '';
+    }
+
+    $colors = array('#4285F4', '#EA4335', '#FBBC05', '#34A853'); // Google logo palette
+    $chars = function_exists('mb_str_split')
+        ? mb_str_split($name)
+        : preg_split('//u', $name, -1, PREG_SPLIT_NO_EMPTY);
+
+    $html = '';
+    foreach ($chars as $i => $char) {
+        $color = $colors[$i % count($colors)];
+        $html .= '<span style="color:' . esc_attr($color) . '">' . esc_html($char) . '</span>';
+    }
+    return $html;
+}
 
 /**
  * Filter post thumbnail HTML to fix image URLs

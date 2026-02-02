@@ -1,6 +1,7 @@
 <?php
 /**
- * The template for displaying archive pages
+ * The template for displaying archive pages (category, tag, author, date).
+ * ตรง mockup category / tag / author — breadcrumb, hero (H1 + คำอธิบาย), กริด + sidebar ตามหลังบ้าน
  *
  * @package Chrysoberyl
  * @since 1.0.0
@@ -9,81 +10,51 @@
 get_header();
 
 $show_sidebar_archive = ( get_option( 'chrysoberyl_sidebar_archive_enabled', '1' ) === '1' );
+
+// หัวข้อ H1 สำหรับ hero
+$archive_h1 = '';
+if ( is_category() ) {
+    $archive_h1 = single_cat_title( '', false );
+} elseif ( is_tag() ) {
+    $archive_h1 = single_tag_title( '', false );
+} elseif ( is_author() ) {
+    $archive_h1 = get_the_author();
+} elseif ( is_date() ) {
+    $archive_h1 = get_the_archive_title();
+} else {
+    $archive_h1 = __( 'Archive', 'chrysoberyl' );
+}
+$archive_h1 = strip_tags( $archive_h1 );
+$archive_h1 = preg_replace( '/^(หมวดหมู่|Category|แท็ก|Tag|ผู้เขียน|Author|Archive):\s*/i', '', $archive_h1 );
+$archive_h1 = trim( $archive_h1 );
 ?>
 
-<!-- Category Header -->
-<header class="bg-white border-b border-gray-200 py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-                <div class="text-sm text-gray-500 mb-2">
-                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="hover:text-accent"><?php _e( 'หน้าแรก', 'chrysoberyl' ); ?></a>
-                    <i class="fas fa-chevron-right text-xs mx-1"></i>
-                    <?php
-                    if ( is_category() ) {
-                        $cat_title = single_cat_title( '', false );
-                        $cat_title = strip_tags( $cat_title );
-                        $cat_title = preg_replace( '/^(หมวดหมู่|Category):\s*/i', '', $cat_title );
-                        $cat_title = trim( $cat_title );
-                        echo '<span>' . esc_html( $cat_title ) . '</span>';
-                    } elseif ( is_tag() ) {
-                        $tag_title = single_tag_title( '', false );
-                        $tag_title = strip_tags( $tag_title );
-                        $tag_title = preg_replace( '/^(แท็ก|Tag):\s*/i', '', $tag_title );
-                        $tag_title = trim( $tag_title );
-                        echo '<span>' . esc_html( $tag_title ) . '</span>';
-                    } else {
-                        $archive_title = get_the_archive_title();
-                        $archive_title = strip_tags( $archive_title );
-                        $archive_title = preg_replace( '/^(หมวดหมู่|Category|แท็ก|Tag|Archive):\s*/i', '', $archive_title );
-                        $archive_title = trim( $archive_title );
-                        echo '<span>' . esc_html( $archive_title ) . '</span>';
-                    }
-                    ?>
-                </div>
-                <h1 class="text-4xl font-bold text-gray-900">
-                    <?php
-                    if ( is_category() ) {
-                        echo esc_html( single_cat_title( '', false ) );
-                    } elseif ( is_tag() ) {
-                        echo esc_html( single_tag_title( '', false ) );
-                    } elseif ( is_author() ) {
-                        the_author();
-                    } elseif ( is_date() ) {
-                        echo get_the_date();
-                    } else {
-                        _e( 'Archive', 'chrysoberyl' );
-                    }
-                    ?>
-                    <span class="text-accent"><?php _e( 'Update', 'chrysoberyl' ); ?></span>
-                </h1>
+<main id="main-content" class="flex-grow w-full">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8 max-w-[1248px] pb-20">
+        <!-- Archive Hero (mockup: category / tag / author) -->
+        <section class="mb-12">
+            <?php get_template_part( 'template-parts/breadcrumb' ); ?>
+            <h1 class="text-4xl md:text-5xl font-normal text-google-gray mb-4 mt-4"><?php echo esc_html( $archive_h1 ); ?></h1>
+            <?php
+            $description = get_the_archive_description();
+            if ( $description ) :
+                ?>
+                <p class="text-lg text-google-gray-500 max-w-3xl"><?php echo wp_kses_post( $description ); ?></p>
+            <?php endif; ?>
+            <?php if ( is_tag() ) : ?>
                 <?php
-                $description = get_the_archive_description();
-                if ( $description ) :
+                $tag_obj = get_queried_object();
+                if ( $tag_obj && isset( $tag_obj->count ) ) :
                     ?>
-                    <p class="text-gray-500 mt-2 font-light"><?php echo wp_kses_post( $description ); ?></p>
+                    <p class="text-sm text-google-gray-500 mt-2"><span class="font-medium text-google-gray"><?php echo (int) $tag_obj->count; ?></span> <?php _e( 'บทความ', 'chrysoberyl' ); ?></p>
                 <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</header>
+            <?php endif; ?>
+        </section>
 
-<main id="main-content" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-
-    <!-- Hero Section (Slider) -->
-    <?php get_template_part( 'template-parts/hero-section' ); ?>
-
-    <div class="flex flex-col lg:flex-row gap-10">
-
-        <!-- Main Feed -->
-        <div class="<?php echo $show_sidebar_archive ? 'lg:w-2/3' : 'lg:w-full'; ?>">
-            <div class="flex justify-between items-end mb-6">
-                <h2 class="text-2xl font-bold text-gray-900 border-l-4 border-accent pl-3">
-                    <?php _e( 'ข่าวล่าสุด', 'chrysoberyl' ); ?>
-                </h2>
-            </div>
-
-            <div class="<?php echo esc_attr( chrysoberyl_get_home_news_grid_class() ); ?>" id="news-grid">
+        <div class="flex flex-col lg:flex-row gap-10">
+            <!-- Main Feed -->
+            <div class="<?php echo $show_sidebar_archive ? 'lg:w-2/3' : 'lg:w-full'; ?>">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16" id="news-grid">
                 <?php
                 if ( have_posts() ) :
                     while ( have_posts() ) :
@@ -126,13 +97,14 @@ $show_sidebar_archive = ( get_option( 'chrysoberyl_sidebar_archive_enabled', '1'
                 endif;
             endif;
             ?>
+            </div>
+
+            <?php if ( $show_sidebar_archive ) : ?>
+                <!-- Sidebar: แสดงเฉพาะ widget ที่เปิดใช้และลำดับจากหลังบ้าน (Theme Options > Widgets) -->
+                <?php get_template_part( 'template-parts/sidebar-archive' ); ?>
+            <?php endif; ?>
+
         </div>
-
-        <?php if ( $show_sidebar_archive ) : ?>
-            <!-- Sidebar -->
-            <?php get_template_part( 'template-parts/sidebar' ); ?>
-        <?php endif; ?>
-
     </div>
 </main>
 

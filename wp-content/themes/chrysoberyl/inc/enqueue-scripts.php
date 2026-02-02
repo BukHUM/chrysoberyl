@@ -17,10 +17,10 @@ function chrysoberyl_enqueue_assets()
 {
     $version = chrysoberyl_get_theme_version();
 
-    // Google Fonts (preconnect for performance)
+    // Google Fonts: Google Sans (400,500,700) + Noto Sans Thai (300–700) — ตรง mockup
     wp_enqueue_style(
         'chrysoberyl-google-fonts',
-        'https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap',
+        'https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap',
         array(),
         null
     );

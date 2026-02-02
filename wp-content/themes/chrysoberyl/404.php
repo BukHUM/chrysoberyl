@@ -29,7 +29,7 @@ get_header();
                        placeholder="<?php _e( 'ลองค้นหาดู...', 'chrysoberyl' ); ?>">
                 <i class="fas fa-search absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 text-xl"></i>
                 <button type="submit"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 bg-accent hover:bg-orange-600 text-white px-6 py-2 rounded-full font-bold text-sm transition">
+                        class="absolute right-3 top-1/2 -translate-y-1/2 bg-accent hover:bg-blue-600 text-white px-6 py-2 rounded-full font-bold text-sm transition">
                     <?php _e( 'ค้นหา', 'chrysoberyl' ); ?>
                 </button>
             </form>
@@ -37,7 +37,7 @@ get_header();
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="<?php echo esc_url( home_url( '/' ) ); ?>" 
-               class="bg-accent text-white px-8 py-3 rounded-full hover:bg-orange-600 transition font-medium">
+               class="bg-accent text-white px-8 py-3 rounded-full hover:bg-blue-600 transition font-medium">
                 <i class="fas fa-home mr-2"></i><?php _e( 'กลับหน้าแรก', 'chrysoberyl' ); ?>
             </a>
             <a href="javascript:history.back()" 

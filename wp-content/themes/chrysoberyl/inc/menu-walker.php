@@ -146,14 +146,12 @@ class chrysoberyl_Walker_Nav_Menu extends Walker_Nav_Menu {
             }
         }
         
-        // Link: no border on <a>. Underline only on text span (not icon).
-        $link_classes = $is_current 
-            ? 'text-gray-900 font-medium text-lg inline-flex items-center' 
-            : 'text-gray-500 hover:text-gray-900 transition font-medium text-lg inline-flex items-center';
-        
-        $text_span_classes = $is_current 
-            ? 'nav-link-text border-b-2 border-accent pb-0.5' 
-            : 'nav-link-text';
+        // Mockup: text-[15px] font-medium text-google-gray-500 hover:text-google-blue
+        $link_classes = $is_current
+            ? 'text-[15px] font-medium text-google-blue inline-flex items-center'
+            : 'text-[15px] font-medium text-google-gray-500 hover:text-google-blue transition-colors inline-flex items-center';
+
+        $text_span_classes = 'nav-link-text';
         
         // Add custom classes for styling
         $item_output = isset( $args->before ) ? $args->before : '';
@@ -207,11 +205,11 @@ class chrysoberyl_Walker_Nav_Menu_Mobile extends Walker_Nav_Menu {
         $icon = function_exists( 'chrysoberyl_get_menu_item_icon' ) ? chrysoberyl_get_menu_item_icon( $item->ID ) : '';
         $icon_html = $icon ? '<i class="' . esc_attr( $icon ) . ' mr-2"></i>' : '';
 
-        // Check if current menu item is active
+        // Mockup: text-base font-medium text-google-gray-500 hover:text-google-blue
         $is_current = in_array( 'current-menu-item', $classes ) || in_array( 'current_page_item', $classes );
-        $link_classes = $is_current 
-            ? 'block px-3 py-2 rounded-md text-lg font-medium text-black bg-gray-50' 
-            : 'block px-3 py-2 rounded-md text-lg font-medium text-gray-600 hover:bg-gray-50';
+        $link_classes = $is_current
+            ? 'block text-base font-medium text-google-blue'
+            : 'block text-base font-medium text-google-gray-500 hover:text-google-blue';
         
         $item_output = isset( $args->before ) ? $args->before : '';
         $item_output .= '<a' . $attributes . ' class="' . esc_attr( $link_classes ) . '" role="menuitem">';

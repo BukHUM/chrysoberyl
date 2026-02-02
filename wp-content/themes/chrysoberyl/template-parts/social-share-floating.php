@@ -17,12 +17,15 @@ if ( empty( $selected_platforms ) ) {
     return;
 }
 
+$icon_style = get_option( 'chrysoberyl_social_icon_style', 'branded' );
+$mockup_class = ( $icon_style === 'mockup' ) ? ' chrysoberyl-floating-share-style-mockup' : '';
+
 $post_id = get_the_ID();
 $post_url = chrysoberyl_fix_url( get_permalink( $post_id ) );
 $post_title = get_the_title( $post_id );
 ?>
 
-<div class="chrysoberyl-floating-share" id="chrysoberyl-floating-share">
+<div class="chrysoberyl-floating-share<?php echo esc_attr( $mockup_class ); ?>" id="chrysoberyl-floating-share">
     <button class="chrysoberyl-floating-share-toggle" aria-label="<?php _e( 'แชร์', 'chrysoberyl' ); ?>">
         <i class="fas fa-share-alt"></i>
     </button>
@@ -39,7 +42,7 @@ $post_title = get_the_title( $post_id );
                    data-platform="<?php echo esc_attr( $platform ); ?>"
                    data-post-url="<?php echo esc_url( $post_url ); ?>"
                    aria-label="<?php echo esc_attr( sprintf( __( 'Copy link', 'chrysoberyl' ), $label ) ); ?>"
-                   style="background-color: <?php echo esc_attr( $color ); ?>;"
+                   <?php if ( $icon_style !== 'mockup' ) : ?>style="background-color: <?php echo esc_attr( $color ); ?>;"<?php endif; ?>
                    title="<?php echo esc_attr( $label ); ?>">
                     <i class="<?php echo esc_attr( $icon ); ?>"></i>
                 </a>
@@ -50,7 +53,7 @@ $post_title = get_the_title( $post_id );
                    target="_blank" 
                    rel="noopener noreferrer"
                    aria-label="<?php echo esc_attr( sprintf( __( 'Share on %s', 'chrysoberyl' ), $label ) ); ?>"
-                   style="background-color: <?php echo esc_attr( $color ); ?>;"
+                   <?php if ( $icon_style !== 'mockup' ) : ?>style="background-color: <?php echo esc_attr( $color ); ?>;"<?php endif; ?>
                    title="<?php echo esc_attr( $label ); ?>">
                     <i class="<?php echo esc_attr( $icon ); ?>"></i>
                 </a>

@@ -21,7 +21,7 @@ get_header();
                    placeholder="<?php echo esc_attr( get_option( 'chrysoberyl_search_placeholder', __( 'พิมพ์คำค้นหา...', 'chrysoberyl' ) ) ); ?>">
             <i class="fas fa-search absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 text-xl"></i>
             <button type="submit"
-                    class="absolute right-3 top-1/2 -translate-y-1/2 bg-accent hover:bg-orange-600 text-white px-6 py-2 rounded-full font-bold text-sm transition">
+                    class="absolute right-3 top-1/2 -translate-y-1/2 bg-accent hover:bg-blue-600 text-white px-6 py-2 rounded-full font-bold text-sm transition">
                 <?php _e( 'ค้นหา', 'chrysoberyl' ); ?>
             </button>
         </form>
@@ -164,7 +164,7 @@ get_header();
                         <?php _e( 'ลองใช้คำค้นหาอื่น หรือตรวจสอบการสะกด', 'chrysoberyl' ); ?>
                     </p>
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" 
-                       class="inline-block bg-accent text-white px-6 py-3 rounded-full hover:bg-orange-600 transition">
+                       class="inline-block bg-accent text-white px-6 py-3 rounded-full hover:bg-blue-600 transition">
                         <?php _e( 'กลับหน้าแรก', 'chrysoberyl' ); ?>
                     </a>
                 </div>

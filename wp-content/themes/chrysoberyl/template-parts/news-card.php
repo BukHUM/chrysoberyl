@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying news article card
+ * Template part: News article card (mockup index.html Article Card)
  *
  * @package Chrysoberyl
  * @since 1.0.0
@@ -14,68 +14,55 @@ if ( ! isset( $post ) ) {
 
 $categories = get_the_category();
 $category   = ! empty( $categories ) ? $categories[0] : null;
-$cat_color  = $category ? ( get_term_meta( $category->term_id, 'category_color', true ) ?: '#3B82F6' ) : '#3B82F6';
+$permalink  = chrysoberyl_fix_url( get_permalink() );
+$title      = get_the_title() ? get_the_title() : get_the_date();
+$excerpt_raw = has_excerpt() ? get_the_excerpt() : get_post_field( 'post_content', $post );
+$excerpt    = wp_trim_words( $excerpt_raw, 12 );
 ?>
 
-<article class="article-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition duration-300 flex flex-col cursor-pointer"
-         onclick="window.location.href='<?php echo esc_url( chrysoberyl_fix_url( get_permalink() ) ); ?>'"
-         role="article"
-         aria-label="<?php echo esc_attr( get_the_title() ? get_the_title() : get_the_date() ); ?>">
-    <div class="relative overflow-hidden h-48">
+<article class="flex flex-col h-full group cursor-pointer" role="article" aria-label="<?php echo esc_attr( $title ); ?>"
+    onclick="window.location.href='<?php echo esc_url( $permalink ); ?>'">
+    <div class="mb-5 overflow-hidden rounded-card relative aspect-[3/2]">
         <?php if ( has_post_thumbnail() ) : ?>
-            <a href="<?php echo esc_url( chrysoberyl_fix_url( get_permalink() ) ); ?>">
-                <?php 
-                $thumbnail_id = get_post_thumbnail_id();
-                if ( $thumbnail_id ) {
-                    echo wp_get_attachment_image( 
-                        $thumbnail_id, 
-                        'chrysoberyl-card', 
-                        false, 
-                        array(
-                            'class' => 'article-img w-full h-full object-cover transition duration-500',
-                            'alt'   => esc_attr( get_the_title() ? get_the_title() : get_the_date() ),
-                            'loading' => 'lazy',
-                            'srcset' => wp_get_attachment_image_srcset( $thumbnail_id, 'chrysoberyl-card' ),
-                            'sizes' => '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
-                        ) 
-                    );
-                }
-                ?>
-            </a>
-        <?php endif; ?>
-        <?php if ( $category ) : ?>
-            <span class="category-badge absolute top-4 left-4 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wide shadow-lg"
-                  style="background-color: <?php echo esc_attr( $cat_color ); ?>">
-                <?php echo esc_html( $category->name ); ?>
-            </span>
+            <?php
+            $thumbnail_id = get_post_thumbnail_id();
+            if ( $thumbnail_id ) {
+                echo wp_get_attachment_image(
+                    $thumbnail_id,
+                    'chrysoberyl-card',
+                    false,
+                    array(
+                        'class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
+                        'alt'   => esc_attr( $title ),
+                        'loading' => 'lazy',
+                        'srcset' => wp_get_attachment_image_srcset( $thumbnail_id, 'chrysoberyl-card' ),
+                        'sizes'  => '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
+                    )
+                );
+            }
+            ?>
+        <?php else : ?>
+            <div class="w-full h-full bg-google-gray-100 flex items-center justify-center text-google-gray-500 text-sm">
+                <?php esc_html_e( 'No image', 'chrysoberyl' ); ?>
+            </div>
         <?php endif; ?>
     </div>
-    <div class="p-5 flex flex-col flex-grow">
-        <h3 class="text-lg font-bold text-gray-900 mb-2 leading-snug line-clamp-2 hover:text-accent cursor-pointer transition-colors">
-            <a href="<?php echo esc_url( chrysoberyl_fix_url( get_permalink() ) ); ?>">
-                <?php
-                if ( get_the_title() ) {
-                    the_title();
-                } else {
-                    echo esc_html( get_the_date() );
-                }
-                ?>
+    <div class="flex flex-col flex-grow">
+        <?php if ( $category ) : ?>
+            <a href="<?php echo esc_url( get_category_link( $category->term_id ) ); ?>" class="inline-block mb-3 text-google-blue font-bold text-xs uppercase tracking-wider hover:underline" onclick="event.stopPropagation();">
+                <?php echo esc_html( $category->name ); ?>
             </a>
+        <?php endif; ?>
+        <h3 class="text-2xl font-normal text-google-gray mb-3 leading-snug group-hover:text-google-blue transition-colors">
+            <a href="<?php echo esc_url( $permalink ); ?>" onclick="event.stopPropagation();"><?php echo esc_html( $title ); ?></a>
         </h3>
-        <?php if ( has_excerpt() || get_the_excerpt() ) : ?>
-            <p class="text-gray-500 text-sm mb-4 line-clamp-2 flex-grow font-light leading-relaxed">
-                <?php echo wp_trim_words( get_the_excerpt(), 15, '...' ); ?>
+        <?php if ( $excerpt ) : ?>
+            <p class="text-google-gray-500 text-base leading-relaxed line-clamp-2 mb-4 flex-grow">
+                <?php echo esc_html( $excerpt ); ?>
             </p>
         <?php endif; ?>
-        <div class="flex justify-between items-center text-xs text-gray-400 border-t border-gray-50 pt-3 mt-auto">
-            <span class="font-medium text-gray-500 flex items-center">
-                <i class="far fa-user mr-1"></i>
-                <?php echo esc_html( chrysoberyl_get_author_name() ); ?>
-            </span>
-            <span class="flex items-center">
-                <i class="far fa-clock mr-1"></i>
-                <?php echo human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . ' ที่แล้ว'; ?>
-            </span>
+        <div class="text-xs text-google-gray-500">
+            <?php echo esc_html( get_the_date() ); ?>
         </div>
     </div>
 </article>

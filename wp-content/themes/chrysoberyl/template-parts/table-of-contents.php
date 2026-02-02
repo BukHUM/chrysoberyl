@@ -31,7 +31,7 @@ $toc_data = array(
     'headings' => implode( ',', $toc_headings ),
     'style' => $toc_style,
     'smoothScroll' => $toc_smooth_scroll === '1',
-    'scrollSpy' => $toc_scroll_spy === '1',
+    'scrollSpy' => false, // TOC ด้านขวาไม่แสดงสถานะ active
     'collapsible' => $toc_collapsible === '1',
     'sticky' => $toc_sticky === '1',
     'minHeadings' => absint( $toc_min_headings ),
@@ -94,7 +94,7 @@ if ( $toc_auto_collapse_mobile === '1' ) {
 
 <?php if ( $toc_mobile_enabled === '1' && $toc_mobile_position === 'floating' ) : ?>
     <!-- Mobile Floating TOC Button -->
-    <button class="chrysoberyl-toc-mobile-toggle fixed bottom-20 left-4 z-40 bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-orange-600 transition md:hidden" 
+    <button class="chrysoberyl-toc-mobile-toggle fixed bottom-20 left-4 z-40 bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-blue-600 transition md:hidden" 
             aria-label="<?php echo esc_attr( $toc_title ); ?>">
         <i class="fas fa-list text-xl"></i>
     </button>

@@ -11,12 +11,15 @@ if ( is_front_page() ) {
 }
 ?>
 
-<nav class="chrysoberyl-breadcrumb hidden md:block mb-6 text-sm" aria-label="Breadcrumb">
-    <ol class="flex flex-wrap items-center gap-x-1 md:gap-x-2 text-gray-500">
+<?php
+// ตรง mockup: archive/single ใช้ text-google-blue สำหรับรายการปัจจุบัน
+$breadcrumb_current_class = ( is_archive() || is_single() ) ? 'text-google-blue font-medium' : 'text-gray-800 font-medium';
+?>
+<nav class="chrysoberyl-breadcrumb hidden md:block text-sm" aria-label="Breadcrumb">
+    <ol class="flex flex-wrap items-center gap-x-1 md:gap-x-2 text-google-gray-500">
         <li class="inline-flex items-center shrink-0">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex items-center gap-1.5 py-1 rounded hover:text-accent transition-colors">
-                <i class="fas fa-home text-gray-400" aria-hidden="true"></i>
-                <span><?php _e( 'หน้าแรก', 'chrysoberyl' ); ?></span>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex items-center gap-1.5 py-1 rounded hover:text-google-blue transition-colors">
+                <?php _e( 'หน้าแรก', 'chrysoberyl' ); ?>
             </a>
         </li>
 
@@ -28,13 +31,23 @@ if ( is_front_page() ) {
             $cat_title = trim( $cat_title );
             ?>
             <li class="inline-flex items-center shrink-0" aria-current="page">
-                <span class="chrysoberyl-breadcrumb-sep"><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
-                <span class="chrysoberyl-breadcrumb-current text-gray-800 font-medium"><?php echo esc_html( $cat_title ); ?></span>
+                <span class="chrysoberyl-breadcrumb-sep mx-1" aria-hidden="true">/</span>
+                <span class="chrysoberyl-breadcrumb-current <?php echo esc_attr( $breadcrumb_current_class ); ?>"><?php echo esc_html( $cat_title ); ?></span>
             </li>
         <?php elseif ( is_tag() ) : ?>
             <li class="inline-flex items-center shrink-0" aria-current="page">
-                <span class="chrysoberyl-breadcrumb-sep"><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
-                <span class="chrysoberyl-breadcrumb-current text-gray-800 font-medium"><?php echo esc_html( strip_tags( single_tag_title( '', false ) ) ); ?></span>
+                <span class="chrysoberyl-breadcrumb-sep mx-1" aria-hidden="true">/</span>
+                <span class="chrysoberyl-breadcrumb-current <?php echo esc_attr( $breadcrumb_current_class ); ?>"><?php echo esc_html( strip_tags( single_tag_title( '', false ) ) ); ?></span>
+            </li>
+        <?php elseif ( is_author() ) : ?>
+            <li class="inline-flex items-center shrink-0" aria-current="page">
+                <span class="chrysoberyl-breadcrumb-sep mx-1" aria-hidden="true">/</span>
+                <span class="chrysoberyl-breadcrumb-current <?php echo esc_attr( $breadcrumb_current_class ); ?>"><?php echo esc_html( get_the_author() ); ?></span>
+            </li>
+        <?php elseif ( is_date() ) : ?>
+            <li class="inline-flex items-center shrink-0" aria-current="page">
+                <span class="chrysoberyl-breadcrumb-sep mx-1" aria-hidden="true">/</span>
+                <span class="chrysoberyl-breadcrumb-current <?php echo esc_attr( $breadcrumb_current_class ); ?>"><?php echo esc_html( get_the_archive_title() ); ?></span>
             </li>
         <?php elseif ( is_single() ) : ?>
             <?php
@@ -46,15 +59,15 @@ if ( is_front_page() ) {
                 $category_name = trim( $category_name );
                 ?>
                 <li class="inline-flex items-center shrink-0">
-                    <span class="chrysoberyl-breadcrumb-sep"><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
-                    <a href="<?php echo esc_url( get_category_link( $category->term_id ) ); ?>" class="py-1 rounded hover:text-accent transition-colors">
+                    <span class="chrysoberyl-breadcrumb-sep mx-1" aria-hidden="true">/</span>
+                    <a href="<?php echo esc_url( get_category_link( $category->term_id ) ); ?>" class="py-1 rounded hover:text-google-blue transition-colors text-google-gray-500">
                         <?php echo esc_html( $category_name ); ?>
                     </a>
                 </li>
             <?php endif; ?>
             <li class="inline-flex items-center min-w-0 flex-1" aria-current="page">
-                <span class="chrysoberyl-breadcrumb-sep"><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
-                <span class="chrysoberyl-breadcrumb-current chrysoberyl-breadcrumb-title text-gray-800 font-medium"><?php echo esc_html( strip_tags( get_the_title() ) ); ?></span>
+                <span class="chrysoberyl-breadcrumb-sep mx-1" aria-hidden="true">/</span>
+                <span class="chrysoberyl-breadcrumb-current chrysoberyl-breadcrumb-title <?php echo esc_attr( $breadcrumb_current_class ); ?>"><?php echo esc_html( strip_tags( get_the_title() ) ); ?></span>
             </li>
         <?php elseif ( is_page() ) : ?>
             <li class="inline-flex items-center min-w-0 flex-1" aria-current="page">
