@@ -65,13 +65,13 @@ get_header();
                         <?php echo get_avatar( get_the_author_meta( 'ID' ), 40, '', '', array( 'class' => 'w-10 h-10 rounded-full object-cover' ) ); ?>
                         <div>
                             <span class="block font-medium text-google-gray"><?php the_author(); ?></span>
-                            <span class="text-xs"><?php echo esc_html( __( 'ผู้เขียน', 'chrysoberyl' ) ); ?></span>
+                            <span class="text-xs"><?php echo esc_html( __( 'Author', 'chrysoberyl' ) ); ?></span>
                         </div>
                     </div>
                     <div class="flex items-center gap-4">
                         <span><?php echo esc_html( get_the_date() ); ?></span>
                         <span aria-hidden="true">•</span>
-                        <span><?php printf( __( '%d นาทีในการอ่าน', 'chrysoberyl' ), chrysoberyl_get_reading_time( get_the_ID() ) ); ?></span>
+                        <span><?php printf( _n( '%d minute to read', '%d minutes to read', chrysoberyl_get_reading_time( get_the_ID() ), 'chrysoberyl' ), chrysoberyl_get_reading_time( get_the_ID() ) ); ?></span>
                     </div>
                     <?php
                     if ( get_option( 'chrysoberyl_social_show_on_post', '1' ) === '1' ) {
@@ -105,9 +105,10 @@ get_header();
                 <!-- Main Content -->
                 <div class="<?php echo $show_sidebar_single ? 'lg:col-span-8' : ''; ?>">
                     <?php
-                    $toc_enabled = get_option( 'chrysoberyl_toc_enabled', '1' );
+                    $toc_show_on_post = get_option( 'chrysoberyl_toc_show_on_single_post', '1' ) === '1';
+                    $toc_show = chrysoberyl_show_toc_for_post() && $toc_show_on_post;
                     $toc_position = get_option( 'chrysoberyl_toc_position', 'top' );
-                    if ( $toc_enabled === '1' && $toc_position === 'top' ) :
+                    if ( $toc_show && $toc_position === 'top' ) :
                     ?>
                         <div class="mb-8">
                             <?php get_template_part( 'template-parts/table-of-contents' ); ?>

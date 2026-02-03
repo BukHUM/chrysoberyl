@@ -179,10 +179,13 @@ if ( is_single() && get_option( 'chrysoberyl_social_show_on_post', '1' ) === '1'
 if ( is_page() && get_option( 'chrysoberyl_social_show_on_page', '1' ) === '1' && $show_floating_share ) {
     get_template_part( 'template-parts/social-share-floating' );
 }
-if ( is_single() ) {
-    $toc_enabled = get_option( 'chrysoberyl_toc_enabled', '1' );
+if ( is_singular() ) {
+    $toc_show_item = function_exists( 'chrysoberyl_show_toc_for_post' ) ? chrysoberyl_show_toc_for_post( get_queried_object_id() ) : ( get_option( 'chrysoberyl_toc_enabled', '1' ) === '1' );
+    $toc_show_on_post = get_option( 'chrysoberyl_toc_show_on_single_post', '1' ) === '1';
+    $toc_show_on_page = get_option( 'chrysoberyl_toc_show_on_single_page', '0' ) === '1';
+    $toc_show = $toc_show_item && ( ( is_single() && $toc_show_on_post ) || ( is_page() && $toc_show_on_page ) );
     $toc_position = get_option( 'chrysoberyl_toc_position', 'top' );
-    if ( $toc_enabled === '1' && $toc_position === 'floating' ) {
+    if ( $toc_show && $toc_position === 'floating' ) {
         get_template_part( 'template-parts/table-of-contents' );
     }
 }

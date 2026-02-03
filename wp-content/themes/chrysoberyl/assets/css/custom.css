@@ -33,6 +33,7 @@
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }
+
 .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -44,6 +45,7 @@
     margin: 0;
     padding: 0;
 }
+
 .chrysoberyl-breadcrumb-sep {
     display: inline-flex;
     align-items: center;
@@ -52,22 +54,34 @@
     font-size: 0.625rem;
     pointer-events: none;
 }
+
 .chrysoberyl-breadcrumb-sep i {
     font-size: 0.5rem;
 }
+
 .chrysoberyl-breadcrumb a {
     color: #6b7280;
     text-decoration: none;
 }
+
 .chrysoberyl-breadcrumb a:hover {
     color: var(--accent, #1a73e8);
 }
+
 .chrysoberyl-breadcrumb-current {
     color: #1f2937;
     font-weight: 500;
 }
+
 /* Long title on single/page: max 2 lines + ellipsis */
 .single .chrysoberyl-breadcrumb-title,
+/* Page single: match mockup spacing (header + h-4 md:h-6 only, no extra h-16) */
+body.page .chrysoberyl-header-spacer {
+    height: 0 !important;
+    min-height: 0 !important;
+    overflow: hidden;
+}
+
 .page .chrysoberyl-breadcrumb-title {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -81,17 +95,20 @@
 .chrysoberyl-categories-list {
     --cat-gap: 0.125rem;
 }
+
 .chrysoberyl-categories-list .chrysoberyl-categories-root,
 .chrysoberyl-categories-list .chrysoberyl-categories-children {
     list-style: none;
     margin: 0;
     padding: 0;
 }
+
 .chrysoberyl-categories-list .chrysoberyl-cat-item-wrap {
     margin: 0;
     padding: 0;
     list-style: none;
 }
+
 .chrysoberyl-categories-list .chrysoberyl-cat-link {
     display: flex;
     align-items: center;
@@ -104,16 +121,19 @@
     text-decoration: none;
     transition: background-color 0.15s, color 0.15s;
 }
+
 .chrysoberyl-categories-list .chrysoberyl-cat-link:hover {
     background-color: #f9fafb;
     color: var(--accent, #1a73e8);
 }
+
 .chrysoberyl-categories-list .chrysoberyl-cat-link .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     min-width: 0;
 }
+
 .chrysoberyl-categories-list .chrysoberyl-cat-count {
     flex-shrink: 0;
     font-size: 0.75rem;
@@ -122,6 +142,7 @@
     border-radius: 9999px;
     padding: 0.125rem 0.5rem;
 }
+
 .chrysoberyl-categories-list .chrysoberyl-categories-children {
     padding-left: 1rem;
     margin-top: 0.125rem;
@@ -129,6 +150,7 @@
     border-left: 2px solid #f3f4f6;
     margin-left: 0.5rem;
 }
+
 .chrysoberyl-categories-list .chrysoberyl-categories-children .chrysoberyl-cat-link {
     font-size: 0.8125rem;
     padding: 0.375rem 0.5rem;
@@ -141,15 +163,19 @@
     gap: 0.25rem;
     min-width: 0;
 }
+
 .chrysoberyl-categories-collapsible .chrysoberyl-cat-has-children .chrysoberyl-categories-children {
     display: none;
 }
+
 .chrysoberyl-categories-collapsible .chrysoberyl-cat-item-wrap.open .chrysoberyl-categories-children {
     display: block;
 }
+
 .chrysoberyl-categories-collapsible .chrysoberyl-cat-item-wrap.open .chrysoberyl-cat-chevron {
     transform: rotate(90deg);
 }
+
 .chrysoberyl-categories-collapsible .chrysoberyl-cat-toggle {
     flex-shrink: 0;
     width: 1.5rem;
@@ -164,10 +190,12 @@
     border-radius: 0.25rem;
     transition: background-color 0.15s, color 0.15s;
 }
+
 .chrysoberyl-categories-collapsible .chrysoberyl-cat-toggle:hover {
     background-color: #f3f4f6;
     color: var(--accent, #1a73e8);
 }
+
 .chrysoberyl-categories-collapsible .chrysoberyl-cat-no-children {
     width: 1.5rem;
     flex-shrink: 0;
@@ -218,12 +246,15 @@
         max-height: calc(100vh - 120px);
         overflow-y: auto;
         /* Hide scrollbar but keep scrolling functionality */
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE and Edge */
     }
-    
+
     .sticky-sidebar::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Opera */
+        display: none;
+        /* Chrome, Safari, Opera */
     }
 }
 
@@ -324,16 +355,17 @@ button:focus-visible {
 }
 
 @media (max-width: 640px) {
+
     .hero-slider-prev,
     .hero-slider-next {
         padding: 0.5rem;
         font-size: 0.875rem;
     }
-    
+
     .hero-slider-prev {
         left: 0.5rem;
     }
-    
+
     .hero-slider-next {
         right: 0.5rem;
     }
@@ -381,11 +413,12 @@ button:focus-visible {
 
 /* Popular Item */
 .popular-item {
-    min-width: 0; /* Prevent flex item from overflowing */
+    min-width: 0;
+    /* Prevent flex item from overflowing */
 }
 
 /* Ensure popular item content doesn't overflow */
-.popular-item > div:last-child {
+.popular-item>div:last-child {
     min-width: 0;
     overflow: hidden;
 }
@@ -446,9 +479,11 @@ button:focus-visible {
     margin: 0;
     padding: 0;
 }
+
 .footer-copyright-menu li {
     display: inline-flex;
 }
+
 .footer-copyright-menu li:not(:last-child)::after {
     content: '|';
     margin-left: 1rem;
@@ -545,16 +580,16 @@ footer form button[type="submit"]:hover::before {
     footer .newsletter-section {
         padding: 1.5rem;
     }
-    
+
     footer .newsletter-section .flex {
         flex-direction: column;
         align-items: stretch;
     }
-    
+
     footer .newsletter-section form {
         width: 100%;
     }
-    
+
     footer .newsletter-section form button {
         width: 100%;
     }
@@ -566,11 +601,11 @@ footer form button[type="submit"]:hover::before {
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
     }
-    
+
     .footer-link {
         padding: 0.5rem 0;
     }
-    
+
     .trending-tag {
         font-size: 0.75rem;
         padding: 0.375rem 0.75rem;
@@ -601,10 +636,67 @@ footer form button[type="submit"]:hover::before {
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* ============================================
+   Page Content Styling (mockup: privacy/terms)
+   ============================================ */
+.chrysoberyl-page-content.prose h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: #202124;
+}
+
+.chrysoberyl-page-content.prose h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #202124;
+}
+
+.chrysoberyl-page-content.prose p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+    color: #3c4043;
+}
+
+.chrysoberyl-page-content.prose ul {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    list-style-type: disc;
+}
+
+.chrysoberyl-page-content.prose ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    list-style-type: decimal;
+}
+
+.chrysoberyl-page-content.prose li {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+    color: #3c4043;
+}
+
+.chrysoberyl-page-content.prose a {
+    color: #1a73e8;
+    text-decoration: none;
+}
+
+.chrysoberyl-page-content.prose a:hover {
+    text-decoration: underline;
+}
+
+.chrysoberyl-page-content.prose .text-lg {
+    color: #202124;
 }
 
 /* ============================================
@@ -884,52 +976,52 @@ footer form button[type="submit"]:hover::before {
         margin-right: -1rem;
         padding-right: 1rem;
     }
-    
+
     .chrysoberyl-share-buttons::-webkit-scrollbar {
         height: 4px;
     }
-    
+
     .chrysoberyl-share-buttons::-webkit-scrollbar-track {
         background: transparent;
     }
-    
+
     .chrysoberyl-share-buttons::-webkit-scrollbar-thumb {
         background-color: rgba(0, 0, 0, 0.2);
         border-radius: 2px;
     }
-    
+
     /* Make buttons smaller on mobile */
     .chrysoberyl-share-btn {
         flex-shrink: 0;
     }
-    
+
     .chrysoberyl-share-icon-only .chrysoberyl-share-btn {
         width: 40px;
         height: 40px;
     }
-    
+
     .chrysoberyl-share-icon-only .chrysoberyl-share-btn i {
         font-size: 1.125rem;
     }
-    
+
     .chrysoberyl-share-icon-text .chrysoberyl-share-btn,
     .chrysoberyl-share-button .chrysoberyl-share-btn {
         padding: 0.5rem 0.875rem;
         font-size: 0.8125rem;
         min-width: auto;
     }
-    
+
     .chrysoberyl-share-btn-label {
         font-size: 0.75rem;
         white-space: nowrap;
     }
-    
+
     /* Hide label on mobile if icon_text or button style */
     .chrysoberyl-share-icon-text .chrysoberyl-share-btn-label,
     .chrysoberyl-share-button .chrysoberyl-share-btn-label {
         display: none;
     }
-    
+
     /* Adjust container - keep in same line */
     .chrysoberyl-social-share {
         flex-direction: row;
@@ -937,7 +1029,7 @@ footer form button[type="submit"]:hover::before {
         gap: 0.75rem;
         flex-wrap: nowrap;
     }
-    
+
     .chrysoberyl-share-label {
         font-size: 0.75rem;
         white-space: nowrap;
@@ -1040,6 +1132,7 @@ footer form button[type="submit"]:hover::before {
     min-width: 2.5rem;
     box-shadow: none;
 }
+
 .chrysoberyl-share-style-mockup .chrysoberyl-share-btn:hover {
     background-color: #f1f3f4 !important;
     color: #5f6368;
@@ -1047,6 +1140,7 @@ footer form button[type="submit"]:hover::before {
     box-shadow: none;
     opacity: 1;
 }
+
 .chrysoberyl-share-style-mockup .chrysoberyl-share-btn i {
     font-size: 1.25rem;
     color: inherit;
@@ -1133,6 +1227,7 @@ footer form button[type="submit"]:hover::before {
     color: #5f6368;
     box-shadow: none;
 }
+
 .chrysoberyl-floating-share-style-mockup .chrysoberyl-floating-share-btn:hover {
     background-color: #f1f3f4 !important;
     color: #5f6368;
@@ -1218,6 +1313,7 @@ footer form button[type="submit"]:hover::before {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1321,7 +1417,7 @@ footer form button[type="submit"]:hover::before {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.25rem;
 }
 
 .chrysoberyl-toc-item {
@@ -1332,10 +1428,10 @@ footer form button[type="submit"]:hover::before {
     display: block;
     color: #374151;
     text-decoration: none;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
     transition: all 0.2s ease;
-    line-height: 1.5;
+    line-height: 1.4;
     font-size: 0.875rem;
 }
 
@@ -1350,21 +1446,41 @@ footer form button[type="submit"]:hover::before {
     font-weight: 600;
 }
 
-.chrysoberyl-toc-nested {
-    list-style: none;
-    padding-left: 1.25rem;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+/* หัวข้อหลัก (h2) — เด่นกว่าหัวข้อย่อย */
+.chrysoberyl-toc-item-level-2 .chrysoberyl-toc-link {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: #111827;
+}
+
+/* หัวข้อย่อย (h3) — ไม่ตัวหนา */
+.chrysoberyl-toc-item-level-3 .chrysoberyl-toc-link {
+    font-weight: 400;
+    font-size: 0.875rem;
+    color: #374151;
 }
 
 .chrysoberyl-toc-item-level-3 {
     padding-left: 0.5rem;
 }
 
+/* หัวข้อระดับลึก (h4) */
+.chrysoberyl-toc-item-level-4 .chrysoberyl-toc-link {
+    font-weight: 400;
+    font-size: 0.8125rem;
+    color: #6b7280;
+}
+
 .chrysoberyl-toc-item-level-4 {
     padding-left: 1rem;
+}
+
+/* h5, h6 */
+.chrysoberyl-toc-item-level-5 .chrysoberyl-toc-link,
+.chrysoberyl-toc-item-level-6 .chrysoberyl-toc-link {
+    font-weight: 400;
+    font-size: 0.75rem;
+    color: #9ca3af;
 }
 
 .chrysoberyl-toc-item-level-5 {
@@ -1373,6 +1489,22 @@ footer form button[type="submit"]:hover::before {
 
 .chrysoberyl-toc-item-level-6 {
     padding-left: 2rem;
+}
+
+/* รายการที่อยู่นอกรายการซ้อน = ระดับบนสุด ให้เด่น (fallback ถ้าไม่มี class level-2) */
+.chrysoberyl-toc-list > .chrysoberyl-toc-item > .chrysoberyl-toc-link {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: #111827;
+}
+
+.chrysoberyl-toc-nested {
+    list-style: none;
+    padding-left: 1rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
 /* TOC Position Styles */
@@ -1409,6 +1541,14 @@ footer form button[type="submit"]:hover::before {
     max-width: 300px;
     max-height: 80vh;
     overflow-y: auto;
+    pointer-events: auto;
+}
+
+/* Ensure TOC is clickable on page single when rendered in footer */
+body.page .chrysoberyl-toc-floating,
+body.page .chrysoberyl-toc-floating .chrysoberyl-toc-toggle {
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 .chrysoberyl-toc-floating .chrysoberyl-toc-container {
@@ -1419,14 +1559,18 @@ footer form button[type="submit"]:hover::before {
 /* Mobile TOC */
 .chrysoberyl-toc-mobile-toggle {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    bottom: 5rem; /* 80px - ให้ห่างจาก bottom */
-    left: 1rem; /* 16px - อยู่ด้านซ้าย */
+    bottom: 5rem;
+    /* 80px - ให้ห่างจาก bottom */
+    left: 1rem;
+    /* 16px - อยู่ด้านซ้าย */
 }
 
 /* Adjust Back to Top button position on mobile when TOC is present */
 body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
-    bottom: 1.5rem; /* 24px - ปรับให้ใกล้ bottom มากขึ้น */
-    right: 1rem; /* 16px - อยู่ด้านขวา */
+    bottom: 1.5rem;
+    /* 24px - ปรับให้ใกล้ bottom มากขึ้น */
+    right: 1rem;
+    /* 16px - อยู่ด้านขวา */
 }
 
 .chrysoberyl-toc-mobile-drawer {
@@ -1455,19 +1599,42 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
 .chrysoberyl-toc-mobile-nav .chrysoberyl-toc-item {
-    margin-bottom: 0.5rem;
+    margin: 0;
 }
 
 .chrysoberyl-toc-mobile-nav .chrysoberyl-toc-link {
     display: block;
     color: #4B5563;
     text-decoration: none;
-    padding: 0.75rem;
+    padding: 0.35rem 0.5rem;
     border-radius: 0.375rem;
     transition: all 0.2s ease;
+    line-height: 1.4;
+}
+
+.chrysoberyl-toc-mobile-nav .chrysoberyl-toc-list > .chrysoberyl-toc-item > .chrysoberyl-toc-link {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: #111827;
+}
+
+.chrysoberyl-toc-mobile-nav .chrysoberyl-toc-item-level-3 .chrysoberyl-toc-link {
+    font-weight: 400;
+    font-size: 0.875rem;
+}
+
+.chrysoberyl-toc-mobile-nav .chrysoberyl-toc-item-level-4 .chrysoberyl-toc-link,
+.chrysoberyl-toc-mobile-nav .chrysoberyl-toc-item-level-5 .chrysoberyl-toc-link,
+.chrysoberyl-toc-mobile-nav .chrysoberyl-toc-item-level-6 .chrysoberyl-toc-link {
+    font-weight: 400;
+    font-size: 0.8125rem;
+    color: #6b7280;
 }
 
 .chrysoberyl-toc-mobile-nav .chrysoberyl-toc-link:hover,
@@ -1502,83 +1669,88 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
         left: 10px;
         bottom: 80px;
     }
-    
+
     .chrysoberyl-floating-share-toggle {
         width: 48px;
         height: 48px;
         font-size: 1.25rem;
     }
-    
+
     .chrysoberyl-floating-share-btn {
         width: 44px;
         height: 44px;
         font-size: 1.125rem;
     }
-    
+
     .chrysoberyl-social-share {
         justify-content: center;
     }
-    
+
     .chrysoberyl-search-container {
         display: none;
     }
-    
+
     .chrysoberyl-search-modal {
         padding: 1rem;
     }
-    
+
     .chrysoberyl-search-modal-content {
         margin-top: 1rem;
     }
-    
+
     /* TOC Mobile Styles */
     .chrysoberyl-toc-floating {
         display: none;
     }
-    
+
     .chrysoberyl-toc-sidebar {
         margin-bottom: 1.5rem;
     }
-    
+
     .chrysoberyl-toc-sticky .chrysoberyl-toc-container {
         position: relative;
         top: 0;
         max-height: none;
     }
-    
+
     .chrysoberyl-toc-mobile-top {
         margin-bottom: 1.5rem;
     }
-    
+
     .chrysoberyl-toc-mobile-bottom {
         margin-top: 1.5rem;
     }
-    
+
     .chrysoberyl-toc-auto-collapse-mobile .chrysoberyl-toc-content {
         max-height: 0;
         overflow: hidden;
     }
-    
+
     .chrysoberyl-toc-auto-collapse-mobile .chrysoberyl-toc-content:not(.chrysoberyl-toc-content-collapsed) {
         max-height: none;
     }
-    
+
     /* Adjust button positions on mobile */
     .chrysoberyl-toc-mobile-toggle {
-        bottom: 5rem !important; /* 80px - ให้ห่างจาก bottom */
-        left: 1rem !important; /* 16px - อยู่ด้านซ้าย */
+        bottom: 5rem !important;
+        /* 80px - ให้ห่างจาก bottom */
+        left: 1rem !important;
+        /* 16px - อยู่ด้านซ้าย */
         right: auto !important;
     }
-    
+
     /* Back to Top button on mobile */
     #back-to-top {
-        bottom: 1.5rem !important; /* 24px - ใกล้ bottom */
-        right: 1rem !important; /* 16px - อยู่ด้านขวา */
+        bottom: 1.5rem !important;
+        /* 24px - ใกล้ bottom */
+        right: 1rem !important;
+        /* 16px - อยู่ด้านขวา */
     }
-    
+
     /* Floating Share Buttons - adjust position if TOC is present */
     .chrysoberyl-floating-share {
-        bottom: 5.5rem; /* ปรับให้อยู่เหนือ TOC button */
+        bottom: 5.5rem;
+        /* ปรับให้อยู่เหนือ TOC button */
     }
 }
 
@@ -1609,16 +1781,42 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
     font-size: 1rem;
     color: #3c4043;
 }
+
 .single .prose h1,
-.single .chrysoberyl-single-prose h1 { font-size: 2rem; }
+.single .chrysoberyl-single-prose h1 {
+    font-size: 2rem;
+}
+
 .single .prose h2,
-.single .chrysoberyl-single-prose h2 { font-size: 1.75rem; font-weight: 500; color: #202124; margin-top: 2.5rem; margin-bottom: 1rem; }
+.single .chrysoberyl-single-prose h2 {
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: #202124;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+}
+
 .single .prose h3,
-.single .chrysoberyl-single-prose h3 { font-size: 1.375rem; font-weight: 500; color: #202124; margin-top: 2rem; margin-bottom: 0.75rem; }
+.single .chrysoberyl-single-prose h3 {
+    font-size: 1.375rem;
+    font-weight: 500;
+    color: #202124;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+}
+
 .single .prose h4,
-.single .chrysoberyl-single-prose h4 { font-size: 1.125rem; }
+.single .chrysoberyl-single-prose h4 {
+    font-size: 1.125rem;
+}
+
 .single .prose p,
-.single .chrysoberyl-single-prose p { line-height: 1.8; color: #3c4043; margin-bottom: 1.25rem; }
+.single .chrysoberyl-single-prose p {
+    line-height: 1.8;
+    color: #3c4043;
+    margin-bottom: 1.25rem;
+}
+
 .single .prose blockquote,
 .single .chrysoberyl-single-prose blockquote {
     border-left: 4px solid #1a73e8;
@@ -1627,27 +1825,60 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
     font-style: italic;
     color: #5f6368;
 }
+
 .single .prose a,
-.single .chrysoberyl-single-prose a { color: #1a73e8; }
+.single .chrysoberyl-single-prose a {
+    color: #1a73e8;
+}
+
 .single .prose a:hover,
-.single .chrysoberyl-single-prose a:hover { text-decoration: underline; }
+.single .chrysoberyl-single-prose a:hover {
+    text-decoration: underline;
+}
+
 .single .prose img,
-.single .chrysoberyl-single-prose img { border-radius: 16px; margin: 2rem 0; }
+.single .chrysoberyl-single-prose img {
+    border-radius: 16px;
+    margin: 2rem 0;
+}
+
+/* Single post: ลดช่องว่างระหว่างรายการในลิสต์ (ul/ol) */
+.single .prose ul,
+.single .chrysoberyl-single-prose ul,
+.single .prose ol,
+.single .chrysoberyl-single-prose ol {
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+}
+
+.single .prose li,
+.single .chrysoberyl-single-prose li {
+    margin-top: 0.125em;
+    margin-bottom: 0.125em;
+}
+
+.single .prose ul ul,
+.single .prose ol ol,
+.single .chrysoberyl-single-prose ul ul,
+.single .chrysoberyl-single-prose ol ol {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
 
 /* Responsive Typography */
 @media (max-width: 768px) {
     .prose {
         font-size: 1rem;
     }
-    
+
     .prose h1 {
         font-size: 1.875rem;
     }
-    
+
     .prose h2 {
         font-size: 1.5rem;
     }
-    
+
     .prose h3 {
         font-size: 1.25rem;
     }
@@ -1669,15 +1900,18 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
         align-items: flex-start;
         justify-content: center;
     }
+
     /* Right edge of ad: 20px away from content (content left = (100vw - 80rem)/2 + 2rem) */
     .chrysoberyl-floating-left-ad-120 {
         width: 120px;
         left: max(1rem, calc((100vw - 80rem) / 2 + 2rem - 40px - 120px));
     }
+
     .chrysoberyl-floating-left-ad-160 {
         width: 160px;
         left: max(1rem, calc((100vw - 80rem) / 2 + 2rem - 40px - 160px));
     }
+
     .chrysoberyl-floating-left-ad-inner {
         width: 100%;
         height: 600px;
@@ -1687,6 +1921,7 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         overflow: hidden;
     }
+
     .chrysoberyl-floating-left-ad-inner iframe,
     .chrysoberyl-floating-left-ad-inner img {
         max-width: 100%;
@@ -1694,6 +1929,7 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
         display: block;
     }
 }
+
 @media (max-width: 1023px) {
     .chrysoberyl-floating-left-ad {
         display: none;
@@ -1706,9 +1942,10 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists {
     --sitemap-gap: 1.5rem;
 }
+
 /* Section blocks: h2/h3 + following list */
-.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists > h2,
-.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists > h3,
+.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists>h2,
+.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists>h3,
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists .rank-math-html-sitemap h2,
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists .rank-math-html-sitemap h3 {
     margin: 1.75rem 0 0.75rem 0;
@@ -1725,16 +1962,19 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
     justify-content: space-between;
     user-select: none;
 }
-.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists > h2:first-child,
-.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists > h3:first-child,
+
+.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists>h2:first-child,
+.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists>h3:first-child,
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists .rank-math-html-sitemap h2:first-child,
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists .rank-math-html-sitemap h3:first-child {
     margin-top: 0;
 }
+
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists .sitemap-section-toggle {
     font-size: 0.875rem;
     color: #6b7280;
 }
+
 /* Lists: multi-column, more spacing for readability */
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul {
     list-style: none;
@@ -1744,25 +1984,30 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
     column-gap: 2.5rem;
     line-height: 1.65;
 }
+
 @media (min-width: 640px) {
     .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul {
         column-count: 2;
     }
 }
+
 @media (min-width: 1024px) {
     .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul {
         column-count: 3;
     }
 }
+
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul li {
     margin: 0.5rem 0;
     padding: 0.4rem 0.5rem 0.4rem 0;
     break-inside: avoid;
     border-bottom: 1px solid #f3f4f6;
 }
+
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul li:last-child {
     border-bottom: none;
 }
+
 /* Link (title) stands out */
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul li a {
     color: #1f2937;
@@ -1770,10 +2015,12 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
     font-size: 0.9375rem;
     font-weight: 500;
 }
+
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul li a:hover {
     color: var(--accent, #1a73e8);
     text-decoration: underline;
 }
+
 /* Mute secondary text after link (site name, date) - Rank Math may wrap in span */
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul li span,
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul li .sitemap-date {
@@ -1781,30 +2028,36 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
     color: #6b7280;
     font-weight: 400;
 }
-.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul li a + span,
-.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul li a + .sitemap-date {
+
+.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul li a+span,
+.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists ul li a+.sitemap-date {
     margin-left: 0.25rem;
 }
+
 /* Collapsed section: hide list (next sibling of collapsed header) */
-.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists h2.is-collapsed + ul,
-.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists h3.is-collapsed + ul,
-.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists h2.is-collapsed + div,
-.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists h3.is-collapsed + div {
+.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists h2.is-collapsed+ul,
+.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists h3.is-collapsed+ul,
+.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists h2.is-collapsed+div,
+.chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists h3.is-collapsed+div {
     display: none;
 }
+
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists h2 .sitemap-section-toggle,
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists h3 .sitemap-section-toggle {
     transition: transform 0.2s ease;
 }
+
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists h2.is-collapsed .sitemap-section-toggle,
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-lists h3.is-collapsed .sitemap-section-toggle {
     transform: rotate(-90deg);
 }
+
 /* Rank Math wrapper if present */
 .chrysoberyl-sitemap-page .rank-math-html-sitemap {
     margin: 0;
     padding: 0;
 }
+
 .chrysoberyl-sitemap-page .chrysoberyl-sitemap-back a {
     font-size: 0.9375rem;
 }
@@ -1815,13 +2068,16 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
     background-color: #fef2f2;
     color: #991b1b;
 }
+
 .chrysoberyl-login-error:not(.hidden) {
     display: block;
 }
+
 .chrysoberyl-login-pwd-toggle {
     min-width: 2.25rem;
     min-height: 2.25rem;
 }
+
 .chrysoberyl-login-pwd-wrap .chrysoberyl-pwd-icon-hide.hidden,
 .chrysoberyl-login-pwd-wrap .chrysoberyl-pwd-icon-show.hidden {
     display: none !important;
@@ -1831,16 +2087,204 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
 .chrysoberyl-login-modal {
     z-index: 1001;
 }
+
 body.chrysoberyl-login-modal-open .chrysoberyl-toc .chrysoberyl-toc-link,
 body.chrysoberyl-login-modal-open .chrysoberyl-toc .chrysoberyl-toc-link-active {
     color: #9ca3af !important;
     pointer-events: none;
     cursor: default;
 }
+
 body.chrysoberyl-login-modal-open .chrysoberyl-toc {
     pointer-events: none;
 }
+
 body.chrysoberyl-login-modal-open .chrysoberyl-toc .chrysoberyl-toc-toggle {
     pointer-events: none;
     cursor: default;
+}
+
+/* ============================================
+   Sitemap Page - Google Style Design
+   ============================================ */
+
+/* Sitemap Hero Section */
+.chrysoberyl-sitemap-page h1 {
+    font-weight: 400;
+    letter-spacing: -0.02em;
+}
+
+/* Sitemap Grid Cards */
+.chrysoberyl-sitemap-page .bg-google-gray-50 {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chrysoberyl-sitemap-page .bg-google-gray-50:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Sitemap Icon Containers */
+.chrysoberyl-sitemap-page .rounded-full {
+    transition: transform 0.3s ease;
+}
+
+.chrysoberyl-sitemap-page .bg-google-gray-50:hover .rounded-full {
+    transform: scale(1.1);
+}
+
+/* Sitemap Links */
+.chrysoberyl-sitemap-page a svg {
+    transition: transform 0.2s ease;
+}
+
+.chrysoberyl-sitemap-page a:hover svg {
+    transform: translateX(2px);
+}
+
+/* Visual Tree Structure */
+.chrysoberyl-sitemap-page .bg-gray-300 {
+    background-color: #d1d5db;
+}
+
+/* Tree Node Hover Effects */
+.chrysoberyl-sitemap-page .rounded-lg {
+    transition: all 0.2s ease;
+}
+
+.chrysoberyl-sitemap-page a.rounded-lg:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tag Pills in Sitemap */
+.chrysoberyl-sitemap-page .border-gray-200 {
+    transition: all 0.2s ease;
+}
+
+.chrysoberyl-sitemap-page .border-gray-200:hover {
+    border-color: #1a73e8;
+    background-color: #f0f7ff;
+}
+
+/* Responsive Sitemap Grid */
+@media (max-width: 768px) {
+    .chrysoberyl-sitemap-page .grid {
+        gap: 1rem;
+    }
+
+    .chrysoberyl-sitemap-page .rounded-card {
+        padding: 1rem;
+    }
+
+    .chrysoberyl-sitemap-page h1 {
+        font-size: 2rem;
+    }
+
+    .chrysoberyl-sitemap-page h2 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Sitemap Stats Section */
+.chrysoberyl-sitemap-page .text-google-blue {
+    font-weight: 500;
+}
+
+/* Smooth Animations */
+.chrysoberyl-sitemap-page * {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sitemap: reduce space between header and title (match mockup) */
+.chrysoberyl-sitemap-page #main-content {
+    padding-top: 0 !important;
+}
+.chrysoberyl-sitemap-page #main-content .container {
+    padding-top: 0;
+}
+.chrysoberyl-sitemap-page #main-content .sitemap-hero {
+    padding-top: 1.5rem !important;
+    padding-bottom: 3rem !important;
+}
+@media (min-width: 768px) {
+    .chrysoberyl-sitemap-page #main-content .sitemap-hero {
+        padding-top: 2rem !important;
+        padding-bottom: 4rem !important;
+    }
+}
+
+/* Current Page Indicator: blue color (mockup) */
+.chrysoberyl-sitemap-page a.text-google-blue,
+.chrysoberyl-sitemap-page a.chrysoberyl-sitemap-current {
+    color: #1a73e8 !important;
+    font-weight: 500;
+    position: relative;
+}
+.chrysoberyl-sitemap-page a.text-google-blue {
+    position: relative;
+}
+
+.chrysoberyl-sitemap-page a.text-google-blue::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #1a73e8;
+    border-radius: 1px;
+}
+
+/* Tree Structure Responsive */
+@media (max-width: 640px) {
+    .chrysoberyl-sitemap-page .min-w-\[600px\] {
+        min-width: 500px;
+    }
+
+    .chrysoberyl-sitemap-page .flex.gap-8 {
+        gap: 1rem;
+    }
+
+    .chrysoberyl-sitemap-page .px-4.py-2 {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* Accessibility Focus States */
+.chrysoberyl-sitemap-page a:focus-visible {
+    outline: 2px solid #1a73e8;
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+}
+
+/* Loading State for Dynamic Content */
+.chrysoberyl-sitemap-page .space-y-3 li {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Print Styles for Sitemap */
+@media print {
+    .chrysoberyl-sitemap-page .bg-google-gray-50 {
+        border: 1px solid #e5e7eb;
+        break-inside: avoid;
+    }
+
+    .chrysoberyl-sitemap-page .rounded-full {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
 }

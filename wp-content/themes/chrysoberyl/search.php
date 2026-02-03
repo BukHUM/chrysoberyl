@@ -111,7 +111,7 @@ get_header();
                                             </span>
                                         <?php endif; ?>
                                         <span class="text-xs text-gray-400">
-                                            <?php echo human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . ' ที่แล้ว'; ?>
+                                            <?php echo human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . ' ' . esc_html( __( 'ago', 'chrysoberyl' ) ); ?>
                                         </span>
                                     </div>
                                     <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-accent transition leading-snug">

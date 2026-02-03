@@ -24,7 +24,7 @@ class chrysoberyl_Categories_Widget extends WP_Widget {
     }
 
     public function widget( $args, $instance ) {
-        $title        = ! empty( $instance['title'] ) ? $instance['title'] : __( 'หมวดหมู่', 'chrysoberyl' );
+        $title        = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Categories', 'chrysoberyl' );
         // Default show_count to true (Google best practice: show article count in parentheses)
         $show_count   = isset( $instance['show_count'] ) ? ! empty( $instance['show_count'] ) : true;
         // Default hierarchical to true so programmatic render (sidebar-single) and new instances show collapsible list
@@ -134,7 +134,7 @@ class chrysoberyl_Categories_Widget extends WP_Widget {
     }
 
     public function form( $instance ) {
-        $title        = ! empty( $instance['title'] ) ? $instance['title'] : __( 'หมวดหมู่', 'chrysoberyl' );
+        $title        = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Categories', 'chrysoberyl' );
         $show_count   = isset( $instance['show_count'] ) ? ! empty( $instance['show_count'] ) : true;
         $hierarchical = isset( $instance['hierarchical'] ) ? ! empty( $instance['hierarchical'] ) : true;
         ?>

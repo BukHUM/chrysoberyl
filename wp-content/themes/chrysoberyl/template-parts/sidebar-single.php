@@ -9,10 +9,11 @@
 
 <aside class="w-full space-y-8" aria-label="<?php esc_attr_e( 'Sidebar', 'chrysoberyl' ); ?>">
     <?php
-    // Table of Contents - Sidebar
-    $toc_enabled = get_option( 'chrysoberyl_toc_enabled', '1' );
+    // Table of Contents - Sidebar (Theme: display on post single; post/page option overrides theme default)
+    $toc_show_on_post = get_option( 'chrysoberyl_toc_show_on_single_post', '1' ) === '1';
+    $toc_show = $toc_show_on_post && ( function_exists( 'chrysoberyl_show_toc_for_post' ) ? chrysoberyl_show_toc_for_post() : ( get_option( 'chrysoberyl_toc_enabled', '1' ) === '1' ) );
     $toc_position = get_option( 'chrysoberyl_toc_position', 'top' );
-    if ( $toc_enabled === '1' && $toc_position === 'sidebar' ) :
+    if ( $toc_show && $toc_position === 'sidebar' ) :
     ?>
         <div class="mb-8">
             <?php get_template_part( 'template-parts/table-of-contents' ); ?>
@@ -119,7 +120,7 @@
                                     <h4 class="text-sm font-bold text-gray-900 group-hover:text-accent transition line-clamp-2 mb-1"><?php echo esc_html( $post_title ); ?></h4>
                                     <span class="text-xs text-gray-400">
                                         <?php if ( $category_name ) : ?><?php echo esc_html( $category_name ); ?> • <?php endif; ?>
-                                        <?php echo esc_html( human_time_diff( $post_date, current_time( 'timestamp' ) ) ); ?> <?php _e( 'ที่แล้ว', 'chrysoberyl' ); ?>
+                                        <?php echo esc_html( human_time_diff( $post_date, current_time( 'timestamp' ) ) ); ?> <?php _e( 'ago', 'chrysoberyl' ); ?>
                                     </span>
                                 </div>
                             </a>

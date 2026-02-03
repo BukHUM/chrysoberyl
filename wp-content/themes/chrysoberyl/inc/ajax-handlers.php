@@ -184,7 +184,7 @@ function chrysoberyl_search_suggestions() {
             }
 
             if ( in_array( 'date', $search_suggestions_display ) ) {
-                $suggestion['date'] = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . ' ที่แล้ว';
+                $suggestion['date'] = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . ' ' . __( 'ago', 'chrysoberyl' );
             }
 
             if ( in_array( 'category', $search_suggestions_display ) ) {

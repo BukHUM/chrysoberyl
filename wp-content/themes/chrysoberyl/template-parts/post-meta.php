@@ -26,7 +26,7 @@ $args = wp_parse_args( $args, array(
     <?php if ( $args['show_date'] ) : ?>
         <span class="flex items-center">
             <i class="far fa-clock mr-1.5"></i>
-            <?php echo human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . ' ' . __( 'ที่แล้ว', 'chrysoberyl' ); ?>
+            <?php echo human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . ' ' . __( 'ago', 'chrysoberyl' ); ?>
         </span>
     <?php endif; ?>
 
@@ -62,7 +62,7 @@ $args = wp_parse_args( $args, array(
         ?>
         <span class="flex items-center">
             <i class="far fa-clock mr-1.5"></i>
-            <?php printf( __( 'อ่าน %d นาที', 'chrysoberyl' ), absint( $reading_time ) ); ?>
+            <?php printf( _n( '%d min read', '%d min read', absint( $reading_time ), 'chrysoberyl' ), absint( $reading_time ) ); ?>
         </span>
     <?php endif; ?>
 

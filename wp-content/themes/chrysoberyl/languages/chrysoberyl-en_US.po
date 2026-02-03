@@ -2378,3 +2378,75 @@ msgstr "• Image banner: Use HTML such as"
 #: widgets/class-custom-html-widget.php:75
 msgid "• โฆษณาจาก Google AdSense: วางสคริปต์ที่ได้จาก AdSense ทั้งก้อนลงในช่องด้านบน"
 msgstr "• Google AdSense: Paste the full AdSense script in the box above."
+
+#: page-rankmath.php
+msgid "รวมลิงก์ทั้งหมดของ Chrysoberyl เพื่อความสะดวกในการนำทาง"
+msgstr "All links of Chrysoberyl for easy navigation"
+
+#: page-rankmath.php
+msgid "หน้าหลัก"
+msgstr "Main Pages"
+
+#: page-rankmath.php
+msgid "หน้าแรก (Homepage)"
+msgstr "Home (Homepage)"
+
+#: page-rankmath.php
+msgid "เนื้อหา"
+msgstr "Content"
+
+#: page-rankmath.php
+msgid "หมวดหมู่ (Category)"
+msgstr "Category"
+
+#: page-rankmath.php
+msgid "บทความ (Single Post)"
+msgstr "Single Post"
+
+#: page-rankmath.php
+msgid "แท็ก"
+msgstr "Tag"
+
+#: page-rankmath.php
+msgid "แท็ก (Tag Archive)"
+msgstr "Tag Archive"
+
+#: page-rankmath.php
+msgid "ผู้เขียน (Author)"
+msgstr "Author"
+
+#: page-rankmath.php
+msgid "ผลการค้นหา (Search)"
+msgstr "Search Results (Search)"
+
+#: page-rankmath.php
+msgid "แท็กยอดนิยม:"
+msgstr "Popular tags:"
+
+#: page-rankmath.php
+msgid "กฎหมาย & อื่นๆ"
+msgstr "Legal & Other"
+
+#: page-rankmath.php
+msgid "คุณอยู่ที่นี่"
+msgstr "You are here"
+
+#: page-rankmath.php
+msgid "หน้าไม่พบ (404 Error)"
+msgstr "Page not found (404 Error)"
+
+#: page-rankmath.php
+msgid "โครงสร้างเว็บไซต์"
+msgstr "Site structure"
+
+#: page-rankmath.php
+msgid "เครื่องมือ"
+msgstr "Utility"
+
+#: page-rankmath.php
+msgid "กฎหมาย"
+msgstr "Legal"
+
+#: page-rankmath.php
+msgid "รวมทั้งหมด %s หน้า (รวม Sitemap)"
+msgstr "Total of %s pages (including Sitemap)"

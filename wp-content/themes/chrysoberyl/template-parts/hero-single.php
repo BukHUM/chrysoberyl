@@ -48,7 +48,7 @@ $cat_name    = $first_cat ? $first_cat->name : '';
         <div class="flex items-center gap-4">
             <a href="<?php echo esc_url( $permalink ); ?>"
                 class="inline-flex items-center justify-center px-8 py-3 bg-google-blue text-white font-medium rounded-pill hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
-                <?php _e( 'อ่านเรื่องราว', 'chrysoberyl' ); ?>
+                <?php _e( 'Read Story', 'chrysoberyl' ); ?>
             </a>
         </div>
     </div>

@@ -1,6 +1,7 @@
 <?php
 /**
  * The template for displaying 404 pages (not found)
+ * Design aligned with mockup/404.html
  *
  * @package Chrysoberyl
  * @since 1.0.0
@@ -9,83 +10,68 @@
 get_header();
 ?>
 
-<main id="main-content" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
-    <div class="text-center">
+<main id="main-content" class="flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-8 w-full">
+    <div class="text-center max-w-lg w-full">
+        <!-- 404 Illustration (mockup: colored 4-0-4) -->
         <div class="mb-8">
-            <h1 class="text-9xl font-bold text-gray-200 mb-4">404</h1>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                <?php _e( 'ไม่พบหน้าที่คุณกำลังมองหา', 'chrysoberyl' ); ?>
-            </h2>
-            <p class="text-gray-500 text-lg mb-8">
-                <?php _e( 'หน้านี้อาจถูกลบหรือย้ายไปที่อื่นแล้ว', 'chrysoberyl' ); ?>
-            </p>
+            <div class="text-[120px] md:text-[180px] font-medium leading-none select-none" aria-hidden="true">
+                <span class="text-google-blue">4</span>
+                <span class="text-[#ea4335]">0</span>
+                <span class="text-[#fbbc04]">4</span>
+            </div>
         </div>
 
-        <div class="max-w-md mx-auto mb-12">
-            <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="relative">
-                <input type="search" 
-                       name="s" 
-                       class="w-full px-6 py-4 rounded-full text-gray-900 focus:outline-none focus:ring-4 focus:ring-accent/50 text-lg shadow-lg pl-14"
-                       placeholder="<?php _e( 'ลองค้นหาดู...', 'chrysoberyl' ); ?>">
-                <i class="fas fa-search absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 text-xl"></i>
-                <button type="submit"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 bg-accent hover:bg-blue-600 text-white px-6 py-2 rounded-full font-bold text-sm transition">
-                    <?php _e( 'ค้นหา', 'chrysoberyl' ); ?>
-                </button>
-            </form>
-        </div>
+        <h1 class="text-2xl md:text-3xl font-normal text-google-gray mb-4">
+            <?php _e( 'The page you are looking for was not found', 'chrysoberyl' ); ?>
+        </h1>
+        <p class="text-lg text-google-gray-500 mb-8">
+            <?php _e( 'The page you want may have been moved, removed, or the URL is incorrect.', 'chrysoberyl' ); ?>
+        </p>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" 
-               class="bg-accent text-white px-8 py-3 rounded-full hover:bg-blue-600 transition font-medium">
-                <i class="fas fa-home mr-2"></i><?php _e( 'กลับหน้าแรก', 'chrysoberyl' ); ?>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"
+                class="inline-flex items-center justify-center px-8 py-3 bg-google-blue text-white font-medium rounded-pill hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <?php _e( 'Back to home', 'chrysoberyl' ); ?>
             </a>
-            <a href="javascript:history.back()" 
-               class="bg-white border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-full hover:bg-gray-50 transition font-medium">
-                <i class="fas fa-arrow-left mr-2"></i><?php _e( 'กลับหน้าก่อนหน้า', 'chrysoberyl' ); ?>
+            <?php
+            $contact_url = home_url( '/contact' );
+            $contact_page = get_page_by_path( 'contact' );
+            if ( $contact_page ) {
+                $contact_url = get_permalink( $contact_page );
+            }
+            ?>
+            <a href="<?php echo esc_url( $contact_url ); ?>"
+                class="inline-flex items-center justify-center px-8 py-3 border border-gray-300 text-google-gray font-medium rounded-pill hover:bg-google-gray-50 transition-all">
+                <?php _e( 'Report a problem', 'chrysoberyl' ); ?>
             </a>
         </div>
 
-        <!-- Popular Posts -->
-        <?php
-        $popular_posts = get_posts( array(
-            'numberposts' => 4,
-            'orderby'     => 'date',
-            'order'       => 'DESC',
-        ) );
-
-        if ( ! empty( $popular_posts ) ) :
-            ?>
-            <div class="mt-16">
-                <h3 class="text-2xl font-bold text-gray-900 mb-6"><?php _e( 'ข่าวล่าสุด', 'chrysoberyl' ); ?></h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <?php foreach ( $popular_posts as $post ) : setup_postdata( $post ); ?>
-                        <a href="<?php echo esc_url( chrysoberyl_fix_url( get_permalink() ) ); ?>" class="group">
-                            <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition">
-                                <?php if ( has_post_thumbnail() ) : ?>
-                                    <div class="h-40 overflow-hidden">
-                                        <?php the_post_thumbnail( 'chrysoberyl-thumbnail', array(
-                                            'class' => 'w-full h-full object-cover group-hover:scale-105 transition duration-500',
-                                        ) ); ?>
-                                    </div>
-                                <?php endif; ?>
-                                <div class="p-4">
-                                    <h4 class="font-bold text-gray-900 group-hover:text-accent transition line-clamp-2 mb-2">
-                                        <?php the_title(); ?>
-                                    </h4>
-                                    <p class="text-gray-500 text-xs">
-                                        <?php echo human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . ' ที่แล้ว'; ?>
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    <?php endforeach; wp_reset_postdata(); ?>
-                </div>
+        <!-- Search Suggestion (mockup) -->
+        <div class="mt-12 pt-8 border-t border-gray-200">
+            <p class="text-sm text-google-gray-500 mb-4">
+                <?php _e( 'Or try searching for what you need', 'chrysoberyl' ); ?>
+            </p>
+            <div class="max-w-md mx-auto">
+                <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="relative" role="search">
+                    <label for="404-search" class="sr-only"><?php esc_attr_e( 'Search', 'chrysoberyl' ); ?></label>
+                    <input type="search"
+                        id="404-search"
+                        name="s"
+                        class="w-full px-5 py-3 pl-12 rounded-full border border-gray-300 focus:border-google-blue focus:ring-2 focus:ring-google-blue focus:ring-opacity-20 outline-none transition-all text-google-gray placeholder-google-gray-500"
+                        placeholder="<?php esc_attr_e( 'Search articles...', 'chrysoberyl' ); ?>"
+                        value="<?php echo get_search_query() ? esc_attr( get_search_query() ) : ''; ?>">
+                    <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-google-gray-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </form>
             </div>
-        <?php endif; ?>
+        </div>
     </div>
 </main>
 
 <?php
 get_footer();
-?>

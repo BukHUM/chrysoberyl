@@ -79,7 +79,7 @@ class chrysoberyl_Recent_Posts_Widget extends WP_Widget {
                         </h4>
                         <?php if ( $show_date ) : ?>
                             <span class="text-xs text-gray-500 mt-1 block">
-                                <?php echo human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . ' ที่แล้ว'; ?>
+                                <?php echo human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . ' ' . esc_html( __( 'ago', 'chrysoberyl' ) ); ?>
                             </span>
                         <?php endif; ?>
                     </div>

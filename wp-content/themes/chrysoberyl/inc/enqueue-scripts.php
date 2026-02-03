@@ -143,7 +143,7 @@ function chrysoberyl_enqueue_assets()
     $load_custom_js = true; // Default: load on all pages
 
     // Check if we're on a page that needs custom.js
-    if (is_front_page() || is_home() || is_archive() || is_search() || is_single()) {
+    if (is_front_page() || is_home() || is_archive() || is_search() || is_single() || is_page()) {
         $load_custom_js = true;
     } else {
         // Don't load on pages that don't need it

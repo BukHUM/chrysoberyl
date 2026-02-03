@@ -106,7 +106,7 @@
                                         <h4 class="text-sm font-bold text-gray-900 group-hover:text-accent transition line-clamp-2 mb-1"><?php echo esc_html( $post_title ); ?></h4>
                                         <span class="text-xs text-gray-400">
                                             <?php if ( $category_name ) : ?><?php echo esc_html( $category_name ); ?> • <?php endif; ?>
-                                            <?php echo esc_html( human_time_diff( $post_date, (int) current_time( 'timestamp' ) ) ); ?> <?php _e( 'ที่แล้ว', 'chrysoberyl' ); ?>
+                                            <?php echo esc_html( human_time_diff( $post_date, (int) current_time( 'timestamp' ) ) ); ?> <?php _e( 'ago', 'chrysoberyl' ); ?>
                                         </span>
                                     </div>
                                 </a>

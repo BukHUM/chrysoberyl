@@ -6,8 +6,20 @@
  * @since 1.0.0
  */
 
-// Check if TOC is enabled
-$toc_enabled = get_option( 'chrysoberyl_toc_enabled', '1' );
+// Check if TOC is enabled (post/page option overrides theme default; Theme "Display on" restricts by type)
+if ( is_singular() ) {
+    $toc_show_on_post = get_option( 'chrysoberyl_toc_show_on_single_post', '1' ) === '1';
+    $toc_show_on_page = get_option( 'chrysoberyl_toc_show_on_single_page', '0' ) === '1';
+    if ( is_single() && ! $toc_show_on_post ) {
+        return;
+    }
+    if ( is_page() && ! $toc_show_on_page ) {
+        return;
+    }
+    $toc_enabled = function_exists( 'chrysoberyl_show_toc_for_post' ) ? ( chrysoberyl_show_toc_for_post( get_queried_object_id() ) ? '1' : '0' ) : get_option( 'chrysoberyl_toc_enabled', '1' );
+} else {
+    $toc_enabled = get_option( 'chrysoberyl_toc_enabled', '1' );
+}
 if ( $toc_enabled !== '1' ) {
     return;
 }
@@ -68,7 +80,7 @@ if ( $toc_auto_collapse_mobile === '1' ) {
      data-toc-config='<?php echo esc_attr( json_encode( $toc_data ) ); ?>'>
     <div class="chrysoberyl-toc-container">
         <?php if ( $toc_collapsible === '1' ) : ?>
-            <button class="chrysoberyl-toc-toggle" aria-label="<?php echo esc_attr( $toc_title ); ?>">
+            <button type="button" class="chrysoberyl-toc-toggle" aria-label="<?php echo esc_attr( $toc_title ); ?>">
                 <span class="chrysoberyl-toc-title">
                     <i class="fas fa-list-ul"></i>
                     <?php echo esc_html( $toc_title ); ?>

@@ -144,6 +144,10 @@ $show_language = apply_filters( 'chrysoberyl_show_language_switcher', false );
     </div>
     <?php endif; ?>
 </header>
-<!-- Spacer for fixed header + mockup gap (index.html: Spacer h-4 md:h-6) -->
-<div class="h-16" aria-hidden="true"></div>
+<?php
+// Spacers shared by all pages (mockup: header min-h-[64px] then Spacer h-4 md:h-6).
+// 1) h-16 compensates for fixed header so main content starts below the bar. On .page we collapse this via CSS to match mockup.
+// 2) h-4 md:h-6 matches mockup gap between header and content. Do not remove for consistency.
+?>
+<div class="chrysoberyl-header-spacer h-16" aria-hidden="true"></div>
 <div class="h-4 md:h-6" aria-hidden="true"></div>

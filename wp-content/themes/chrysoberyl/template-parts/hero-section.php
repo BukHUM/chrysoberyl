@@ -42,7 +42,7 @@ if ( $breaking_query->have_posts() ) :
             'title'      => get_the_title(),
             'excerpt'    => has_excerpt() ? get_the_excerpt() : '',
             'thumbnail'  => has_post_thumbnail() ? esc_url( get_the_post_thumbnail_url( get_the_ID(), 'chrysoberyl-hero' ) ) : '',
-            'time'       => human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . ' ที่แล้ว',
+            'time'       => human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . ' ' . __( 'ago', 'chrysoberyl' ),
             'author'     => chrysoberyl_get_author_name(),
         );
     endwhile;

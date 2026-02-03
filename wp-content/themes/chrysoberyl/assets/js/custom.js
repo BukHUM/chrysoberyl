@@ -904,13 +904,64 @@ function initTableOfContents() {
     }
     
     try {
-        const config = JSON.parse(tocContainer.getAttribute('data-toc-config'));
-        const headingsSelector = config.headings.split(',').map(h => h.trim()).join(', ');
+        const config = JSON.parse(tocContainer.getAttribute('data-toc-config') || '{}') || {};
+        const headingsSelector = (config.headings || 'h2,h3,h4').split(',').map(h => h.trim()).join(', ');
+        
+        // TOC toggle: document-level delegation in capture phase so it works on page single (TOC in footer)
+        if (!document.body.hasAttribute('data-chrysoberyl-toc-delegate')) {
+            document.body.setAttribute('data-chrysoberyl-toc-delegate', '1');
+            document.body.addEventListener('click', function(e) {
+                var toggleBtn = e.target.closest('.chrysoberyl-toc-toggle');
+                if (!toggleBtn) return;
+                var toc = toggleBtn.closest('.chrysoberyl-toc');
+                if (!toc) return;
+                e.preventDefault();
+                e.stopPropagation();
+                var content = toc.querySelector('.chrysoberyl-toc-content');
+                var icon = toggleBtn.querySelector('.chrysoberyl-toc-icon');
+                if (content) {
+                    content.classList.toggle('chrysoberyl-toc-content-collapsed');
+                    if (icon) {
+                        icon.classList.toggle('fa-chevron-down');
+                        icon.classList.toggle('fa-chevron-up');
+                    }
+                }
+            }, true);
+        }
+        var mobileDrawer = document.querySelector('.chrysoberyl-toc-mobile-drawer');
+        var mobileToggle = document.querySelector('.chrysoberyl-toc-mobile-toggle');
+        var mobileClose = document.querySelector('.chrysoberyl-toc-mobile-close');
+        if (mobileToggle && mobileDrawer) {
+            mobileToggle.addEventListener('click', function() {
+                mobileDrawer.classList.remove('hidden');
+                var content = mobileDrawer.querySelector('.chrysoberyl-toc-mobile-content');
+                if (content) setTimeout(function() { content.classList.add('chrysoberyl-toc-mobile-content-open'); }, 10);
+            });
+        }
+        if (mobileClose && mobileDrawer) {
+            mobileClose.addEventListener('click', function() {
+                var content = mobileDrawer.querySelector('.chrysoberyl-toc-mobile-content');
+                if (content) content.classList.remove('chrysoberyl-toc-mobile-content-open');
+                setTimeout(function() { mobileDrawer.classList.add('hidden'); }, 300);
+            });
+        }
+        if (mobileDrawer) {
+            mobileDrawer.addEventListener('click', function(e) {
+                if (e.target === mobileDrawer) {
+                    var content = mobileDrawer.querySelector('.chrysoberyl-toc-mobile-content');
+                    if (content) content.classList.remove('chrysoberyl-toc-mobile-content-open');
+                    setTimeout(function() { mobileDrawer.classList.add('hidden'); }, 300);
+                }
+            });
+        }
         
         // Find the main article content area - prioritize .chrysoberyl-article-content
         let contentArea = document.querySelector('.chrysoberyl-article-content');
         if (!contentArea) {
             contentArea = document.querySelector('#article-content .prose, .prose[data-toc-content="true"], #article-content');
+        }
+        if (!contentArea) {
+            contentArea = document.querySelector('#main-content [data-toc-content="true"], main [data-toc-content="true"]');
         }
         if (!contentArea) {
             contentArea = document.querySelector('.prose, .entry-content');
@@ -1089,60 +1140,6 @@ function initTableOfContents() {
                 }, 100);
             });
             updateActiveSection(headings, tocNav, mobileTocNav);
-        }
-        
-        // Collapsible toggle
-        const toggleBtn = tocContainer.querySelector('.chrysoberyl-toc-toggle');
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', function() {
-                const content = tocContainer.querySelector('.chrysoberyl-toc-content');
-                const icon = toggleBtn.querySelector('.chrysoberyl-toc-icon');
-                if (content) {
-                    content.classList.toggle('chrysoberyl-toc-content-collapsed');
-                    if (icon) {
-                        icon.classList.toggle('fa-chevron-down');
-                        icon.classList.toggle('fa-chevron-up');
-                    }
-                }
-            });
-        }
-        
-        // Mobile toggle
-        const mobileToggle = document.querySelector('.chrysoberyl-toc-mobile-toggle');
-        const mobileDrawer = document.querySelector('.chrysoberyl-toc-mobile-drawer');
-        const mobileClose = document.querySelector('.chrysoberyl-toc-mobile-close');
-        
-        if (mobileToggle && mobileDrawer) {
-            mobileToggle.addEventListener('click', function() {
-                mobileDrawer.classList.remove('hidden');
-                const content = mobileDrawer.querySelector('.chrysoberyl-toc-mobile-content');
-                if (content) {
-                    setTimeout(() => content.classList.add('chrysoberyl-toc-mobile-content-open'), 10);
-                }
-            });
-        }
-        
-        if (mobileClose && mobileDrawer) {
-            mobileClose.addEventListener('click', function() {
-                const content = mobileDrawer.querySelector('.chrysoberyl-toc-mobile-content');
-                if (content) {
-                    content.classList.remove('chrysoberyl-toc-mobile-content-open');
-                    setTimeout(() => mobileDrawer.classList.add('hidden'), 300);
-                }
-            });
-        }
-        
-        // Close mobile drawer when clicking outside
-        if (mobileDrawer) {
-            mobileDrawer.addEventListener('click', function(e) {
-                if (e.target === mobileDrawer) {
-                    const content = mobileDrawer.querySelector('.chrysoberyl-toc-mobile-content');
-                    if (content) {
-                        content.classList.remove('chrysoberyl-toc-mobile-content-open');
-                        setTimeout(() => mobileDrawer.classList.add('hidden'), 300);
-                    }
-                }
-            });
         }
         
         // Auto-collapse on mobile

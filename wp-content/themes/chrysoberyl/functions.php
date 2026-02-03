@@ -206,6 +206,17 @@ if ( is_multisite() ) {
 }
 
 /**
+ * Add body class for sitemap (RankMath) template so CSS applies and spacing matches mockup.
+ */
+add_filter( 'body_class', 'chrysoberyl_sitemap_body_class', 10, 1 );
+function chrysoberyl_sitemap_body_class( $classes ) {
+	if ( is_page_template( 'page-rankmath.php' ) ) {
+		$classes[] = 'chrysoberyl-sitemap-page';
+	}
+	return $classes;
+}
+
+/**
  * Note: Widget areas are registered in inc/theme-setup.php
  * This file only includes necessary theme files.
  */

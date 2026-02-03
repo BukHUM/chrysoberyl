@@ -143,7 +143,8 @@ function chrysoberyl_admin_page()
                                     rel="noopener noreferrer"><?php echo esc_html(__('ต้นกล้าไอที', 'chrysoberyl')); ?></a>
                             </li>
                             <li>
-                                <span class="chrysoberyl-credit-label"><?php _e('เว็บที่ใช้งานจริง:', 'chrysoberyl'); ?></span>
+                                <span
+                                    class="chrysoberyl-credit-label"><?php _e('เว็บที่ใช้งานจริง:', 'chrysoberyl'); ?></span>
                                 <a href="https://chrysoberyl.me" target="_blank"
                                     rel="noopener noreferrer">chrysoberyl.me</a>
                             </li>
@@ -854,6 +855,37 @@ function chrysoberyl_settings_page()
                 update_option('chrysoberyl_floating_left_ad_content', wp_kses_post($_POST['chrysoberyl_floating_left_ad_content']));
             }
 
+            // Save Breadcrumb settings
+            $breadcrumb_enabled = isset($_POST['chrysoberyl_breadcrumb_enabled']) ? '1' : '0';
+            update_option('chrysoberyl_breadcrumb_enabled', $breadcrumb_enabled);
+
+            $breadcrumb_show_on_home = isset($_POST['chrysoberyl_breadcrumb_show_on_home']) ? '1' : '0';
+            update_option('chrysoberyl_breadcrumb_show_on_home', $breadcrumb_show_on_home);
+
+            $breadcrumb_show_on_single = isset($_POST['chrysoberyl_breadcrumb_show_on_single']) ? '1' : '0';
+            update_option('chrysoberyl_breadcrumb_show_on_single', $breadcrumb_show_on_single);
+
+            $breadcrumb_show_on_page = isset($_POST['chrysoberyl_breadcrumb_show_on_page']) ? '1' : '0';
+            update_option('chrysoberyl_breadcrumb_show_on_page', $breadcrumb_show_on_page);
+
+            $breadcrumb_show_on_category = isset($_POST['chrysoberyl_breadcrumb_show_on_category']) ? '1' : '0';
+            update_option('chrysoberyl_breadcrumb_show_on_category', $breadcrumb_show_on_category);
+
+            $breadcrumb_show_on_tag = isset($_POST['chrysoberyl_breadcrumb_show_on_tag']) ? '1' : '0';
+            update_option('chrysoberyl_breadcrumb_show_on_tag', $breadcrumb_show_on_tag);
+
+            $breadcrumb_show_on_author = isset($_POST['chrysoberyl_breadcrumb_show_on_author']) ? '1' : '0';
+            update_option('chrysoberyl_breadcrumb_show_on_author', $breadcrumb_show_on_author);
+
+            $breadcrumb_show_on_date = isset($_POST['chrysoberyl_breadcrumb_show_on_date']) ? '1' : '0';
+            update_option('chrysoberyl_breadcrumb_show_on_date', $breadcrumb_show_on_date);
+
+            $breadcrumb_show_on_search = isset($_POST['chrysoberyl_breadcrumb_show_on_search']) ? '1' : '0';
+            update_option('chrysoberyl_breadcrumb_show_on_search', $breadcrumb_show_on_search);
+
+            $breadcrumb_show_on_404 = isset($_POST['chrysoberyl_breadcrumb_show_on_404']) ? '1' : '0';
+            update_option('chrysoberyl_breadcrumb_show_on_404', $breadcrumb_show_on_404);
+
             if (isset($_POST['chrysoberyl_search_show_date'])) {
                 $suggestions_display[] = 'date';
             }
@@ -937,6 +969,12 @@ function chrysoberyl_settings_page()
             // Enable/Disable
             $toc_enabled = isset($_POST['chrysoberyl_toc_enabled']) ? '1' : '0';
             update_option('chrysoberyl_toc_enabled', $toc_enabled);
+
+            // Display on (Post single, Page single)
+            $toc_show_on_single_post = isset($_POST['chrysoberyl_toc_show_on_single_post']) ? '1' : '0';
+            update_option('chrysoberyl_toc_show_on_single_post', $toc_show_on_single_post);
+            $toc_show_on_single_page = isset($_POST['chrysoberyl_toc_show_on_single_page']) ? '1' : '0';
+            update_option('chrysoberyl_toc_show_on_single_page', $toc_show_on_single_page);
 
             $toc_mobile_enabled = isset($_POST['chrysoberyl_toc_mobile_enabled']) ? '1' : '0';
             update_option('chrysoberyl_toc_mobile_enabled', $toc_mobile_enabled);
@@ -1086,10 +1124,24 @@ function chrysoberyl_settings_page()
     // Get all categories for exclude list
     $all_categories = get_categories(array('hide_empty' => false));
 
+    // Get Breadcrumb settings
+    $breadcrumb_enabled = get_option('chrysoberyl_breadcrumb_enabled', '1');
+    $breadcrumb_show_on_home = get_option('chrysoberyl_breadcrumb_show_on_home', '0');
+    $breadcrumb_show_on_single = get_option('chrysoberyl_breadcrumb_show_on_single', '1');
+    $breadcrumb_show_on_page = get_option('chrysoberyl_breadcrumb_show_on_page', '1');
+    $breadcrumb_show_on_category = get_option('chrysoberyl_breadcrumb_show_on_category', '1');
+    $breadcrumb_show_on_tag = get_option('chrysoberyl_breadcrumb_show_on_tag', '1');
+    $breadcrumb_show_on_author = get_option('chrysoberyl_breadcrumb_show_on_author', '1');
+    $breadcrumb_show_on_date = get_option('chrysoberyl_breadcrumb_show_on_date', '1');
+    $breadcrumb_show_on_search = get_option('chrysoberyl_breadcrumb_show_on_search', '1');
+    $breadcrumb_show_on_404 = get_option('chrysoberyl_breadcrumb_show_on_404', '1');
+
     // Get TOC settings
     $toc_enabled = get_option('chrysoberyl_toc_enabled', '1');
     $toc_mobile_enabled = get_option('chrysoberyl_toc_mobile_enabled', '1');
     $toc_position = get_option('chrysoberyl_toc_position', 'top');
+    $toc_show_on_single_post = get_option('chrysoberyl_toc_show_on_single_post', '1');
+    $toc_show_on_single_page = get_option('chrysoberyl_toc_show_on_single_page', '0');
     $toc_mobile_position = get_option('chrysoberyl_toc_mobile_position', 'floating');
     $toc_headings = get_option('chrysoberyl_toc_headings', array('h2', 'h3', 'h4'));
     $toc_style = get_option('chrysoberyl_toc_style', 'nested');
@@ -1225,7 +1277,8 @@ function chrysoberyl_settings_page()
                                     </label>
                                     <label class="chrysoberyl-radio-option">
                                         <input type="radio" name="chrysoberyl_site_name_style" value="google_colors" <?php checked($site_name_style, 'google_colors'); ?> />
-                                        <span class="radio-label"><?php _e('มีสีสัน (แบบโลโก้ Google)', 'chrysoberyl'); ?></span>
+                                        <span
+                                            class="radio-label"><?php _e('มีสีสัน (แบบโลโก้ Google)', 'chrysoberyl'); ?></span>
                                     </label>
                                 </fieldset>
                             </td>
@@ -1289,6 +1342,91 @@ function chrysoberyl_settings_page()
                                 <p class="description" style="margin-top: 8px;">
                                     <?php _e('ปิด = แสดงหน้าเข้าสู่ระบบแบบดั้งเดิมของ WordPress', 'chrysoberyl'); ?>
                                 </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Breadcrumb Settings Section -->
+                <div class="chrysoberyl-settings-section" style="margin-top: 30px;">
+                    <h2 class="chrysoberyl-section-title">
+                        <span class="dashicons dashicons-admin-links"></span>
+                        <?php _e('Breadcrumb Settings', 'chrysoberyl'); ?>
+                    </h2>
+
+                    <table class="form-table">
+                        <tr>
+                            <th scope="row"><?php _e('เปิดใช้งาน Breadcrumbs', 'chrysoberyl'); ?></th>
+                            <td>
+                                <label class="chrysoberyl-toggle">
+                                    <input type="hidden" name="chrysoberyl_breadcrumb_enabled" value="0" />
+                                    <input type="checkbox" name="chrysoberyl_breadcrumb_enabled" value="1" <?php checked($breadcrumb_enabled, '1'); ?> />
+                                    <span class="toggle-slider"></span>
+                                    <span
+                                        class="toggle-label"><?php _e('แสดง Breadcrumbs (เส้นทางนำทาง)', 'chrysoberyl'); ?></span>
+                                </label>
+                                <p class="description" style="margin-top: 8px;">
+                                    <?php _e('เปิด/ปิดการแสดง breadcrumbs ทั้งหมดในเว็บไซต์', 'chrysoberyl'); ?>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><?php _e('แสดง Breadcrumbs ที่', 'chrysoberyl'); ?></th>
+                            <td>
+                                <fieldset>
+                                    <legend class="screen-reader-text">
+                                        <span><?php _e('เลือกหน้าที่ต้องการแสดง Breadcrumbs', 'chrysoberyl'); ?></span>
+                                    </legend>
+                                    <p class="description" style="margin-bottom: 12px;">
+                                        <?php _e('เลือกประเภทหน้าที่ต้องการแสดง breadcrumbs:', 'chrysoberyl'); ?>
+                                    </p>
+                                    <div
+                                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 8px;">
+                                        <label>
+                                            <input type="checkbox" name="chrysoberyl_breadcrumb_show_on_home" value="1"
+                                                <?php checked($breadcrumb_show_on_home, '1'); ?> />
+                                            <?php _e('หน้าแรก (Homepage)', 'chrysoberyl'); ?>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="chrysoberyl_breadcrumb_show_on_single" value="1"
+                                                <?php checked($breadcrumb_show_on_single, '1'); ?> />
+                                            <?php _e('บทความ (Single Post)', 'chrysoberyl'); ?>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="chrysoberyl_breadcrumb_show_on_page" value="1"
+                                                <?php checked($breadcrumb_show_on_page, '1'); ?> />
+                                            <?php _e('หน้าเพจ (Page)', 'chrysoberyl'); ?>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="chrysoberyl_breadcrumb_show_on_category" value="1"
+                                                <?php checked($breadcrumb_show_on_category, '1'); ?> />
+                                            <?php _e('หมวดหมู่ (Category Archive)', 'chrysoberyl'); ?>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="chrysoberyl_breadcrumb_show_on_tag" value="1" <?php checked($breadcrumb_show_on_tag, '1'); ?> />
+                                            <?php _e('แท็ก (Tag Archive)', 'chrysoberyl'); ?>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="chrysoberyl_breadcrumb_show_on_author" value="1"
+                                                <?php checked($breadcrumb_show_on_author, '1'); ?> />
+                                            <?php _e('ผู้เขียน (Author Archive)', 'chrysoberyl'); ?>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="chrysoberyl_breadcrumb_show_on_date" value="1"
+                                                <?php checked($breadcrumb_show_on_date, '1'); ?> />
+                                            <?php _e('วันที่ (Date Archive)', 'chrysoberyl'); ?>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="chrysoberyl_breadcrumb_show_on_search" value="1"
+                                                <?php checked($breadcrumb_show_on_search, '1'); ?> />
+                                            <?php _e('ผลการค้นหา (Search Results)', 'chrysoberyl'); ?>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="chrysoberyl_breadcrumb_show_on_404" value="1" <?php checked($breadcrumb_show_on_404, '1'); ?> />
+                                            <?php _e('หน้าไม่พบ (404 Page)', 'chrysoberyl'); ?>
+                                        </label>
+                                    </div>
+                                </fieldset>
                             </td>
                         </tr>
                     </table>
@@ -1473,7 +1611,8 @@ function chrysoberyl_settings_page()
                         </tr>
                         <tr>
                             <th scope="row">
-                                <label for="chrysoberyl_social_icon_style"><?php _e('รูปลักษณะไอคอนแชร์', 'chrysoberyl'); ?></label>
+                                <label
+                                    for="chrysoberyl_social_icon_style"><?php _e('รูปลักษณะไอคอนแชร์', 'chrysoberyl'); ?></label>
                             </th>
                             <td>
                                 <select name="chrysoberyl_social_icon_style" id="chrysoberyl_social_icon_style">
@@ -1858,6 +1997,26 @@ function chrysoberyl_settings_page()
                         </tr>
                         <tr>
                             <th scope="row">
+                                <label><?php _e('Display on', 'chrysoberyl'); ?></label>
+                            </th>
+                            <td>
+                                <fieldset>
+                                    <label style="display: block; margin-bottom: 8px;">
+                                        <input type="checkbox" name="chrysoberyl_toc_show_on_single_post" value="1" <?php checked($toc_show_on_single_post, '1'); ?> />
+                                        <?php _e('Post single (บทความเดียว)', 'chrysoberyl'); ?>
+                                    </label>
+                                    <label style="display: block; margin-bottom: 8px;">
+                                        <input type="checkbox" name="chrysoberyl_toc_show_on_single_page" value="1" <?php checked($toc_show_on_single_page, '1'); ?> />
+                                        <?php _e('Page single (หน้าคงที่)', 'chrysoberyl'); ?>
+                                    </label>
+                                </fieldset>
+                                <p class="description">
+                                    <?php _e('เลือกว่าจะแสดง TOC ในหน้าประเภทใด', 'chrysoberyl'); ?>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
                                 <?php _e('Show on Mobile', 'chrysoberyl'); ?>
                             </th>
                             <td>
@@ -2230,17 +2389,21 @@ function chrysoberyl_settings_page()
                                 $footer_menu_section_enabled = get_option('chrysoberyl_footer_menu_section_enabled', '1');
                                 $footer_legal_section_enabled = get_option('chrysoberyl_footer_legal_section_enabled', '1');
                                 ?>
-                                <label class="chrysoberyl-toggle" style="margin-bottom: 12px; display: flex !important; align-items: center; gap: 12px;">
+                                <label class="chrysoberyl-toggle"
+                                    style="margin-bottom: 12px; display: flex !important; align-items: center; gap: 12px;">
                                     <input type="hidden" name="chrysoberyl_footer_menu_section_enabled" value="0" />
                                     <input type="checkbox" name="chrysoberyl_footer_menu_section_enabled" value="1" <?php checked($footer_menu_section_enabled, '1'); ?> />
                                     <span class="toggle-slider" style="flex-shrink: 0;"></span>
-                                    <span class="toggle-label"><?php _e('แสดงส่วนเมนู footer (4 คอลัมน์: About, More from us, Support, Subscribe)', 'chrysoberyl'); ?></span>
+                                    <span
+                                        class="toggle-label"><?php _e('แสดงส่วนเมนู footer (4 คอลัมน์: About, More from us, Support, Subscribe)', 'chrysoberyl'); ?></span>
                                 </label>
-                                <label class="chrysoberyl-toggle" style="display: flex !important; align-items: center; gap: 12px;">
+                                <label class="chrysoberyl-toggle"
+                                    style="display: flex !important; align-items: center; gap: 12px;">
                                     <input type="hidden" name="chrysoberyl_footer_legal_section_enabled" value="0" />
                                     <input type="checkbox" name="chrysoberyl_footer_legal_section_enabled" value="1" <?php checked($footer_legal_section_enabled, '1'); ?> />
                                     <span class="toggle-slider" style="flex-shrink: 0;"></span>
-                                    <span class="toggle-label"><?php _e('แสดงแถบ legal (Logo, Copyright, ลิงก์ Sitemap/FAQ/Privacy/Terms)', 'chrysoberyl'); ?></span>
+                                    <span
+                                        class="toggle-label"><?php _e('แสดงแถบ legal (Logo, Copyright, ลิงก์ Sitemap/FAQ/Privacy/Terms)', 'chrysoberyl'); ?></span>
                                 </label>
                             </td>
                         </tr>
@@ -2252,10 +2415,18 @@ function chrysoberyl_settings_page()
                                 $tw_url = get_option('chrysoberyl_twitter_url', '');
                                 $ig_url = get_option('chrysoberyl_instagram_url', '');
                                 ?>
-                                <p class="description" style="margin-bottom: 10px;"><?php _e('ใส่ URL สำหรับแสดงใน footer (เว้นว่าง = ไม่แสดงไอคอนนั้น)', 'chrysoberyl'); ?></p>
-                                <p><label>Facebook: <input type="url" name="chrysoberyl_facebook_url" value="<?php echo esc_attr($fb_url); ?>" class="regular-text" placeholder="https://facebook.com/..." /></label></p>
-                                <p><label>Twitter/X: <input type="url" name="chrysoberyl_twitter_url" value="<?php echo esc_attr($tw_url); ?>" class="regular-text" placeholder="https://twitter.com/..." /></label></p>
-                                <p><label>Instagram: <input type="url" name="chrysoberyl_instagram_url" value="<?php echo esc_attr($ig_url); ?>" class="regular-text" placeholder="https://instagram.com/..." /></label></p>
+                                <p class="description" style="margin-bottom: 10px;">
+                                    <?php _e('ใส่ URL สำหรับแสดงใน footer (เว้นว่าง = ไม่แสดงไอคอนนั้น)', 'chrysoberyl'); ?>
+                                </p>
+                                <p><label>Facebook: <input type="url" name="chrysoberyl_facebook_url"
+                                            value="<?php echo esc_attr($fb_url); ?>" class="regular-text"
+                                            placeholder="https://facebook.com/..." /></label></p>
+                                <p><label>Twitter/X: <input type="url" name="chrysoberyl_twitter_url"
+                                            value="<?php echo esc_attr($tw_url); ?>" class="regular-text"
+                                            placeholder="https://twitter.com/..." /></label></p>
+                                <p><label>Instagram: <input type="url" name="chrysoberyl_instagram_url"
+                                            value="<?php echo esc_attr($ig_url); ?>" class="regular-text"
+                                            placeholder="https://instagram.com/..." /></label></p>
                             </td>
                         </tr>
                         <tr>
@@ -2957,11 +3128,36 @@ function chrysoberyl_settings_page()
 
 /**
  * Register Custom Post Types
- * CPT (video_news, gallery, featured_story) removed — theme uses post/page only.
+ * FAQ: chrysoberyl_faq for FAQ page (Questions & Answers).
  */
 function chrysoberyl_register_post_types()
 {
-    // No custom post types; theme uses standard post and page only.
+    $faq_labels = array(
+        'name'               => _x( 'FAQs', 'post type general name', 'chrysoberyl' ),
+        'singular_name'      => _x( 'FAQ', 'post type singular name', 'chrysoberyl' ),
+        'menu_name'          => _x( 'FAQs', 'admin menu', 'chrysoberyl' ),
+        'add_new'            => _x( 'Add New', 'FAQ', 'chrysoberyl' ),
+        'add_new_item'       => __( 'Add New FAQ', 'chrysoberyl' ),
+        'edit_item'          => __( 'Edit FAQ', 'chrysoberyl' ),
+        'new_item'           => __( 'New FAQ', 'chrysoberyl' ),
+        'view_item'          => __( 'View FAQ', 'chrysoberyl' ),
+        'search_items'       => __( 'Search FAQs', 'chrysoberyl' ),
+        'not_found'          => __( 'No FAQs found.', 'chrysoberyl' ),
+        'not_found_in_trash' => __( 'No FAQs found in Trash.', 'chrysoberyl' ),
+    );
+    register_post_type( 'chrysoberyl_faq', array(
+        'labels'              => $faq_labels,
+        'public'              => false,
+        'publicly_queryable'  => false,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'menu_icon'           => 'dashicons-editor-help',
+        'menu_position'       => 26,
+        'supports'            => array( 'title', 'editor', 'page-attributes' ),
+        'has_archive'         => false,
+        'rewrite'             => false,
+        'capability_type'     => 'post',
+    ) );
 }
 add_action('init', 'chrysoberyl_register_post_types');
 
@@ -2977,13 +3173,53 @@ add_action('after_switch_theme', 'chrysoberyl_flush_rewrite_rules');
 
 /**
  * Register Custom Taxonomies for Custom Post Types
- * CPT taxonomies (video_category, gallery_category) removed.
+ * faq_category: group FAQs (About Us, Usage, Join Us, etc.)
  */
 function chrysoberyl_register_taxonomies()
 {
-    // No custom taxonomies for CPT; theme uses categories/tags for posts only.
+    $faq_cat_labels = array(
+        'name'          => _x( 'FAQ Categories', 'taxonomy general name', 'chrysoberyl' ),
+        'singular_name' => _x( 'FAQ Category', 'taxonomy singular name', 'chrysoberyl' ),
+        'search_items'  => __( 'Search FAQ Categories', 'chrysoberyl' ),
+        'all_items'     => __( 'All FAQ Categories', 'chrysoberyl' ),
+        'edit_item'     => __( 'Edit FAQ Category', 'chrysoberyl' ),
+        'add_new_item'  => __( 'Add New FAQ Category', 'chrysoberyl' ),
+    );
+    register_taxonomy( 'faq_category', array( 'chrysoberyl_faq' ), array(
+        'labels'            => $faq_cat_labels,
+        'hierarchical'      => true,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'rewrite'           => array( 'slug' => 'faq-category' ),
+    ) );
 }
 add_action('init', 'chrysoberyl_register_taxonomies');
+
+/**
+ * Create default FAQ categories if none exist (mockup: เกี่ยวกับเรา, การใช้งาน, ร่วมงานกับเรา)
+ */
+function chrysoberyl_maybe_create_default_faq_categories() {
+    if ( get_option( 'chrysoberyl_faq_categories_created', false ) ) {
+        return;
+    }
+    $terms = get_terms( array( 'taxonomy' => 'faq_category', 'hide_empty' => false ) );
+    if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+        update_option( 'chrysoberyl_faq_categories_created', true );
+        return;
+    }
+    $defaults = array(
+        'about-us'   => _x( 'About Us', 'FAQ category', 'chrysoberyl' ),
+        'usage'      => _x( 'Usage', 'FAQ category', 'chrysoberyl' ),
+        'join-us'    => _x( 'Join Us', 'FAQ category', 'chrysoberyl' ),
+    );
+    foreach ( $defaults as $slug => $name ) {
+        if ( ! term_exists( $slug, 'faq_category' ) ) {
+            wp_insert_term( $name, 'faq_category', array( 'slug' => $slug ) );
+        }
+    }
+    update_option( 'chrysoberyl_faq_categories_created', true );
+}
+add_action( 'init', 'chrysoberyl_maybe_create_default_faq_categories', 20 );
 
 /**
  * Add custom columns to post type admin lists
