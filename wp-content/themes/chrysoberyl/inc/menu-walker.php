@@ -167,6 +167,36 @@ class chrysoberyl_Walker_Nav_Menu extends Walker_Nav_Menu {
     }
 
     /**
+     * Start sub-menu (dropdown) output.
+     */
+    function start_lvl( &$output, $depth = 0, $args = null ) {
+        if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
+            $t = '';
+            $n = '';
+        } else {
+            $t = "\t";
+            $n = "\n";
+        }
+        $indent = str_repeat( $t, $depth );
+        $output .= "{$n}{$indent}<ul class=\"sub-menu chrysoberyl-nav-dropdown\">{$n}";
+    }
+
+    /**
+     * End sub-menu output.
+     */
+    function end_lvl( &$output, $depth = 0, $args = null ) {
+        if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
+            $t = '';
+            $n = '';
+        } else {
+            $t = "\t";
+            $n = "\n";
+        }
+        $indent = str_repeat( $t, $depth );
+        $output .= "{$indent}</ul>{$n}";
+    }
+
+    /**
      * End the element output.
      */
     function end_el( &$output, $item, $depth = 0, $args = null ) {
@@ -219,6 +249,36 @@ class chrysoberyl_Walker_Nav_Menu_Mobile extends Walker_Nav_Menu {
         $item_output .= isset( $args->after ) ? $args->after : '';
 
         $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+    }
+
+    /**
+     * Start sub-menu (nested list) output.
+     */
+    function start_lvl( &$output, $depth = 0, $args = null ) {
+        if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
+            $t = '';
+            $n = '';
+        } else {
+            $t = "\t";
+            $n = "\n";
+        }
+        $indent = str_repeat( $t, $depth );
+        $output .= "{$n}{$indent}<ul class=\"sub-menu chrysoberyl-nav-mobile-sub\">{$n}";
+    }
+
+    /**
+     * End sub-menu output.
+     */
+    function end_lvl( &$output, $depth = 0, $args = null ) {
+        if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
+            $t = '';
+            $n = '';
+        } else {
+            $t = "\t";
+            $n = "\n";
+        }
+        $indent = str_repeat( $t, $depth );
+        $output .= "{$indent}</ul>{$n}";
     }
 
     /**

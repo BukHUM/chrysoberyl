@@ -1,14 +1,25 @@
 /**
  * Login page styles - Chrysoberyl theme
- * Matches theme: Prompt font, accent #FF4500, gray-50 bg, white card
+ * Matches theme: Google Sans + Noto Sans Thai, accent #1a73e8, google-gray-50 bg, shadow-card
  *
  * @package chrysoberyl
  * @since 1.0.0
  */
 
+:root {
+	--chrysoberyl-accent: #1a73e8;
+	--chrysoberyl-accent-hover: #1557b0;
+	--chrysoberyl-google-gray: #202124;
+	--chrysoberyl-google-gray-500: #5f6368;
+	--chrysoberyl-google-gray-50: #f8f9fa;
+	--chrysoberyl-google-gray-100: #f1f3f4;
+	--chrysoberyl-shadow-card: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+	--chrysoberyl-border: #e5e7eb;
+}
+
 body.login {
-	font-family: "Prompt", -apple-system, BlinkMacSystemFont, sans-serif;
-	background-color: #f9fafb;
+	font-family: "Google Sans", "Noto Sans Thai", -apple-system, BlinkMacSystemFont, sans-serif;
+	background-color: var(--chrysoberyl-google-gray-50);
 	background-image: none;
 	min-height: 100vh;
 	display: flex;
@@ -16,6 +27,8 @@ body.login {
 	align-items: center;
 	justify-content: center;
 	padding: 24px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 body.login * {
@@ -32,9 +45,9 @@ body.login * {
 #loginform,
 .login form {
 	background: #fff;
-	border: 1px solid #f3f4f6;
+	border: 1px solid var(--chrysoberyl-border);
 	border-radius: 1rem;
-	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+	box-shadow: var(--chrysoberyl-shadow-card);
 	padding: 2rem;
 	margin-top: 0;
 	margin-left: 0;
@@ -56,10 +69,10 @@ body.login * {
 .login label {
 	font-size: 0.875rem;
 	font-weight: 500;
-	color: #374151;
+	color: var(--chrysoberyl-google-gray);
 }
 
-/* Inputs - rounded, border, focus accent */
+/* Inputs - rounded, border, focus accent (theme style) */
 .login input[type="text"],
 .login input[type="password"],
 .login input[type="email"] {
@@ -70,31 +83,31 @@ body.login * {
 	line-height: 1.5;
 	color: #111827;
 	background: #fff;
-	border: 1px solid #e5e7eb;
+	border: 1px solid var(--chrysoberyl-border);
 	border-radius: 0.5rem;
 	margin-top: 0.25rem;
-	transition: border-color 0.15s, box-shadow 0.15s;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .login input[type="text"]:focus,
 .login input[type="password"]:focus,
 .login input[type="email"]:focus {
-	border-color: #FF4500;
+	border-color: var(--chrysoberyl-accent);
 	outline: 0;
-	box-shadow: 0 0 0 3px rgba(255, 69, 0, 0.15);
+	box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
 }
 
 .login input[type="checkbox"] {
 	border-radius: 0.25rem;
 }
 
-/* Primary button - accent color */
+/* Primary button - theme accent (Google blue) */
 .wp-core-ui .button-primary,
 .login .button-primary {
 	width: 100%;
 	display: block;
-	background: #FF4500;
-	border-color: #FF4500;
+	background: var(--chrysoberyl-accent);
+	border-color: var(--chrysoberyl-accent);
 	color: #fff;
 	font-family: inherit;
 	font-weight: 600;
@@ -105,41 +118,41 @@ body.login * {
 	border-radius: 0.5rem;
 	text-shadow: none;
 	box-shadow: none;
-	transition: background 0.15s, border-color 0.15s;
+	transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .wp-core-ui .button-primary:hover,
 .wp-core-ui .button-primary:focus,
 .login .button-primary:hover,
 .login .button-primary:focus {
-	background: #e63d00;
-	border-color: #e63d00;
+	background: var(--chrysoberyl-accent-hover);
+	border-color: var(--chrysoberyl-accent-hover);
 	color: #fff;
 }
 
 .wp-core-ui .button-primary:active {
-	background: #cc3600;
-	border-color: #cc3600;
+	background: #134a9e;
+	border-color: #134a9e;
 }
 
-/* Links - accent */
+/* Links - theme accent */
 .login #nav a,
 .login #backtoblog a {
-	color: #FF4500;
+	color: var(--chrysoberyl-accent);
 	text-decoration: none;
 	font-size: 0.875rem;
 }
 
 .login #nav a:hover,
 .login #backtoblog a:hover {
-	color: #e63d00;
+	color: var(--chrysoberyl-accent-hover);
 	text-decoration: underline;
 }
 
-/* Message / error */
+/* Message / success - left border accent */
 .login .message,
 .login .success {
-	border-left: 4px solid #FF4500;
+	border-left: 4px solid var(--chrysoberyl-accent);
 	background: #fff;
 	padding: 0.875rem 1rem;
 	border-radius: 0.5rem;
@@ -148,7 +161,7 @@ body.login * {
 }
 
 .login .message {
-	border-left-color: #3b82f6;
+	border-left-color: var(--chrysoberyl-accent);
 }
 
 .login #login_error {
@@ -204,7 +217,7 @@ body.login .language-switcher .button {
 }
 
 body.login .language-switcher .dashicons-translation {
-	color: #6b7280;
+	color: var(--chrysoberyl-google-gray-500);
 	font-size: 1.25rem;
 	width: 1.25rem;
 	height: 1.25rem;
@@ -215,15 +228,16 @@ body.login .privacy-policy-page-link {
 	text-align: center;
 	margin-top: 1rem;
 	font-size: 0.875rem;
-	color: #6b7280;
+	color: var(--chrysoberyl-google-gray-500);
 }
 
 body.login .privacy-policy-page-link a {
-	color: #FF4500;
+	color: var(--chrysoberyl-accent);
 	text-decoration: none;
 }
 
 body.login .privacy-policy-page-link a:hover {
+	color: var(--chrysoberyl-accent-hover);
 	text-decoration: underline;
 }
 

@@ -630,6 +630,7 @@
     // Search overlay open/close (always run — mockup Phase 1)
     $('.chrysoberyl-search-toggle').on('click', function() {
         $('#chrysoberyl-search-modal').removeClass('hidden').attr('aria-hidden', 'false');
+        $('body').addClass('chrysoberyl-search-modal-open');
         var input = document.querySelector('#chrysoberyl-search-modal .chrysoberyl-search-input');
         if (input) { input.focus(); }
     });
@@ -637,9 +638,17 @@
         var $target = $(e.target);
         if (e.target === this || $target.closest('.chrysoberyl-search-close').length || $target.closest('.chrysoberyl-search-backdrop').length || !$target.closest('.chrysoberyl-search-modal-content').length) {
             $('#chrysoberyl-search-modal').addClass('hidden').attr('aria-hidden', 'true');
+            $('body').removeClass('chrysoberyl-search-modal-open');
         }
     });
     $(document).on('click', '.chrysoberyl-search-modal-content', function(e) { e.stopPropagation(); });
+    // Close search modal on Escape key
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape' && !$('#chrysoberyl-search-modal').hasClass('hidden')) {
+            $('#chrysoberyl-search-modal').addClass('hidden').attr('aria-hidden', 'true');
+            $('body').removeClass('chrysoberyl-search-modal-open');
+        }
+    });
 
     // Login modal (single post — log in without leaving page)
     $(document).on('click', '.chrysoberyl-login-trigger, a[href="#chrysoberyl-login-modal"]', function(e) {
@@ -1165,17 +1174,21 @@ function generateTOC(headings, style) {
     let currentLevel = 0;
     let itemNumber = 0;
     
+    let minLevel = Math.min(...headings.map(h => parseInt(h.tagName.substring(1))));
+    
     headings.forEach((heading, index) => {
         const level = parseInt(heading.tagName.substring(1));
         const id = heading.id || 'toc-' + index;
         const text = heading.textContent.trim();
+        const isTopLevel = (level === minLevel);
         
         if (level > currentLevel) {
-            // Open new nested list
+            // Open new nested list - use chrysoberyl-toc-nested for sub-items
             for (let i = currentLevel; i < level - 1; i++) {
                 html += '<ul class="chrysoberyl-toc-nested">';
             }
-            html += '<ul class="chrysoberyl-toc-list">';
+            // First list or nested list
+            html += currentLevel === 0 ? '<ul class="chrysoberyl-toc-list">' : '<ul class="chrysoberyl-toc-nested">';
             currentLevel = level;
         } else if (level < currentLevel) {
             // Close nested lists
@@ -1187,9 +1200,11 @@ function generateTOC(headings, style) {
         
         itemNumber++;
         const number = style === 'numbered' ? itemNumber + '. ' : '';
-        const indent = style === 'nested' ? 'chrysoberyl-toc-item-level-' + level : '';
+        // Always add level class for styling hierarchy
+        const levelClass = 'chrysoberyl-toc-item-level-' + level;
+        const topLevelClass = isTopLevel ? 'chrysoberyl-toc-item-main' : 'chrysoberyl-toc-item-sub';
         
-        html += '<li class="chrysoberyl-toc-item ' + indent + '">';
+        html += '<li class="chrysoberyl-toc-item ' + levelClass + ' ' + topLevelClass + '">';
         html += '<a href="#' + id + '" class="chrysoberyl-toc-link" data-toc-id="' + id + '">';
         html += number + text;
         html += '</a>';

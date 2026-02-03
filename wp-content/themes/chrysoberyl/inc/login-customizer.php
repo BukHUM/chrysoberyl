@@ -11,12 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Enqueue custom styles and font on login page
+ * Enqueue custom styles and font on login page (same as theme: Google Sans + Noto Sans Thai)
  */
 function chrysoberyl_login_enqueue_scripts() {
 	wp_enqueue_style(
 		'chrysoberyl-login-font',
-		'https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap',
+		'https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap',
 		array(),
 		null
 	);

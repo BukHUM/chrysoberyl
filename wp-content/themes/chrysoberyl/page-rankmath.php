@@ -188,19 +188,6 @@ get_header();
                                 <?php _e( 'Search Results (Search)', 'chrysoberyl' ); ?>
                             </a>
                         </li>
-                        <?php if (!empty($tags)): ?>
-                            <li class="pt-2 border-t border-gray-200">
-                                <span class="text-sm font-medium text-google-gray-500"><?php _e( 'Popular tags:', 'chrysoberyl' ); ?></span>
-                                <div class="flex flex-wrap gap-2 mt-2">
-                                    <?php foreach (array_slice($tags, 0, 5) as $tag): ?>
-                                        <a href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>"
-                                            class="text-xs px-2 py-1 bg-white border border-gray-200 rounded hover:border-google-blue transition-colors">
-                                            <?php echo esc_html($tag->name); ?>
-                                        </a>
-                                    <?php endforeach; ?>
-                                </div>
-                            </li>
-                        <?php endif; ?>
                     </ul>
                 </div>
 
@@ -233,7 +220,7 @@ get_header();
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
-                                    <?php echo esc_html($page->post_title); ?>
+                                    <span class="chrysoberyl-sitemap-link-text"><?php echo esc_html($page->post_title); ?></span>
                                     <?php if ( $is_current ) : ?>
                                         ← <?php _e( 'You are here', 'chrysoberyl' ); ?>
                                     <?php endif; ?>

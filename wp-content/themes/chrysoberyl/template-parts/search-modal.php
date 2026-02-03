@@ -18,7 +18,22 @@ if ( $search_suggestions_style !== 'modal' && $search_suggestions_style !== 'ful
     return;
 }
 
-$popular_searches = apply_filters( 'chrysoberyl_popular_searches', array( 'AI Update', 'Gemini', 'Android 15' ) );
+// Dynamic popular searches: same source as search results page (top tags by count)
+$popular_tags = get_tags( array(
+    'orderby' => 'count',
+    'order'   => 'DESC',
+    'number'  => 6,
+) );
+$default_popular = array();
+if ( ! empty( $popular_tags ) ) {
+    foreach ( $popular_tags as $tag ) {
+        $default_popular[] = $tag->name;
+    }
+}
+if ( empty( $default_popular ) ) {
+    $default_popular = array( 'AI Update', 'Gemini', 'Android 15' ); // fallback when no tags
+}
+$popular_searches = apply_filters( 'chrysoberyl_popular_searches', $default_popular );
 ?>
 
 <div id="chrysoberyl-search-modal" class="chrysoberyl-search-modal hidden fixed inset-0 z-[60] flex items-start justify-center pt-24 px-4" aria-modal="true" aria-hidden="true">

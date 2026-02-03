@@ -33,11 +33,11 @@ $show_language = apply_filters( 'chrysoberyl_show_language_switcher', false );
                         <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-google-blue text-white font-bold text-sm"><?php echo esc_html( substr( get_bloginfo( 'name' ), 0, 1 ) ); ?></span>
                     <?php endif; ?>
                     <?php if ( $theme_logo_url ) : ?>
-                        <span class="text-xl text-google-gray-500 font-normal relative top-[1px] hidden sm:block"><?php bloginfo( 'name' ); ?></span>
+                        <span class="text-xl text-google-gray-500 font-normal relative top-[1px]"><?php bloginfo( 'name' ); ?></span>
                     <?php elseif ( $use_google_colors ) : ?>
-                        <span class="text-xl font-normal relative top-[1px] hidden sm:block chrysoberyl-site-name-google-colors"><?php echo chrysoberyl_get_site_name_google_colors(); ?></span>
+                        <span class="text-xl font-normal relative top-[1px] chrysoberyl-site-name-google-colors"><?php echo chrysoberyl_get_site_name_google_colors(); ?></span>
                     <?php else : ?>
-                        <span class="text-xl text-google-gray-500 font-normal relative top-[1px] hidden sm:block"><?php bloginfo( 'name' ); ?></span>
+                        <span class="text-xl text-google-gray-500 font-normal relative top-[1px]"><?php bloginfo( 'name' ); ?></span>
                     <?php endif; ?>
                 </a>
             </div>
@@ -47,11 +47,11 @@ $show_language = apply_filters( 'chrysoberyl_show_language_switcher', false );
                 <?php
                 wp_nav_menu( array(
                     'theme_location'  => 'primary',
-                    'menu_class'      => 'flex items-center gap-6 lg:gap-8',
+                    'menu_class'      => 'flex items-center gap-6 lg:gap-8 chrysoberyl-nav-desktop',
                     'container'       => false,
                     'fallback_cb'     => false,
                     'walker'          => new chrysoberyl_Walker_Nav_Menu(),
-                    'depth'           => 1,
+                    'depth'           => 2,
                 ) );
                 ?>
             </nav>
@@ -117,11 +117,11 @@ $show_language = apply_filters( 'chrysoberyl_show_language_switcher', false );
                 <?php
                 wp_nav_menu( array(
                     'theme_location' => 'primary',
-                    'menu_class'     => 'flex flex-col gap-6',
+                    'menu_class'     => 'flex flex-col gap-6 chrysoberyl-nav-mobile',
                     'container'      => false,
                     'fallback_cb'    => false,
                     'walker'         => new chrysoberyl_Walker_Nav_Menu_Mobile(),
-                    'depth'          => 1,
+                    'depth'          => 2,
                 ) );
                 ?>
             </div>
