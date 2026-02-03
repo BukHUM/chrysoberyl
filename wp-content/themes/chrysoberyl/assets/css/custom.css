@@ -910,8 +910,8 @@ footer form button[type="submit"]:hover::before {
 
 .prose img {
     border-radius: 0.5rem;
-    margin-top: 2em;
-    margin-bottom: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
     max-width: 100%;
     width: 100%;
     height: auto;
@@ -920,8 +920,8 @@ footer form button[type="submit"]:hover::before {
 }
 
 .prose figure {
-    margin-top: 2em;
-    margin-bottom: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
     max-width: 100%;
     overflow: hidden;
 }
@@ -932,6 +932,20 @@ footer form button[type="submit"]:hover::before {
     height: auto;
     display: block;
     margin: 0;
+}
+
+/* Caption: ตรงกลาง ตัวเอียง ชิดกับภาพ (single post / Gutenberg) */
+.prose figure figcaption,
+.prose .wp-block-image figcaption,
+.chrysoberyl-single-prose figure figcaption,
+.chrysoberyl-single-prose .wp-block-image figcaption {
+    text-align: center;
+    font-style: italic;
+    font-size: 0.875rem;
+    color: #5f6368;
+    margin-top: 0.375rem;
+    margin-bottom: 0;
+    line-height: 1.4;
 }
 
 .prose iframe,
@@ -970,28 +984,70 @@ footer form button[type="submit"]:hover::before {
     overflow-x: hidden;
 }
 
+/* Inline code (ในบรรทัด) – ไม่ใส่เส้นขอบ */
 .prose code {
-    background-color: #F3F4F6;
+    background-color: #f1f3f4;
+    color: #1a73e8;
     padding: 0.125rem 0.375rem;
     border-radius: 0.25rem;
     font-size: 0.875rem;
-    font-family: 'Courier New', monospace;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+/* Code block – โทนสว่าง อ่านง่าย (fallback เมื่อไม่มี Prism) */
 .prose pre {
-    background-color: #111827;
-    color: #F9FAFB;
-    padding: 1rem;
+    background-color: #f8f9fa;
+    border: 1px solid #e5e7eb;
+    padding: 1rem 1.25rem;
     border-radius: 0.5rem;
     overflow: auto;
     margin-top: 1.5em;
     margin-bottom: 1.5em;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    tab-size: 4;
 }
 
 .prose pre code {
-    background-color: transparent;
+    background: none;
     padding: 0;
-    color: inherit;
+    color: #202124;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Single article: code block แบบมีป้ายภาษา พื้นหลังอ่อน ขอบบาง (เหมือน mockup) */
+.single .prose pre[class*="language-"],
+.single .chrysoberyl-article-content pre[class*="language-"] {
+    position: relative;
+    background-color: #f8f9fa;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 2.25rem 1.25rem 1rem;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    tab-size: 4;
+}
+
+.single .prose pre[class*="language-"]::before,
+.single .chrysoberyl-article-content pre[class*="language-"]::before {
+    content: attr(data-lang);
+    position: absolute;
+    top: 0.5rem;
+    left: 1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #9ca3af;
+    text-transform: lowercase;
+    font-family: "Google Sans", "Noto Sans Thai", sans-serif;
+}
+
+/* เมื่อใช้ Prism.js (ทั่วไป) – โทนอ่อน */
+.prose pre[class*="language-"] {
+    padding: 1rem 1.25rem;
+    border: 1px solid #e5e7eb;
+    background-color: #f8f9fa;
 }
 
 .prose table {
@@ -1935,7 +1991,14 @@ body:has(.chrysoberyl-toc-mobile-toggle) #back-to-top {
 .single .prose img,
 .single .chrysoberyl-single-prose img {
     border-radius: 16px;
-    margin: 2rem 0;
+    margin: 1rem 0;
+}
+
+.single .prose figure,
+.single .chrysoberyl-single-prose figure,
+.single .prose .wp-block-image,
+.single .chrysoberyl-single-prose .wp-block-image {
+    margin: 1rem 0;
 }
 
 /* Single post: ลดช่องว่างระหว่างรายการในลิสต์ (ul/ol) */
@@ -2246,6 +2309,39 @@ body.chrysoberyl-search-modal-open .chrysoberyl-toc-mobile-toggle {
     transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
+/* Image lightbox: เมื่อเปิด lightbox ให้ TOC และ Back to Top inactive */
+body.chrysoberyl-image-lightbox-open .chrysoberyl-toc-floating,
+body.chrysoberyl-image-lightbox-open .chrysoberyl-toc-sidebar .chrysoberyl-toc-container {
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(100%);
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+body.chrysoberyl-image-lightbox-open .chrysoberyl-toc .chrysoberyl-toc-link,
+body.chrysoberyl-image-lightbox-open .chrysoberyl-toc .chrysoberyl-toc-link-active {
+    color: #9ca3af !important;
+}
+
+body.chrysoberyl-image-lightbox-open .chrysoberyl-toc .chrysoberyl-toc-toggle {
+    pointer-events: none;
+    cursor: default;
+}
+
+body.chrysoberyl-image-lightbox-open #back-to-top {
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(100%);
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+body.chrysoberyl-image-lightbox-open .chrysoberyl-toc-mobile-toggle {
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(100%);
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
 /* ============================================
    Sitemap Page - Google Style Design
    ============================================ */
@@ -2421,6 +2517,34 @@ body.chrysoberyl-search-modal-open .chrysoberyl-toc-mobile-toggle {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* ============================================
+   Image Lightbox (ภาพประกอบบทความ – คลิกขยายแบบ modal)
+   ============================================ */
+.chrysoberyl-image-lightbox {
+    cursor: pointer;
+}
+
+.chrysoberyl-image-lightbox-backdrop {
+    cursor: pointer;
+}
+
+.chrysoberyl-image-lightbox-inner {
+    cursor: default;
+}
+
+.chrysoberyl-image-lightbox-img {
+    pointer-events: none;
+}
+
+.chrysoberyl-image-lightbox-close {
+    cursor: pointer;
+}
+
+/* ภาพในบทความ – แสดง cursor เป็น pointer เผื่อคลิกขยาย */
+.chrysoberyl-article-content img {
+    cursor: pointer;
 }
 
 /* Print Styles for Sitemap */

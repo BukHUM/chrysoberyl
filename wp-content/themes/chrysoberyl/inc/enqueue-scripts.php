@@ -71,6 +71,63 @@ function chrysoberyl_enqueue_assets()
         );
     }
 
+    // Prism.js – code snippet syntax highlighting (light theme, editor-like) on single/post/page
+    if (is_singular()) {
+        wp_enqueue_style(
+            'prism-coy',
+            'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-coy.min.css',
+            array(),
+            '1.29.0'
+        );
+        wp_enqueue_script(
+            'prism-core',
+            'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js',
+            array(),
+            '1.29.0',
+            true
+        );
+        wp_enqueue_script(
+            'prism-markup',
+            'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js',
+            array('prism-core'),
+            '1.29.0',
+            true
+        );
+        wp_enqueue_script(
+            'prism-css',
+            'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-css.min.js',
+            array('prism-core'),
+            '1.29.0',
+            true
+        );
+        wp_enqueue_script(
+            'prism-clike',
+            'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-clike.min.js',
+            array('prism-core'),
+            '1.29.0',
+            true
+        );
+        wp_enqueue_script(
+            'prism-javascript',
+            'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js',
+            array('prism-clike'),
+            '1.29.0',
+            true
+        );
+        wp_enqueue_script(
+            'prism-php',
+            'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-php.min.js',
+            array('prism-markup'),
+            '1.29.0',
+            true
+        );
+        wp_add_inline_script(
+            'prism-php',
+            "document.addEventListener('DOMContentLoaded',function(){var c=document.querySelector('.chrysoberyl-article-content,.prose');if(window.Prism&&c){Prism.highlightAllUnder(c);}else if(window.Prism){Prism.highlightAll();}var pres=document.querySelectorAll('.chrysoberyl-article-content pre[class*=\"language-\"], .prose pre[class*=\"language-\"]');pres.forEach(function(pre){var m=pre.className.match(/language-([a-z0-9]+)/i);if(m){pre.setAttribute('data-lang',m[1].toLowerCase());}});});",
+            'after'
+        );
+    }
+
     // Print styles
     $print_css_file = get_template_directory() . '/assets/css/print.css';
     if (file_exists($print_css_file)) {

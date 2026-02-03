@@ -159,6 +159,64 @@
             });
         })();
 
+        // Image lightbox: ภาพประกอบบทความ – คลิกขยายแบบ modal (ไม่ไปหน้าใหม่)
+        (function() {
+            var modal = document.getElementById('chrysoberyl-image-lightbox');
+            var modalImg = modal ? modal.querySelector('.chrysoberyl-image-lightbox-img') : null;
+            var backdrop = modal ? modal.querySelector('.chrysoberyl-image-lightbox-backdrop') : null;
+            var closeBtn = modal ? modal.querySelector('.chrysoberyl-image-lightbox-close') : null;
+
+            function isImageUrl(url) {
+                if (!url) return false;
+                return /\.(jpe?g|png|gif|webp|avif)(\?|$)/i.test(url) || /\/wp-content\/uploads\//i.test(url);
+            }
+
+            function openLightbox(src, alt) {
+                if (!modal || !modalImg) return;
+                modalImg.src = src;
+                modalImg.alt = alt || '';
+                modal.classList.remove('hidden');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                $('body').addClass('chrysoberyl-image-lightbox-open');
+                if (closeBtn) closeBtn.focus();
+            }
+
+            function closeLightbox() {
+                if (!modal) return;
+                modal.classList.add('hidden');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                $('body').removeClass('chrysoberyl-image-lightbox-open');
+            }
+
+            $(document).on('click', '.chrysoberyl-article-content img, .chrysoberyl-article-content figure img, .chrysoberyl-article-content .wp-block-image img', function(e) {
+                var img = this;
+                var link = img.closest('a');
+                var src = (link && isImageUrl(link.href)) ? link.href : (img.dataset.fullUrl || img.currentSrc || img.src);
+                if (!src) return;
+                e.preventDefault();
+                e.stopPropagation();
+                openLightbox(src, img.alt || '');
+            });
+
+            $(document).on('click', '.chrysoberyl-article-content a:has(img)', function(e) {
+                var link = this;
+                var img = link.querySelector('img');
+                if (!img || !isImageUrl(link.href)) return;
+                e.preventDefault();
+                e.stopPropagation();
+                openLightbox(link.href, img.alt || '');
+            });
+
+            if (backdrop) $(backdrop).on('click', closeLightbox);
+            if (closeBtn) $(closeBtn).on('click', closeLightbox);
+
+            $(document).on('keydown', function(e) {
+                if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) closeLightbox();
+            });
+        })();
+
         // Category Filtering
         $('.category-filter').on('click', function() {
             const category = $(this).data('category');

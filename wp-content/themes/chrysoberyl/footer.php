@@ -193,6 +193,7 @@ if ( is_single() ) {
     get_template_part( 'template-parts/floating-left-ad' );
 }
 get_template_part( 'template-parts/search-modal' );
+get_template_part( 'template-parts/image-lightbox' );
 if ( ! is_user_logged_in() ) {
     get_template_part( 'template-parts/login-modal' );
 }
